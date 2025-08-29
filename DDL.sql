@@ -3,7 +3,6 @@
 
 -- Crear la base de datos
 CREATE DATABASE GranET12;
-USE GranET12;
 
 -- Tabla: Equipo
 CREATE TABLE Equipo (
