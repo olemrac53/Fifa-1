@@ -59,5 +59,15 @@ namespace Fifa_1.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap frame_36_delay_0_1s {
+            get {
+                object obj = ResourceManager.GetObject("frame_36_delay-0.1s", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
