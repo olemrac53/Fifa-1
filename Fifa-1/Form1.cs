@@ -6,11 +6,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Fifa_1
 {
-    public partial class Form1 : Form
+    public partial class Form1
     {
         public Form1()
         {
