@@ -15,6 +15,7 @@ CREATE TABLE Equipo (
 CREATE TABLE Futbolista (
     id_futbolista INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
+    num_camisa VARCHAR (45),
     apellido VARCHAR(100) NOT NULL,
     apodo VARCHAR(45) NULL,
     fecha_nacimiento DATE NOT NULL,
