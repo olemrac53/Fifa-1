@@ -19,8 +19,8 @@ CREATE TABLE Futbolista (
     apodo VARCHAR(45) NULL,
     fecha_nacimiento DATE NOT NULL,
     cotizacion DECIMAL(10,2) NOT NULL CHECK (cotizacion >= 0 AND cotizacion <= 99999999.99),
-    tipo VARCHAR(45) NOT NULL,
-    id_equipo INT NOT NULL
+    id_equipo INT NOT NULL,
+    id_tipo SMALLINT NOT NULL
 );
 
 -- Tabla: Usuario
@@ -42,6 +42,12 @@ CREATE TABLE PlantillaTitular(
     presupuesto_max DECIMAL(10,2) NOT NULL,
     cant_max_futbolistas INT NOT NULL
 );
+
+CREATE TABLE Tipo (
+    id_tipo INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL UNIQUE
+);
+
 
 CREATE TABLE Puntaje(
     id_plantilla INT AUTO_INCREMENT PRIMARY KEY,
@@ -97,4 +103,8 @@ FOREIGN KEY (id_futbolista) REFERENCES Futbolista(id_futbolista);
 
 ALTER TABLE PuntuacionFutbolista
 ADD CONSTRAINT fk_puntuacion_futbolista
-FOREIGN KEY (id_futbolista) REFERENCES Futbolista(id_futbolista);      
+FOREIGN KEY (id_futbolista) REFERENCES Futbolista(id_futbolista);  
+
+ALTER TABLE Futbolista
+ADD CONSTRAINT fk_futbolista_tipo
+FOREIGN KEY (id_tipo) REFERENCES Tipo(id_tipo);

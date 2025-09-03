@@ -20,12 +20,12 @@ CREATE PROCEDURE AltaFutbolista(
     IN p_apodo VARCHAR(45),
     IN p_fecha_nacimiento DATE,
     IN p_cotizacion DECIMAL(10,2),
-    IN p_tipo VARCHAR(45),
+    IN p_id_tipo INT,
     IN p_id_equipo INT
 )
 BEGIN
-    INSERT INTO Futbolista (nombre, apellido, apodo, fecha_nacimiento, cotizacion, tipo, id_equipo)
-    VALUES (p_nombre, p_apellido, p_apodo, p_fecha_nacimiento, p_cotizacion, p_tipo, p_id_equipo);
+    INSERT INTO Futbolista (nombre, apellido, apodo, fecha_nacimiento, cotizacion, id_tipo, id_equipo)
+    VALUES (p_nombre, p_apellido, p_apodo, p_fecha_nacimiento, p_cotizacion, p_id_tipo, p_id_equipo);
 END //
 
 -- Alta Usuario
@@ -127,6 +127,33 @@ BEGIN
     WHERE id_usuario = p_id_usuario;
 END //
 DELIMITER ;
+
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS ModificarFutbolista //
+CREATE PROCEDURE ModificarFutbolista(
+    IN p_id_futbolista INT,
+    IN p_nombre VARCHAR(100),
+    IN p_apellido VARCHAR(100),
+    IN p_apodo VARCHAR(45),
+    IN p_fecha_nacimiento DATE,
+    IN p_cotizacion DECIMAL(10,2),
+    IN p_id_tipo INT,
+    IN p_id_equipo INT
+)
+BEGIN
+    UPDATE Futbolista
+    SET nombre = p_nombre,
+        apellido = p_apellido,
+        apodo = p_apodo,
+        fecha_nacimiento = p_fecha_nacimiento,
+        cotizacion = p_cotizacion,
+        id_tipo = p_id_tipo,
+        id_equipo = p_id_equipo
+    WHERE id_futbolista = p_id_futbolista;
+END //
+DELIMITER ;
+
 
 
 DELIMITER //
