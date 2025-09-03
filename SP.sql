@@ -20,7 +20,7 @@ CREATE PROCEDURE AltaFutbolista(
     IN p_apodo VARCHAR(45),
     IN p_fecha_nacimiento DATE,
     IN p_cotizacion DECIMAL(10,2),
-    IN p_tipo ENUM('Arquero','Defensor','Mediocampista','Delantero'),
+    IN p_tipo VARCHAR(45),
     IN p_id_equipo INT
 )
 BEGIN

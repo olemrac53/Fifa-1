@@ -19,7 +19,7 @@ CREATE TABLE Futbolista (
     apodo VARCHAR(45) NULL,
     fecha_nacimiento DATE NOT NULL,
     cotizacion DECIMAL(10,2) NOT NULL CHECK (cotizacion >= 0 AND cotizacion <= 99999999.99),
-    tipo ENUM('Arquero','Defensor','Mediocampista','Delantero') NOT NULL,
+    tipo VARCHAR(45) NOT NULL,
     id_equipo INT NOT NULL
 );
 
