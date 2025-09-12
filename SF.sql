@@ -37,6 +37,51 @@ DELIMITER ;
 
 
 DELIMITER //
+DROP FUNCTION IF EXISTS PlantillaEsValida //
+CREATE FUNCTION PlantillaEsValida(p_id_plantilla INT)
+RETURNS BOOLEAN
+DETERMINISTIC
+BEGIN
+    DECLARE v_arqueros INT;
+    DECLARE v_defensores INT;
+    DECLARE v_mediocampistas INT;
+    DECLARE v_delanteros INT;
+
+    -- Contar titulares por tipo
+    SELECT COUNT(*) INTO v_arqueros
+    FROM PlantillaFutbolista pf
+    JOIN Futbolista f ON pf.id_futbolista = f.id_futbolista
+    JOIN Tipo t ON f.id_tipo = t.id_tipo
+    WHERE pf.id_plantilla = p_id_plantilla AND pf.es_titular = TRUE AND t.nombre = 'Arquero';
+
+    SELECT COUNT(*) INTO v_defensores
+    FROM PlantillaFutbolista pf
+    JOIN Futbolista f ON pf.id_futbolista = f.id_futbolista
+    JOIN Tipo t ON f.id_tipo = t.id_tipo
+    WHERE pf.id_plantilla = p_id_plantilla AND pf.es_titular = TRUE AND t.nombre = 'Defensor';
+
+    SELECT COUNT(*) INTO v_mediocampistas
+    FROM PlantillaFutbolista pf
+    JOIN Futbolista f ON pf.id_futbolista = f.id_futbolista
+    JOIN Tipo t ON f.id_tipo = t.id_tipo
+    WHERE pf.id_plantilla = p_id_plantilla AND pf.es_titular = TRUE AND t.nombre = 'Mediocampista';
+
+    SELECT COUNT(*) INTO v_delanteros
+    FROM PlantillaFutbolista pf
+    JOIN Futbolista f ON pf.id_futbolista = f.id_futbolista
+    JOIN Tipo t ON f.id_tipo = t.id_tipo
+    WHERE pf.id_plantilla = p_id_plantilla AND pf.es_titular = TRUE AND t.nombre = 'Delantero';
+
+    IF v_arqueros = 1 AND v_defensores = 4 AND v_mediocampistas = 4 AND v_delanteros = 2 THEN
+        RETURN TRUE;
+    ELSE
+        RETURN FALSE;
+    END IF;
+END //
+DELIMITER ;
+
+
+DELIMITER //
 DROP FUNCTION IF EXISTS PuntajeFutbolistaFecha //
 CREATE FUNCTION PuntajeFutbolistaFecha(p_id_futbolista INT, p_fecha INT)
 RETURNS DECIMAL(3,1)

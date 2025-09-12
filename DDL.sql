@@ -109,3 +109,7 @@ FOREIGN KEY (id_futbolista) REFERENCES Futbolista(id_futbolista);
 ALTER TABLE Futbolista
 ADD CONSTRAINT fk_futbolista_tipo
 FOREIGN KEY (id_tipo) REFERENCES Tipo(id_tipo);
+
+
+ALTER TABLE Usuario
+ADD rol ENUM('Usuario','Admin') NOT NULL DEFAULT 'Usuario';

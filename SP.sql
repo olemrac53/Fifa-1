@@ -220,3 +220,22 @@ BEGIN
     WHERE id_puntuacion = p_id_puntuacion;
 END //
 DELIMITER ;
+
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS AltaTipo //
+CREATE PROCEDURE AltaTipo(
+    IN p_nombre VARCHAR(50)
+)
+BEGIN
+    INSERT INTO Tipo (nombre) VALUES (p_nombre);
+END //
+
+DROP PROCEDURE IF EXISTS EliminarTipo //
+CREATE PROCEDURE EliminarTipo(
+    IN p_id_tipo INT
+)
+BEGIN
+    DELETE FROM Tipo WHERE id_tipo = p_id_tipo;
+END //
+DELIMITER ;
