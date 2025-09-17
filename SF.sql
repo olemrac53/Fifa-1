@@ -3,7 +3,7 @@ DELIMITER //
 DROP FUNCTION IF EXISTS PresupuestoPlantilla //
 CREATE FUNCTION PresupuestoPlantilla(p_id_plantilla INT)
 RETURNS DECIMAL(10,2)
-DETERMINISTIC
+
 BEGIN
     DECLARE v_presupuesto DECIMAL(10,2);
 
@@ -22,7 +22,7 @@ DELIMITER //
 DROP FUNCTION IF EXISTS CantidadFutbolistasPlantilla //
 CREATE FUNCTION CantidadFutbolistasPlantilla(p_id_plantilla INT)
 RETURNS INT
-DETERMINISTIC
+
 BEGIN
     DECLARE v_cantidad INT;
 
@@ -40,7 +40,7 @@ DELIMITER //
 DROP FUNCTION IF EXISTS PlantillaEsValida //
 CREATE FUNCTION PlantillaEsValida(p_id_plantilla INT)
 RETURNS BOOLEAN
-DETERMINISTIC
+
 BEGIN
     DECLARE v_arqueros INT;
     DECLARE v_defensores INT;
@@ -85,7 +85,7 @@ DELIMITER //
 DROP FUNCTION IF EXISTS PuntajeFutbolistaFecha //
 CREATE FUNCTION PuntajeFutbolistaFecha(p_id_futbolista INT, p_fecha INT)
 RETURNS DECIMAL(3,1)
-DETERMINISTIC
+
 BEGIN
     DECLARE v_puntaje DECIMAL(3,1);
 
@@ -104,7 +104,7 @@ DELIMITER //
 DROP FUNCTION IF EXISTS PuntajePlantillaFecha //
 CREATE FUNCTION PuntajePlantillaFecha(p_id_plantilla INT, p_fecha INT)
 RETURNS DECIMAL(5,1)
-DETERMINISTIC
+
 BEGIN
     DECLARE v_total DECIMAL(5,1);
 
