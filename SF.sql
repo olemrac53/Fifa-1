@@ -1,121 +1,108 @@
+-- 02_SF.sql
+USE GranET12;
+DELIMITER $$
 
-DELIMITER //
-DROP FUNCTION IF EXISTS PresupuestoPlantilla //
+-- Presupuesto total: suma cotizaciones de titulares + suplentes en la plantilla
+DROP FUNCTION IF EXISTS PresupuestoPlantilla $$
 CREATE FUNCTION PresupuestoPlantilla(p_id_plantilla INT)
 RETURNS DECIMAL(10,2)
-
+DETERMINISTIC
 BEGIN
-    DECLARE v_presupuesto DECIMAL(10,2);
+    DECLARE v_pres DECIMAL(10,2);
 
-    SELECT IFNULL(SUM(f.cotizacion), 0)
-    INTO v_presupuesto
-    FROM PlantillaFutbolista pf
-    JOIN Futbolista f ON pf.id_futbolista = f.id_futbolista
-    WHERE pf.id_plantilla = p_id_plantilla;
+    SELECT IFNULL(SUM(f.cotizacion),0)
+    INTO v_pres
+    FROM (
+        SELECT id_futbolista FROM PlantillaTitular WHERE id_plantilla = p_id_plantilla
+        UNION ALL
+        SELECT id_futbolista FROM PlantillaSuplente WHERE id_plantilla = p_id_plantilla
+    ) t
+    JOIN Futbolista f ON f.id_futbolista = t.id_futbolista;
 
-    RETURN v_presupuesto;
-END //
-DELIMITER ;
+    RETURN IFNULL(v_pres,0);
+END $$
 
-
-DELIMITER //
-DROP FUNCTION IF EXISTS CantidadFutbolistasPlantilla //
+-- Cantidad de futbolistas en plantilla (titulares + suplentes)
+DROP FUNCTION IF EXISTS CantidadFutbolistasPlantilla $$
 CREATE FUNCTION CantidadFutbolistasPlantilla(p_id_plantilla INT)
 RETURNS INT
-
+DETERMINISTIC
 BEGIN
-    DECLARE v_cantidad INT;
+    DECLARE v_cnt INT;
+    SELECT COUNT(*) INTO v_cnt FROM (
+        SELECT id_futbolista FROM PlantillaTitular WHERE id_plantilla = p_id_plantilla
+        UNION
+        SELECT id_futbolista FROM PlantillaSuplente WHERE id_plantilla = p_id_plantilla
+    ) x;
+    RETURN IFNULL(v_cnt,0);
+END $$
 
-    SELECT COUNT(*)
-    INTO v_cantidad
-    FROM PlantillaFutbolista
-    WHERE id_plantilla = p_id_plantilla;
-
-    RETURN v_cantidad;
-END //
-DELIMITER ;
-
-
-DELIMITER //
-DROP FUNCTION IF EXISTS PlantillaEsValida //
+-- Validar composición de titulares
+DROP FUNCTION IF EXISTS PlantillaEsValida $$
 CREATE FUNCTION PlantillaEsValida(p_id_plantilla INT)
 RETURNS BOOLEAN
-
+DETERMINISTIC
 BEGIN
-    DECLARE v_arqueros INT;
-    DECLARE v_defensores INT;
-    DECLARE v_mediocampistas INT;
-    DECLARE v_delanteros INT;
+    DECLARE v_arq INT; DECLARE v_def INT; DECLARE v_med INT; DECLARE v_del INT;
 
-    -- Contar titulares por tipo
-    SELECT COUNT(*) INTO v_arqueros
-    FROM PlantillaFutbolista pf
-    JOIN Futbolista f ON pf.id_futbolista = f.id_futbolista
+    SELECT COUNT(*) INTO v_arq
+    FROM PlantillaTitular pt
+    JOIN Futbolista f ON pt.id_futbolista = f.id_futbolista
     JOIN Tipo t ON f.id_tipo = t.id_tipo
-    WHERE pf.id_plantilla = p_id_plantilla AND pf.es_titular = TRUE AND t.nombre = 'Arquero';
+    WHERE pt.id_plantilla = p_id_plantilla AND t.nombre = 'Arquero';
 
-    SELECT COUNT(*) INTO v_defensores
-    FROM PlantillaFutbolista pf
-    JOIN Futbolista f ON pf.id_futbolista = f.id_futbolista
+    SELECT COUNT(*) INTO v_def
+    FROM PlantillaTitular pt
+    JOIN Futbolista f ON pt.id_futbolista = f.id_futbolista
     JOIN Tipo t ON f.id_tipo = t.id_tipo
-    WHERE pf.id_plantilla = p_id_plantilla AND pf.es_titular = TRUE AND t.nombre = 'Defensor';
+    WHERE pt.id_plantilla = p_id_plantilla AND t.nombre = 'Defensor';
 
-    SELECT COUNT(*) INTO v_mediocampistas
-    FROM PlantillaFutbolista pf
-    JOIN Futbolista f ON pf.id_futbolista = f.id_futbolista
+    SELECT COUNT(*) INTO v_med
+    FROM PlantillaTitular pt
+    JOIN Futbolista f ON pt.id_futbolista = f.id_futbolista
     JOIN Tipo t ON f.id_tipo = t.id_tipo
-    WHERE pf.id_plantilla = p_id_plantilla AND pf.es_titular = TRUE AND t.nombre = 'Mediocampista';
+    WHERE pt.id_plantilla = p_id_plantilla AND t.nombre = 'Mediocampista';
 
-    SELECT COUNT(*) INTO v_delanteros
-    FROM PlantillaFutbolista pf
-    JOIN Futbolista f ON pf.id_futbolista = f.id_futbolista
+    SELECT COUNT(*) INTO v_del
+    FROM PlantillaTitular pt
+    JOIN Futbolista f ON pt.id_futbolista = f.id_futbolista
     JOIN Tipo t ON f.id_tipo = t.id_tipo
-    WHERE pf.id_plantilla = p_id_plantilla AND pf.es_titular = TRUE AND t.nombre = 'Delantero';
+    WHERE pt.id_plantilla = p_id_plantilla AND t.nombre = 'Delantero';
 
-    IF v_arqueros = 1 AND v_defensores = 4 AND v_mediocampistas = 4 AND v_delanteros = 2 THEN
+    IF v_arq = 1 AND v_def = 4 AND v_med = 4 AND v_del = 2 THEN
         RETURN TRUE;
     ELSE
         RETURN FALSE;
     END IF;
-END //
-DELIMITER ;
+END $$
 
-
-DELIMITER //
-DROP FUNCTION IF EXISTS PuntajeFutbolistaFecha //
+-- Puntaje de un futbolista en una fecha (0 si no jugó)
+DROP FUNCTION IF EXISTS PuntajeFutbolistaFecha $$
 CREATE FUNCTION PuntajeFutbolistaFecha(p_id_futbolista INT, p_fecha INT)
 RETURNS DECIMAL(3,1)
-
+DETERMINISTIC
 BEGIN
-    DECLARE v_puntaje DECIMAL(3,1);
+    DECLARE v_p DECIMAL(3,1);
+    SELECT IFNULL(puntuacion,0) INTO v_p
+    FROM PuntuacionFutbolista
+    WHERE id_futbolista = p_id_futbolista AND fecha = p_fecha;
+    RETURN IFNULL(v_p,0);
+END $$
 
-    SELECT IFNULL(pf.puntuacion, 0)
-    INTO v_puntaje
-    FROM PuntuacionFutbolista pf
-    WHERE pf.id_futbolista = p_id_futbolista
-      AND pf.fecha = p_fecha;
-
-    RETURN v_puntaje;
-END //
-DELIMITER ;
-
-
-DELIMITER //
-DROP FUNCTION IF EXISTS PuntajePlantillaFecha //
+-- Puntaje total de la plantilla en una fecha (suma de titulares)
+DROP FUNCTION IF EXISTS PuntajePlantillaFecha $$
 CREATE FUNCTION PuntajePlantillaFecha(p_id_plantilla INT, p_fecha INT)
-RETURNS DECIMAL(5,1)
-
+RETURNS DECIMAL(6,1)
+DETERMINISTIC
 BEGIN
-    DECLARE v_total DECIMAL(5,1);
+    DECLARE v_total DECIMAL(6,1);
 
-    SELECT IFNULL(SUM(PuntajeFutbolistaFecha(f.id_futbolista, p_fecha)), 0)
+    SELECT IFNULL(SUM(PuntajeFutbolistaFecha(pt.id_futbolista, p_fecha)),0)
     INTO v_total
-    FROM PlantillaFutbolista pf
-    JOIN Futbolista f ON pf.id_futbolista = f.id_futbolista
-    WHERE pf.id_plantilla = p_id_plantilla
-      AND pf.es_titular = TRUE;
+    FROM PlantillaTitular pt
+    WHERE pt.id_plantilla = p_id_plantilla;
 
-    RETURN v_total;
-END //
+    RETURN IFNULL(v_total,0);
+END $$
+
 DELIMITER ;
-
