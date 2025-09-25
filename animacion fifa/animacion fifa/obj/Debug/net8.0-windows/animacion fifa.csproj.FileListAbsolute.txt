@@ -1,0 +1,18 @@
+C:\Users\gonza\source\repos\animacion fifa\animacion fifa\obj\Debug\net8.0-windows\animacion fifa.csproj.GenerateResource.cache
+C:\Users\gonza\source\repos\animacion fifa\animacion fifa\obj\Debug\net8.0-windows\animacion fifa.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gonza\source\repos\animacion fifa\animacion fifa\obj\Debug\net8.0-windows\animacion fifa.AssemblyInfoInputs.cache
+C:\Users\gonza\source\repos\animacion fifa\animacion fifa\obj\Debug\net8.0-windows\animacion fifa.AssemblyInfo.cs
+C:\Users\gonza\source\repos\animacion fifa\animacion fifa\obj\Debug\net8.0-windows\animacion fifa.csproj.CoreCompileInputs.cache
+C:\Users\gonza\source\repos\animacion fifa\animacion fifa\bin\Debug\net8.0-windows\animacion fifa.exe
+C:\Users\gonza\source\repos\animacion fifa\animacion fifa\bin\Debug\net8.0-windows\animacion fifa.deps.json
+C:\Users\gonza\source\repos\animacion fifa\animacion fifa\bin\Debug\net8.0-windows\animacion fifa.runtimeconfig.json
+C:\Users\gonza\source\repos\animacion fifa\animacion fifa\bin\Debug\net8.0-windows\animacion fifa.dll
+C:\Users\gonza\source\repos\animacion fifa\animacion fifa\bin\Debug\net8.0-windows\animacion fifa.pdb
+C:\Users\gonza\source\repos\animacion fifa\animacion fifa\obj\Debug\net8.0-windows\animacion fifa.dll
+C:\Users\gonza\source\repos\animacion fifa\animacion fifa\obj\Debug\net8.0-windows\refint\animacion fifa.dll
+C:\Users\gonza\source\repos\animacion fifa\animacion fifa\obj\Debug\net8.0-windows\animacion fifa.pdb
+C:\Users\gonza\source\repos\animacion fifa\animacion fifa\obj\Debug\net8.0-windows\animacion fifa.genruntimeconfig.cache
+C:\Users\gonza\source\repos\animacion fifa\animacion fifa\obj\Debug\net8.0-windows\ref\animacion fifa.dll
+C:\Users\gonza\source\repos\animacion fifa\animacion fifa\obj\Debug\net8.0-windows\animacion fifa.g.resources
+C:\Users\gonza\source\repos\animacion fifa\animacion fifa\obj\Debug\net8.0-windows\animacion_fifa.Properties.Resources.resources
+C:\Users\gonza\source\repos\animacion fifa\animacion fifa\obj\Debug\net8.0-windows\animacion_fifa.Animacion.resources

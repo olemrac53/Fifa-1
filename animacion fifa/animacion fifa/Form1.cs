@@ -1,0 +1,30 @@
+using System.Media;
+
+namespace animacion_fifa
+{
+    public partial class Animacion : Form
+    {
+        public Animacion()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tmrInicio_Tick(object sender, EventArgs e)
+        {
+            tmrInicio.Stop();
+            pictureBox1.Visible = false;
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            SoundPlayer Sonido = new SoundPlayer();
+            Sonido.SoundLocation = "C:\\Users\\gonza\\source\\repos\\animacion fifa\\Musica.wav";
+            Sonido.Play();
+        }
+    }
+}
