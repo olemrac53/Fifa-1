@@ -12,5 +12,12 @@ namespace Fifa_1
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Menu Menu = new Menu();
+            Menu.Show();
+            this.Hide();
+        }
     }
 }

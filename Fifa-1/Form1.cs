@@ -1,3 +1,4 @@
+using Fifa_1;
 using System.Media;
 
 namespace animacion_fifa
@@ -25,6 +26,13 @@ namespace animacion_fifa
             SoundPlayer Sonido = new SoundPlayer();
             Sonido.SoundLocation = "C:\\Users\\Lab20-PC02\\Documents\\GitHub\\Fifa-1\\Fifa-1\\Resources\\Musica.wav";
             Sonido.Play();
+            Inicio_sesion Inicio_sesion = new Inicio_sesion();
+            Inicio_sesion.Show();
+            this.Hide();
         }
     }
+
+
+    
+
 }
