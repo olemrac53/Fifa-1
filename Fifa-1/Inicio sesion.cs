@@ -1,7 +1,7 @@
 ﻿
 namespace Fifa_1
 {
-    public partial class Inicio_sesion : Form1
+    public partial class Inicio_sesion : Form
     {
         public Inicio_sesion()
         {

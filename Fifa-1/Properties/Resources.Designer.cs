@@ -8,10 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Fifa_1.Properties {
+namespace Test_de_brawl_stars.Properties {
     using System;
-    
-    
+    using System.Drawing;
+
+
     /// <summary>
     ///   Clase de recurso fuertemente tipado, para buscar cadenas traducidas, etc.
     /// </summary>
@@ -23,7 +24,7 @@ namespace Fifa_1.Properties {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
-        
+        internal static Image ronaldinho_soccer64_pixelated;
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
@@ -39,7 +40,7 @@ namespace Fifa_1.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fifa_1.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Test_de_brawl_stars.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +62,71 @@ namespace Fifa_1.Properties {
         }
         
         /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] Brawler {
+            get {
+                object obj = ResourceManager.GetObject("Brawler", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap frame_36_delay_0_1s {
+        internal static System.Drawing.Bitmap d896ec326995029108ec8e9f7f44ce81 {
             get {
-                object obj = ResourceManager.GetObject("frame_36_delay-0.1s", resourceCulture);
+                object obj = ResourceManager.GetObject("d896ec326995029108ec8e9f7f44ce81", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap fondo_bs {
+            get {
+                object obj = ResourceManager.GetObject("fondo_bs", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] Introduction {
+            get {
+                object obj = ResourceManager.GetObject("Introduction", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logoSupercell {
+            get {
+                object obj = ResourceManager.GetObject("logoSupercell", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Menu_Background {
+            get {
+                object obj = ResourceManager.GetObject("Menu_Background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pantallaCarga {
+            get {
+                object obj = ResourceManager.GetObject("pantallaCarga", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
