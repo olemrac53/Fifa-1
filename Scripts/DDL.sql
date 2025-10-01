@@ -45,8 +45,20 @@ CREATE TABLE Usuario (
     apellido VARCHAR(100) NOT NULL,
     email VARCHAR(150) NOT NULL UNIQUE,
     fecha_nacimiento DATE NOT NULL,
-    contrasenia CHAR(64) NOT NULL,
-    rol ENUM('Usuario','Admin') NOT NULL DEFAULT 'Usuario'
+    contrasenia CHAR(64) NOT NULL
+);
+
+
+-- =============================
+-- TABLA Administrador
+-- =============================
+CREATE TABLE Administrador (
+    id_administrador INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    fecha_nacimiento DATE NOT NULL,
+    contrasenia CHAR(64) NOT NULL
 );
 
 -- =============================

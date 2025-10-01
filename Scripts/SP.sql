@@ -85,14 +85,11 @@ CREATE PROCEDURE AltaUsuario(
     IN p_email VARCHAR(150),
     IN p_fecha_nacimiento DATE,
     IN p_contrasenia CHAR(64),
-    IN p_rol ENUM('Usuario','Admin')
 )
 BEGIN
-    IF p_rol IS NULL THEN
-        SET p_rol = 'Usuario';
-    END IF;
-    INSERT INTO Usuario (nombre, apellido, email, fecha_nacimiento, contrasenia, rol)
-    VALUES (p_nombre, p_apellido, p_email, p_fecha_nacimiento, p_contrasenia, p_rol);
+
+    INSERT INTO Usuario (nombre, apellido, email, fecha_nacimiento, contrasenia)
+    VALUES (p_nombre, p_apellido, p_email, p_fecha_nacimiento, p_contrasenia);
 END $$
 DROP PROCEDURE IF EXISTS ModificarUsuario $$
 CREATE PROCEDURE ModificarUsuario(
@@ -102,7 +99,6 @@ CREATE PROCEDURE ModificarUsuario(
     IN p_email VARCHAR(150),
     IN p_fecha_nacimiento DATE,
     IN p_contrasenia CHAR(64),
-    IN p_rol ENUM('Usuario','Admin')
 )
 BEGIN
     UPDATE Usuario
@@ -110,14 +106,54 @@ BEGIN
         apellido = p_apellido,
         email = p_email,
         fecha_nacimiento = p_fecha_nacimiento,
-        contrasenia = p_contrasenia,
-        rol = p_rol
+        contrasenia = p_contrasenia
+
     WHERE id_usuario = p_id_usuario;
 END $$
 DROP PROCEDURE IF EXISTS EliminarUsuario $$
 CREATE PROCEDURE EliminarUsuario(IN p_id_usuario INT)
 BEGIN
     DELETE FROM Usuario WHERE id_usuario = p_id_usuario;
+END $$
+
+
+
+
+-- === Alta / Modificación / Baja Administrador (con rol opcional) ===
+DROP PROCEDURE IF EXISTS AltaAdministrador $$
+CREATE PROCEDURE AltaAdministrador(
+    IN p_nombre VARCHAR(100),
+    IN p_apellido VARCHAR(100),
+    IN p_email VARCHAR(150),
+    IN p_fecha_nacimiento DATE,
+    IN p_contrasenia CHAR(64),
+)
+BEGIN
+    INSERT INTO Usuario (nombre, apellido, email, fecha_nacimiento, contrasenia)
+    VALUES (p_nombre, p_apellido, p_email, p_fecha_nacimiento, p_contrasenia);
+END $$
+DROP PROCEDURE IF EXISTS ModificarAdministrador $$
+CREATE PROCEDURE ModificarAdministrador(
+    IN p_id_usuario INT,
+    IN p_nombre VARCHAR(100),
+    IN p_apellido VARCHAR(100),
+    IN p_email VARCHAR(150),
+    IN p_fecha_nacimiento DATE,
+    IN p_contrasenia CHAR(64),
+)
+BEGIN
+    UPDATE Administrador
+    SET nombre = p_nombre,
+        apellido = p_apellido,
+        email = p_email,
+        fecha_nacimiento = p_fecha_nacimiento,
+        contrasenia = p_contrasenia,
+    WHERE id_administrador = p_id_administrador;
+END $$
+DROP PROCEDURE IF EXISTS EliminarAdministrador $$
+CREATE PROCEDURE EliminarAdministrador(IN p_id_administrador INT)
+BEGIN
+    DELETE FROM Administrador WHERE id_administrador = p_id_administrador;
 END $$
 
 -- === Plantilla ===
