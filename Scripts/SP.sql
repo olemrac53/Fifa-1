@@ -77,14 +77,14 @@ BEGIN
     DELETE FROM Futbolista WHERE id_futbolista = p_id_futbolista;
 END $$
 
--- === Alta / Modificación / Baja Usuario (con rol opcional) ===
+-- === Alta / Modificación / Baja Usuario  
 DROP PROCEDURE IF EXISTS AltaUsuario $$
 CREATE PROCEDURE AltaUsuario(
     IN p_nombre VARCHAR(100),
     IN p_apellido VARCHAR(100),
     IN p_email VARCHAR(150),
     IN p_fecha_nacimiento DATE,
-    IN p_contrasenia CHAR(64),
+    IN p_contrasenia CHAR(64)
 )
 BEGIN
 
@@ -98,7 +98,7 @@ CREATE PROCEDURE ModificarUsuario(
     IN p_apellido VARCHAR(100),
     IN p_email VARCHAR(150),
     IN p_fecha_nacimiento DATE,
-    IN p_contrasenia CHAR(64),
+    IN p_contrasenia CHAR(64)
 )
 BEGIN
     UPDATE Usuario
@@ -119,27 +119,27 @@ END $$
 
 
 
--- === Alta / Modificación / Baja Administrador (con rol opcional) ===
+-- === Alta / Modificación / Baja Administrador
 DROP PROCEDURE IF EXISTS AltaAdministrador $$
 CREATE PROCEDURE AltaAdministrador(
     IN p_nombre VARCHAR(100),
     IN p_apellido VARCHAR(100),
     IN p_email VARCHAR(150),
     IN p_fecha_nacimiento DATE,
-    IN p_contrasenia CHAR(64),
+    IN p_contrasenia CHAR(64)
 )
 BEGIN
-    INSERT INTO Usuario (nombre, apellido, email, fecha_nacimiento, contrasenia)
+    INSERT INTO Administrador (nombre, apellido, email, fecha_nacimiento, contrasenia)
     VALUES (p_nombre, p_apellido, p_email, p_fecha_nacimiento, p_contrasenia);
 END $$
 DROP PROCEDURE IF EXISTS ModificarAdministrador $$
 CREATE PROCEDURE ModificarAdministrador(
-    IN p_id_usuario INT,
+    IN p_id_administrador INT,
     IN p_nombre VARCHAR(100),
     IN p_apellido VARCHAR(100),
     IN p_email VARCHAR(150),
     IN p_fecha_nacimiento DATE,
-    IN p_contrasenia CHAR(64),
+    IN p_contrasenia CHAR(64)
 )
 BEGIN
     UPDATE Administrador
@@ -147,9 +147,10 @@ BEGIN
         apellido = p_apellido,
         email = p_email,
         fecha_nacimiento = p_fecha_nacimiento,
-        contrasenia = p_contrasenia,
+        contrasenia = p_contrasenia
     WHERE id_administrador = p_id_administrador;
 END $$
+
 DROP PROCEDURE IF EXISTS EliminarAdministrador $$
 CREATE PROCEDURE EliminarAdministrador(IN p_id_administrador INT)
 BEGIN

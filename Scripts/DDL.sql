@@ -67,9 +67,11 @@ CREATE TABLE Administrador (
 CREATE TABLE Plantilla (
     id_plantilla INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT NOT NULL,
+    id_administrador INT NOT NULL,
     presupuesto_max DECIMAL(10,2) NOT NULL,
     cant_max_futbolistas INT NOT NULL,
     CONSTRAINT fk_plantilla_usuario FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
+
 );
 
 -- =============================

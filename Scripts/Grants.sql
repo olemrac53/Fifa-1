@@ -4,7 +4,7 @@
 USE GranET12;
 
 -- ===========================================================
--- CREACIÓN DE ROLES (MySQL 8+)
+-- CREACIÓN DE ROLES 
 -- ===========================================================
 DROP ROLE IF EXISTS rol_admin;
 DROP ROLE IF EXISTS rol_usuario;

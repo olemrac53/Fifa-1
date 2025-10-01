@@ -52,7 +52,6 @@ BEGIN
     END IF;
 END $$
 
--- Reutilizamos la misma validación para PlantillaSuplente (no deberían diferir)
 DROP TRIGGER IF EXISTS TR_ValidarPresupuesto_AltaSuplente $$
 CREATE TRIGGER TR_ValidarPresupuesto_AltaSuplente
 BEFORE INSERT ON PlantillaSuplente
@@ -112,7 +111,7 @@ BEGIN
     END IF;
 END $$
 
--- 7) Sincronización: PlantillaTitular/Suplente -> PlantillaFutbolista
+-- 7) mezcla: PlantillaTitular/Suplente -> PlantillaFutbolista
 -- Cuando se inserta en Titular, creamos o actualizamos la fila en PlantillaFutbolista con es_titular=TRUE
 DROP TRIGGER IF EXISTS TR_Sync_Titular_To_General $$
 CREATE TRIGGER TR_Sync_Titular_To_General
@@ -133,7 +132,7 @@ BEGIN
     DELETE FROM PlantillaFutbolista WHERE id_plantilla = OLD.id_plantilla AND id_futbolista = OLD.id_futbolista;
 END $$
 
--- Sincronización para Suplente -> PlantillaFutbolista
+-- mezcla para Suplente -> PlantillaFutbolista
 DROP TRIGGER IF EXISTS TR_Sync_Suplente_To_General $$
 CREATE TRIGGER TR_Sync_Suplente_To_General
 AFTER INSERT ON PlantillaSuplente
@@ -152,7 +151,7 @@ BEGIN
     DELETE FROM PlantillaFutbolista WHERE id_plantilla = OLD.id_plantilla AND id_futbolista = OLD.id_futbolista;
 END $$
 
--- 8) Sincronización inversa: Insert en PlantillaFutbolista crea en Titular o Suplente
+-- 8) mezcla inversa: Insert en PlantillaFutbolista crea en Titular o Suplente
 DROP TRIGGER IF EXISTS TR_Sync_General_To_Specific $$
 CREATE TRIGGER TR_Sync_General_To_Specific
 AFTER INSERT ON PlantillaFutbolista
@@ -173,7 +172,7 @@ BEGIN
     END IF;
 END $$
 
--- 9) Mantenimiento de la tabla Puntaje: AFTER INSERT/UPDATE/DELETE en PuntuacionFutbolista
+-- 9) chequeo de la tabla Puntaje: AFTER INSERT/UPDATE/DELETE en PuntuacionFutbolista
 -- AFTER INSERT
 DROP TRIGGER IF EXISTS TR_Puntaje_AfterInsert $$
 CREATE TRIGGER TR_Puntaje_AfterInsert
