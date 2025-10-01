@@ -111,7 +111,7 @@
             Controls.Add(button2);
             Controls.Add(dataGridView2);
             Name = "Menu";
-            Text = "Form1";
+            Text = "Menu";
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView4).EndInit();
             ResumeLayout(false);

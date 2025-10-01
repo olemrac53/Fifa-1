@@ -1,19 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Fifa_1;
+using System.Media;
 
-namespace Fifa_1
+namespace animacion_fifa
 {
-    public partial class Form1
+    public partial class Animacion : Form
     {
-        public Form1()
+        public Animacion()
         {
             InitializeComponent();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tmrInicio_Tick(object sender, EventArgs e)
+        {
+            tmrInicio.Stop();
+            pictureBox1.Visible = false;
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            SoundPlayer Sonido = new SoundPlayer();
+            Sonido.SoundLocation = "C:\\Users\\Lab20-PC02\\Documents\\GitHub\\Fifa-1\\Fifa-1\\Resources\\Musica.wav";
+            Sonido.Play();
+            Inicio_sesion Inicio_sesion = new Inicio_sesion();
+            Inicio_sesion.Show();
+            this.Hide();
+        }
     }
+
+
+    
+
 }
