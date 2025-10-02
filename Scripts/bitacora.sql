@@ -10,8 +10,7 @@ CREATE TABLE IF NOT EXISTS Bitacora (
     usuario VARCHAR(100) DEFAULT CURRENT_USER
 );
 
-
--- Triggers de Jugador
+-- Triggers de Usuario
 DELIMITER $$
 DROP TRIGGER IF EXISTS TR_Usuario_Insert $$
 CREATE TRIGGER TR_Usuario_Insert
@@ -39,6 +38,33 @@ BEGIN
     INSERT INTO Bitacora(tabla, operacion, id_registro)
     VALUES ('Usuario', 'DELETE', OLD.id_usuario);
 END $$
+
+-- Triggers de Administrador
+DROP TRIGGER IF EXISTS TR_Administrador_Insert $$
+CREATE TRIGGER TR_Administrador_Insert
+AFTER INSERT ON Administrador
+FOR EACH ROW
+BEGIN
+    INSERT INTO Bitacora(tabla, operacion, id_registro)
+    VALUES ('Administrador', 'INSERT', NEW.id_administrador);
+END $$
+
+DROP TRIGGER IF EXISTS TR_Administrador_Update $$
+CREATE TRIGGER TR_Administrador_Update
+AFTER UPDATE ON Administrador
+FOR EACH ROW
+BEGIN
+    INSERT INTO Bitacora(tabla, operacion, id_registro)
+    VALUES ('Administrador', 'UPDATE', NEW.id_administrador);
+END $$
+
+DROP TRIGGER IF EXISTS TR_Administrador_Delete $$
+CREATE TRIGGER TR_Administrador_Delete
+AFTER DELETE ON Administrador
+FOR EACH ROW
+BEGIN
+    INSERT INTO Bitacora(tabla, operacion, id_registro)
+    VALUES ('Administrador', 'DELETE', OLD.id_administrador);
+END $$
+
 DELIMITER ;
-
-
