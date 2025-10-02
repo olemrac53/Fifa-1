@@ -8,10 +8,7 @@ namespace Fifa_1
             InitializeComponent();
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -19,5 +16,7 @@ namespace Fifa_1
             Menu.Show();
             this.Hide();
         }
+
+      
     }
 }

@@ -50,7 +50,7 @@
             // tmrInicio
             // 
             tmrInicio.Enabled = true;
-            tmrInicio.Interval = 4250;
+            tmrInicio.Interval = 4650;
             tmrInicio.Tick += tmrInicio_Tick;
             // 
             // btnStart

@@ -42,17 +42,18 @@
             // 
             // button2
             // 
-            button2.Location = new Point(166, 354);
+            button2.Location = new Point(82, 354);
             button2.Name = "button2";
             button2.Size = new Size(75, 23);
             button2.TabIndex = 13;
-            button2.Text = "Equipo";
+            button2.Text = "plantilla";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // dataGridView2
             // 
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Location = new Point(157, 337);
+            dataGridView2.Location = new Point(73, 337);
             dataGridView2.Name = "dataGridView2";
             dataGridView2.Size = new Size(93, 55);
             dataGridView2.TabIndex = 12;

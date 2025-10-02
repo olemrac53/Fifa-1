@@ -6,6 +6,13 @@ namespace Fifa_1
         {
             InitializeComponent();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            plantilla plantilla = new plantilla();
+            plantilla.Show();
+            this.Hide();
+        }
     }
 
 }
