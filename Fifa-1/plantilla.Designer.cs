@@ -33,6 +33,9 @@
             Column1 = new DataGridViewTextBoxColumn();
             Column2 = new DataGridViewTextBoxColumn();
             Column3 = new DataGridViewTextBoxColumn();
+            button1 = new Button();
+            button2 = new Button();
+            button3 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -41,7 +44,7 @@
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3 });
-            dataGridView1.Location = new Point(214, 51);
+            dataGridView1.Location = new Point(216, 84);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.Size = new Size(384, 150);
@@ -65,6 +68,34 @@
             Column3.Name = "Column3";
             Column3.ReadOnly = true;
             // 
+            // button1
+            // 
+            button1.Location = new Point(216, 314);
+            button1.Name = "button1";
+            button1.Size = new Size(113, 23);
+            button1.TabIndex = 1;
+            button1.Text = "Agregar plantilla";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(471, 314);
+            button2.Name = "button2";
+            button2.Size = new Size(126, 23);
+            button2.TabIndex = 2;
+            button2.Text = "Eliminar Plantilla";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(49, 383);
+            button3.Name = "button3";
+            button3.Size = new Size(75, 23);
+            button3.TabIndex = 3;
+            button3.Text = "Salir";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
             // plantilla
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -72,6 +103,9 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
+            Controls.Add(button3);
+            Controls.Add(button2);
+            Controls.Add(button1);
             Controls.Add(dataGridView1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "plantilla";
@@ -86,5 +120,8 @@
         private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn Column3;
+        private Button button1;
+        private Button button2;
+        private Button button3;
     }
 }
