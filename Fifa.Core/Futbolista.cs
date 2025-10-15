@@ -1,6 +1,6 @@
 ﻿namespace Fifa.Core
 {
-    internal class Futbolista
+    public class Futbolista
     {
         public required int idFutbolista { get; set; }
         public string nombre { get; set; }

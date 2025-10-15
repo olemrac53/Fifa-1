@@ -1,8 +1,8 @@
 ﻿namespace Fifa.Core
 {
-    public class PlantillaTitular
+    public class PlantillaJugador
     {
-        public required int idPlantillaTitular { get; set; }
+        public required int idPlantillaJugador { get; set; }
         public required Plantilla Plantilla { get; set; }
         public required Futbolista Futbolista { get; set; }
     }
