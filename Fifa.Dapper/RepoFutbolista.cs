@@ -7,6 +7,8 @@ namespace Fifa.Dapper;
 
 public class RepoFutbolista : Repo, IRepoFutbolista
 {
+
+    // W.I.P FALTA
     public RepoFutbolista(IDbConnection conexion) : base(conexion)
     {
     }
