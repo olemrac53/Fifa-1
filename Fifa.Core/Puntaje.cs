@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fifa.Core
+﻿namespace Fifa.Core
 {
-    internal class Puntaje
+    public class Puntaje
     {
+        public required int idPuntaje {get; set;}
+        public required Datetime fecha {get; set;}
+        public required Decimal puntaje_total {get; set;}
+        public required Futbolista Futbolista {get; set;}
+
     }
 }
