@@ -28,7 +28,9 @@ public class RepoFutbolista : Repo, IRepoFutbolista
 
     public List<Futbolista> GetFutbolistas()
     {
-        throw new NotImplementedException();
+        string query = @"SELECT * FROM Futbolista ORDER BY idFutbolista";
+        var futbolistas = Conexion.Query<Futbolista>(query);
+        return futbolistas.ToList();
     }
 
     public Tipo GetTipo(int idTipo)

@@ -115,7 +115,7 @@ CREATE TABLE PlantillaFutbolista (
 CREATE TABLE PuntuacionFutbolista (
     id_puntuacion INT AUTO_INCREMENT PRIMARY KEY,
     id_futbolista INT NOT NULL,
-    fecha INT NOT NULL CHECK (fecha >= 1 AND fecha <= 49),
+    fecha DATE NOT NULL CHECK (fecha >= 1 AND fecha <= 49),
     puntuacion DECIMAL(3,1) NOT NULL CHECK (puntuacion >= 1.0 AND puntuacion <= 10.0),
     CONSTRAINT uq_futbolista_fecha UNIQUE (id_futbolista, fecha),
     CONSTRAINT fk_puntuacion_futbolista FOREIGN KEY (id_futbolista) REFERENCES Futbolista(id_futbolista) ON DELETE CASCADE
