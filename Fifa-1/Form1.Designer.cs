@@ -65,6 +65,7 @@
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
             pictureBox2.Visible = false;
+            pictureBox2.Click += pictureBox2_Click_1;
             // 
             // Animacion
             // 

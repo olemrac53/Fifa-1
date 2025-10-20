@@ -21,18 +21,25 @@ namespace animacion_fifa
             pictureBox2.Visible = true;
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void PictureBox2_Click(object sender, EventArgs e)
         {
+            
+        }
+
+        private void pictureBox2_Click_1(object sender, EventArgs e)
+        {
+
             //SoundPlayer Sonido = new SoundPlayer();
             //Sonido.SoundLocation = "C:\\Users\\Lab20-PC02\\Documents\\GitHub\\Fifa-1\\Fifa-1\\Resources\\Musica.wav";
             //Sonido.Play();
             Inicio_sesion Inicio_sesion = new Inicio_sesion();
             Inicio_sesion.Show();
             this.Hide();
+
         }
     }
 
 
-    
+
 
 }
