@@ -121,14 +121,3 @@ CREATE TABLE PuntuacionFutbolista (
     CONSTRAINT fk_puntuacion_futbolista FOREIGN KEY (id_futbolista) REFERENCES Futbolista(id_futbolista) ON DELETE CASCADE
 );
 
--- =============================
--- TABLA PUNTAJE MATERIALIZADO (puntaje por futbolista/fecha)
--- =============================
-CREATE TABLE Puntaje (
-    id_puntaje INT AUTO_INCREMENT PRIMARY KEY,
-    id_futbolista INT NOT NULL,
-    fecha INT NOT NULL CHECK (fecha >= 1 AND fecha <= 49),
-    puntaje_total DECIMAL(6,1) NOT NULL,
-    CONSTRAINT uq_puntaje_plantilla_fecha UNIQUE (id_futbolista, fecha),
-    CONSTRAINT fk_puntaje_plantilla FOREIGN KEY (id_futbolista) REFERENCES Futbolista(id_futbolista) ON DELETE CASCADE
-);
