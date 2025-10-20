@@ -8,7 +8,7 @@ namespace Fifa_1
             InitializeComponent();
         }
 
-        
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -17,6 +17,11 @@ namespace Fifa_1
             this.Hide();
         }
 
-      
+        private void label4_Click(object sender, EventArgs e)
+        {
+            Registro registro = new Registro();
+            registro.Show();
+            this.Hide();
+        }
     }
 }
