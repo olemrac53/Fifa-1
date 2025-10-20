@@ -173,4 +173,42 @@ BEGIN
 END $$
 
 
+CREATE TRIGGER TR_VerificarPresupuesto
+BEFORE INSERT ON PlantillaTitular
+FOR EACH ROW
+BEGIN
+    DECLARE total DECIMAL(12,2);
+    DECLARE presupuesto_max DECIMAL(12,2) DEFAULT 99999999.99; -- según consigna
+
+    SELECT IFNULL(SUM(f.cotizacion), 0)
+    INTO total
+    FROM PlantillaTitular pt
+    JOIN Futbolista f ON f.id_futbolista = pt.id_futbolista
+    WHERE pt.id_plantilla = NEW.id_plantilla;
+
+    IF (total + (SELECT cotizacion FROM Futbolista WHERE id_futbolista = NEW.id_futbolista)) > presupuesto_max THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Error: Presupuesto máximo de la plantilla excedido';
+    END IF;
+END;
+
+
+CREATE TRIGGER TR_LimiteJugadores
+BEFORE INSERT ON PlantillaTitular
+FOR EACH ROW
+BEGIN
+    DECLARE cantidad INT;
+    DECLARE max_jugadores INT DEFAULT 20;
+
+    SELECT COUNT(*) INTO cantidad
+    FROM PlantillaTitular
+    WHERE id_plantilla = NEW.id_plantilla;
+
+    IF cantidad >= max_jugadores THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Error: La plantilla ya tiene el máximo de jugadores (20)';
+    END IF;
+END;
+
+
 DELIMITER ;
