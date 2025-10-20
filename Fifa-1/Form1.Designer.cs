@@ -56,14 +56,15 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.BackColor = Color.WhiteSmoke;
+            pictureBox2.BackColor = Color.Transparent;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(329, 306);
+            pictureBox2.Location = new Point(330, 316);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(157, 97);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
+            pictureBox2.Visible = false;
             // 
             // Animacion
             // 

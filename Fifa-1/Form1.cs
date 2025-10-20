@@ -11,16 +11,17 @@ namespace animacion_fifa
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            pictureBox2.Visible = false;
         }
 
         private void tmrInicio_Tick(object sender, EventArgs e)
         {
             tmrInicio.Stop();
             pictureBox1.Visible = false;
+            pictureBox2.Visible = true;
         }
 
-        private void btnStart_Click(object sender, EventArgs e)
+        private void pictureBox2_Click(object sender, EventArgs e)
         {
             //SoundPlayer Sonido = new SoundPlayer();
             //Sonido.SoundLocation = "C:\\Users\\Lab20-PC02\\Documents\\GitHub\\Fifa-1\\Fifa-1\\Resources\\Musica.wav";
