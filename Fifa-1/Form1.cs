@@ -1,5 +1,4 @@
 using Fifa_1;
-using System.Media;
 
 namespace animacion_fifa
 {
