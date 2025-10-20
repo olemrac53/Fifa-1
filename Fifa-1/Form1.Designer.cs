@@ -32,8 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Animacion));
             pictureBox1 = new PictureBox();
             tmrInicio = new System.Windows.Forms.Timer(components);
-            btnStart = new Button();
+            pictureBox2 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -53,14 +54,16 @@
             tmrInicio.Interval = 4300;
             tmrInicio.Tick += tmrInicio_Tick;
             // 
-            // btnStart
+            // pictureBox2
             // 
-            btnStart.Location = new Point(307, 314);
-            btnStart.Name = "btnStart";
-            btnStart.Size = new Size(178, 43);
-            btnStart.TabIndex = 1;
-            btnStart.UseVisualStyleBackColor = false;
-            btnStart.Click += btnStart_Click;
+            pictureBox2.BackColor = Color.WhiteSmoke;
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(329, 306);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(157, 97);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 1;
+            pictureBox2.TabStop = false;
             // 
             // Animacion
             // 
@@ -70,20 +73,21 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
-            Controls.Add(btnStart);
+            Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
             DoubleBuffered = true;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Animacion";
             Text = " Fifa";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private PictureBox pictureBox1;
-        private Button btnStart;
         internal System.Windows.Forms.Timer tmrInicio;
+        private PictureBox pictureBox2;
     }
 }
