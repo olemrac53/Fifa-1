@@ -2,14 +2,16 @@ namespace Fifa.Core.Repos;
 
 public interface IRepoFutbolista
 {
+    // Futbolistas - CRUD
     List<Futbolista> GetFutbolistas();
-    Futbolista getfutbolista(int idFutbolista);
+    Futbolista? GetFutbolista(int idFutbolista); 
     void InsertFutbolista(Futbolista futbolista);
-    void updateFutbolista(Futbolista futbolista);
+    void UpdateFutbolista(Futbolista futbolista);  
     void DeleteFutbolista(int idFutbolista);
+
+    // Tipos - CRUD
     List<Tipo> GetTipos();
-    Tipo GetTipo(int idTipo);
+    Tipo? GetTipo(int idTipo);
     void InsertTipo(Tipo tipo);
-    void UpdateTipo(Tipo tipo);
     void DeleteTipo(int idTipo);
 }

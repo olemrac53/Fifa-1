@@ -1,19 +1,15 @@
-﻿
+﻿namespace Fifa.Core;
 
-namespace Fifa.Core
+public class Futbolista
 {
-    public class Futbolista
-    {
-        public required int idFutbolista { get; set; }
-        public required string Nombre { get; set; }
-        public required string Apellido { get; set; }
-        public required string Num_camiseta { get; set; }
-        public required string Apodo { get; set; }
-        public DateTime fecha_nacimiento { get; set; }
-        public decimal cotizacion { get; set; }
-        public required Equipo Equipo { get; set; }
-        public required Tipo Tipo { get; set; }
+    public int IdFutbolista { get; set; } 
+    public string Nombre { get; set; } = string.Empty;
+    public string Apellido { get; set; } = string.Empty;
+    public string? Apodo { get; set; } 
+    public string? NumCamisa { get; set; } 
+    public DateTime FechaNacimiento { get; set; }  
+    public decimal Cotizacion { get; set; }  
 
-
-    }
+    public Tipo Tipo { get; set; } = null!;  
+    public Equipo Equipo { get; set; } = null!;
 }
