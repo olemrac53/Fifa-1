@@ -160,12 +160,12 @@ public class RepoFutbolista : Repo, IRepoFutbolista
 
     public void InsertTipo(Tipo tipo)
     {
-        var parametros = new { p_nombre = tipo.nombre };  // ✅ PascalCase
+        var parametros = new { p_nombre = tipo.nombre }; 
         
         try
         {
             Conexion.Execute("AltaTipo", parametros, commandType: CommandType.StoredProcedure);
-            tipo.idTipo = Conexion.QuerySingle<int>("SELECT LAST_INSERT_ID()");  // ✅ PascalCase
+            tipo.idTipo = Conexion.QuerySingle<int>("SELECT LAST_INSERT_ID()");  
         }
         catch (MySqlException e)
         {
