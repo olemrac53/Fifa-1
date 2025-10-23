@@ -1,6 +1,6 @@
 ﻿namespace Fifa.Core;
 
-public interface IADO
+public interface IRepoPlantilla
 {
     void AltaEquipo(Equipo equipo);
     List<Equipo> GetEquipos();
