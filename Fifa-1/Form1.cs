@@ -1,4 +1,5 @@
 using Fifa_1;
+using System.Media;
 
 namespace animacion_fifa
 {
@@ -23,18 +24,23 @@ namespace animacion_fifa
 
         private void PictureBox2_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void pictureBox2_Click_1(object sender, EventArgs e)
         {
 
-            //SoundPlayer Sonido = new SoundPlayer();
-            //Sonido.SoundLocation = "C:\\Users\\Lab20-PC02\\Documents\\GitHub\\Fifa-1\\Fifa-1\\Resources\\Musica.wav";
-            //Sonido.Play();
+            SoundPlayer Sonido = new SoundPlayer();
+            Sonido.SoundLocation = "D:\\Repos\\Fifa-1\\Fifa-1\\Resources\\Musica.wav";
+            Sonido.Play();
             Inicio_sesion Inicio_sesion = new Inicio_sesion();
             Inicio_sesion.Show();
             this.Hide();
+
+        }
+
+        private void Animacion_Load(object sender, EventArgs e)
+        {
 
         }
     }

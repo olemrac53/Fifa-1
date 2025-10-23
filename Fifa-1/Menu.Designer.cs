@@ -67,6 +67,7 @@
             button3.TabIndex = 15;
             button3.Text = "Jugador";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // dataGridView4
             // 

@@ -58,7 +58,7 @@
             // 
             pictureBox2.BackColor = Color.Transparent;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(330, 316);
+            pictureBox2.Location = new Point(311, 316);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(157, 97);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
@@ -81,6 +81,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Animacion";
             Text = " Fifa";
+            Load += Animacion_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);

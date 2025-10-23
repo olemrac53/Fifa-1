@@ -13,6 +13,13 @@ namespace Fifa_1
             plantilla.Show();
             this.Hide();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Jugador jugador = new Jugador();
+            jugador.Show();
+            this.Hide();
+        }
     }
 
 }
