@@ -4,9 +4,10 @@ namespace Fifa.Core.Repos;
 
 public interface IRepoEquipo
 {
-    void AltaEquipo(Equipo equipo);
     List<Equipo> GetEquipos();
-    Equipo GetEquipo(int idEquipo);
+    Equipo? GetEquipo(int idEquipo);
+    Equipo? GetEquipoConFutbolistas(int idEquipo);
+    void InsertEquipo(Equipo equipo);
     void UpdateEquipo(Equipo equipo);
     void DeleteEquipo(int idEquipo);
 }

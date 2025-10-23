@@ -10,7 +10,7 @@ public interface IRepoPlantilla
     void DeletePlantilla(int idPlantilla);
 
     // Métodos extendidos
-    Plantilla GetPlantillaCompleta(int idPlantilla);
+    Plantilla? GetPlantillaCompleta(int idPlantilla);
 
     // Gestión de titulares y suplentes
     void AgregarTitular(int idPlantilla, int idFutbolista);
