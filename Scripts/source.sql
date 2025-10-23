@@ -1,0 +1,5 @@
+SOURCE DDL.sql
+SOURCE Gran.sql
+SOURCE SF.sql
+SOURCE SP.sql
+SOURCE Trig.sql
