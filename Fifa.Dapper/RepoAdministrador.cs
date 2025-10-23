@@ -102,14 +102,5 @@ public class RepoAdministrador : Repo, IRepoAdministrador
         Conexion.Execute("EliminarAdministrador", parametros, commandType: CommandType.StoredProcedure);
     }
 
-    public void InsertAdministrador(Administrador administrador)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void UpdateAdministrador(Administrador administrador)
-    {
-        throw new NotImplementedException();
-    }
 }
 
