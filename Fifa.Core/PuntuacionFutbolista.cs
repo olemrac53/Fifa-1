@@ -3,7 +3,7 @@ using System;
 
 namespace Fifa.Core;
 
-public class PuntuacionFutbolista
+public class PuntuacionFutbolista 
 {
     public int IdPuntuacion { get; set; }
     public int Fecha { get; set; }

@@ -78,7 +78,6 @@ CREATE TABLE Plantilla (
 -- PLANTILLA TITULAR y SUPLENTE (subconjuntos)
 -- =============================
 CREATE TABLE PlantillaTitular (
-    id_plantilla_titular INT AUTO_INCREMENT PRIMARY KEY,
     id_plantilla INT NOT NULL,
     id_futbolista INT NOT NULL,
     CONSTRAINT uq_titular UNIQUE (id_plantilla, id_futbolista),
@@ -87,7 +86,6 @@ CREATE TABLE PlantillaTitular (
 );
 
 CREATE TABLE PlantillaSuplente (
-    id_plantilla_suplente INT AUTO_INCREMENT PRIMARY KEY,
     id_plantilla INT NOT NULL,
     id_futbolista INT NOT NULL,
     CONSTRAINT uq_suplente UNIQUE (id_plantilla, id_futbolista),
@@ -95,19 +93,6 @@ CREATE TABLE PlantillaSuplente (
     CONSTRAINT fk_suplente_futbolista FOREIGN KEY (id_futbolista) REFERENCES Futbolista(id_futbolista) ON DELETE CASCADE
 );
 
--- =============================
--- TABLA PLANTILLA-FUTBOLISTA GENERAL (se mantiene para compatibilidad)
--- Se sincroniza con Titular/Suplente por triggers.
--- =============================
-CREATE TABLE PlantillaFutbolista (
-    id_plantilla_futbolista INT AUTO_INCREMENT PRIMARY KEY,
-    id_plantilla INT NOT NULL,
-    id_futbolista INT NOT NULL,
-    es_titular BOOLEAN NOT NULL,
-    CONSTRAINT uq_plantilla_futbolista UNIQUE (id_plantilla, id_futbolista),
-    CONSTRAINT fk_plantillafutbolista_plantilla FOREIGN KEY (id_plantilla) REFERENCES Plantilla(id_plantilla) ON DELETE CASCADE,
-    CONSTRAINT fk_plantillafutbolista_futbolista FOREIGN KEY (id_futbolista) REFERENCES Futbolista(id_futbolista) ON DELETE CASCADE
-);
 
 -- =============================
 -- TABLA PUNTUACION
