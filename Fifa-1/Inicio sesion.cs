@@ -1,5 +1,4 @@
-﻿
-namespace Fifa_1
+﻿namespace Fifa_1
 {
     public partial class Inicio_sesion : Form
     {
@@ -22,6 +21,11 @@ namespace Fifa_1
             Registro registro = new Registro();
             registro.Show();
             this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
