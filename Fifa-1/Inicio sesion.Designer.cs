@@ -36,6 +36,7 @@
             label4 = new Label();
             textBox1 = new TextBox();
             textBox2 = new TextBox();
+            button2 = new Button();
             SuspendLayout();
             // 
             // label1
@@ -110,6 +111,15 @@
             textBox2.Size = new Size(197, 34);
             textBox2.TabIndex = 8;
             // 
+            // button2
+            // 
+            button2.Location = new Point(39, 351);
+            button2.Name = "button2";
+            button2.Size = new Size(134, 41);
+            button2.TabIndex = 9;
+            button2.Text = "Conectar BD";
+            button2.UseVisualStyleBackColor = true;
+            // 
             // Inicio_sesion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -117,6 +127,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
+            Controls.Add(button2);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
             Controls.Add(label4);
@@ -139,5 +150,6 @@
         private Label label4;
         private TextBox textBox1;
         private TextBox textBox2;
+        private Button button2;
     }
 }
