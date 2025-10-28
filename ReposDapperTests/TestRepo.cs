@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using MySqlConnector;
 
-namespace super.Test;
+namespace Fifa.Test;
 /// <summary>
 /// El objetivo de esta clase es brindar una instancia de Ado para los test
 /// </summary>

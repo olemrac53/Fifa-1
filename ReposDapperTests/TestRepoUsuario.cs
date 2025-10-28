@@ -1,7 +1,4 @@
-using Fifa.Core;
-using Fifa.Core.Repos;
-using Fifa.Dapper;
-using super.Test;
+using Fifa.Test;
 
 namespace ReposDapperTests;
 
