@@ -96,7 +96,7 @@ public class RepoPlantilla : Repo, IRepoPlantilla
         return plantillas;
     }
 
-    public Plantilla? GetPlantilla(int idPlantilla)
+    public Plantilla GetPlantilla(int idPlantilla)
     {
         var plantilla = Conexion.Query<Plantilla, Usuario, Plantilla>
             (_queryPlantilla,
@@ -108,6 +108,9 @@ public class RepoPlantilla : Repo, IRepoPlantilla
             new { id = idPlantilla },
             splitOn: "IdUsuario")
             .FirstOrDefault();
+
+        if (plantilla == null)
+            throw new InvalidOperationException($"No se encontró la plantilla con id {idPlantilla}.");
 
         return plantilla;
     }
