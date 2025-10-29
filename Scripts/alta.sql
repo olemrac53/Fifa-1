@@ -1,5 +1,9 @@
--- Crear un usuario común:
-CALL AltaUsuario('Juan', 'Perez', 'juan@mail.com', '1990-05-15', 'contraseña_encriptada');
+USE GrantET12;
+-- Inserta usuarios de prueba
+INSERT INTO Usuario (nombre, apellido, email, contrasenia, fecha_nacimiento)
+VALUES 
+('pepe', 'Pezrez', 'juaan@mail.com', SHA2('pass1234', 256), '1990-02-01'),
+('wea', 'Lopewz', 'mariaa@mail.com', SHA2('pass4256', 256), '1985-06-15');
 
--- Crear un administrador:
-CALL AltaAdministrador('Maria', 'Lopez', 'maria@mail.com', '1985-03-20', 'contraseña_encriptada');
+-- Verifica que se insertaron
+SELECT * FROM Usuario;
