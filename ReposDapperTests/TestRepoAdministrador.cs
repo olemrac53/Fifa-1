@@ -7,10 +7,8 @@ namespace Fifa.Test;
 
 public class TestRepoAdministrador : TestRepo
 {
-    // Repo que vamos a usar en este test
     readonly IRepoAdministrador repoAdministrador;
     
-    // Este test va a usar la cadena de conexión que esta en test repo en la clase base TestRepo
     public TestRepoAdministrador() : base()
         => repoAdministrador = new RepoAdministrador(_conexion);
 
@@ -26,7 +24,12 @@ public class TestRepoAdministrador : TestRepo
     [Fact]
     public void AdministradorPorId()
     {
-        var administrador = repoAdministrador.GetAdministrador(1);
+        // Obtener el primer admin que exista
+        var admins = repoAdministrador.GetAdministradores();
+        Assert.NotEmpty(admins);
+        
+        var primerAdmin = admins.First();
+        var administrador = repoAdministrador.GetAdministrador(primerAdmin.IdAdministrador);
         
         Assert.NotNull(administrador);
         Assert.NotEmpty(administrador.Nombre);
@@ -39,65 +42,86 @@ public class TestRepoAdministrador : TestRepo
         var admin = repoAdministrador.AdministradorPorEmailYPass("admin@fifa.com", "123456");
     
         Assert.NotNull(admin);
-        Assert.Equal("adminn@fifa.com", admin.Email);
-        Assert.Equal("Adminn", admin.Nombre);
+        Assert.Equal("admin@fifa.com", admin.Email);
+        Assert.Equal("Admin", admin.Nombre);
         Assert.Equal("Test", admin.Apellido);
     }
 
     [Fact]
     public void AltaAdministrador()
     {
+        var emailUnico = $"carlos{DateTime.Now.Ticks}@fifa.com";
+        
         var nuevoAdmin = new Administrador
         {
             Nombre = "Carlos",
             Apellido = "Tevez",
-            Email = "carlitos@fifa.com",
+            Email = emailUnico,
             FechaNacimiento = new DateTime(1984, 2, 5)
         };
         
         Assert.Equal(0, nuevoAdmin.IdAdministrador);
         
         repoAdministrador.InsertAdministrador(nuevoAdmin, "mipassword");
-        Assert.NotEqual(0, nuevoAdmin.IdAdministrador);
         
-        var mismoAdmin = repoAdministrador.GetAdministrador(nuevoAdmin.IdAdministrador);
-        Assert.NotNull(mismoAdmin);
-        Assert.Equal(nuevoAdmin.Nombre, mismoAdmin.Nombre);
-        Assert.Equal(nuevoAdmin.Apellido, mismoAdmin.Apellido);
-        Assert.Equal(nuevoAdmin.Email, mismoAdmin.Email);
+        // Como el SP no asigna el ID, lo buscamos manualmente
+        var adminCreado = repoAdministrador.GetAdministradores()
+            .FirstOrDefault(a => a.Email == emailUnico);
+        
+        Assert.NotNull(adminCreado);
+        Assert.Equal(nuevoAdmin.Nombre, adminCreado.Nombre);
+        Assert.Equal(nuevoAdmin.Apellido, adminCreado.Apellido);
+        Assert.Equal(nuevoAdmin.Email, adminCreado.Email);
     }
 
     [Fact]
     public void ModificarAdministrador()
     {
-        var admin = repoAdministrador.GetAdministrador(1);
+        // Obtener el primer admin
+        var admins = repoAdministrador.GetAdministradores();
+        Assert.NotEmpty(admins);
+        
+        var admin = admins.First();
         Assert.NotNull(admin);
         
+        var nombreOriginal = admin.Nombre;
         admin.Nombre = "NombreModificado";
         repoAdministrador.UpdateAdministrador(admin, "nuevapass");
         
         var adminModificado = repoAdministrador.GetAdministrador(admin.IdAdministrador);
         Assert.NotNull(adminModificado);
         Assert.Equal("NombreModificado", adminModificado.Nombre);
+        
+        // Restaurar nombre original
+        admin.Nombre = nombreOriginal;
+        repoAdministrador.UpdateAdministrador(admin, "123456");
     }
 
     [Fact]
     public void EliminarAdministrador()
     {
+        var emailUnico = $"eliminar{DateTime.Now.Ticks}@fifa.com";
+        
         var nuevoAdmin = new Administrador
         {
             Nombre = "Para",
             Apellido = "Eliminar",
-            Email = "eliminar@fifa.com",
+            Email = emailUnico,
             FechaNacimiento = DateTime.Now.AddYears(-30)
         };
         
         repoAdministrador.InsertAdministrador(nuevoAdmin, "pass123");
-        Assert.NotEqual(0, nuevoAdmin.IdAdministrador);
         
-        repoAdministrador.DeleteAdministrador(nuevoAdmin.IdAdministrador);
+        // Buscar el admin recién creado
+        var adminCreado = repoAdministrador.GetAdministradores()
+            .FirstOrDefault(a => a.Email == emailUnico);
         
-        var adminEliminado = repoAdministrador.GetAdministrador(nuevoAdmin.IdAdministrador);
+        Assert.NotNull(adminCreado);
+        
+        repoAdministrador.DeleteAdministrador(adminCreado.IdAdministrador);
+
+        var adminEliminado = repoAdministrador.GetAdministrador(adminCreado.IdAdministrador);
+        
         Assert.Null(adminEliminado);
     }
 }

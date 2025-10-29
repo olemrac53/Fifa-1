@@ -114,35 +114,13 @@ DELETE FROM Usuario WHERE id_usuario = @new_id;
 
 USE GranET12;
 
-DROP INSERT IF EXISTS  ON Administrador $$
+-- Limpiar todo
+DELETE FROM Administrador;
 
+-- Resetear auto_increment
+ALTER TABLE Administrador AUTO_INCREMENT = 1;
 
--- PASO 1: Limpiar administradores de prueba
-DELETE FROM Administrador WHERE email IN ('admin@fifa.com', 'test@fifa.com');
-
--- PASO 2: Insertar administrador para testing
+-- Insertar admin de prueba
 INSERT INTO Administrador (nombre, apellido, email, contrasenia, fecha_nacimiento)
-VALUES ('Adminn', 'Test', 'adminn@fifa.com', SHA2('123456', 256), '1990-01-01');
+VALUES ('Admin', 'Test', 'admin@fifa.com', SHA2('123456', 256), '1990-01-01');
 
--- PASO 3: Verificar que se creó correctamente
-SELECT 
-    id_administrador,
-    nombre,
-    apellido,
-    email,
-    fecha_nacimiento,
-    LENGTH(contrasenia) as longitud_hash
-FROM Administrador
-WHERE email = 'adminn@fifa.com';
-
--- PASO 4: Verificar que la contraseña funciona (debe devolver 1 fila)
-SELECT 
-    id_administrador,
-    nombre,
-    email
-FROM Administrador
-WHERE email = 'adminn@fifa.com'
-AND contrasenia = SHA2('123456', 256);
-
--- Limpiar administradores de prueba
-DELETE FROM Administrador WHERE email = 'adminn@fifa.com'
