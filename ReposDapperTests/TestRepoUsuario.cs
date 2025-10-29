@@ -35,7 +35,7 @@ public class TestRepoUsuario : TestRepo
         Assert.Null(usuario);
     }
 
-    /*[Fact]
+    [Fact]
     public void AltaUsuario()
     {
         string email = "nuevo@mail.com";
@@ -63,7 +63,7 @@ public class TestRepoUsuario : TestRepo
         Assert.Equal(nombre, mismoUsuario.Nombre);
         Assert.Equal(apellido, mismoUsuario.Apellido);
         Assert.Equal(email, mismoUsuario.Email);
-    }/*/
+    }
 
     [Fact]
     public void TraerTodosLosUsuarios()

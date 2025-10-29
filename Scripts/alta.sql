@@ -55,3 +55,57 @@ SELECT
 FROM Usuario
 WHERE email = 'maria@mail.com'
 AND contrasenia = SHA2('pass456', 256);
+
+
+
+
+DELETE FROM PlantillaTitular WHERE id_plantilla IN (SELECT id_plantilla FROM Plantilla WHERE id_usuario IN (1, 2));
+DELETE FROM PlantillaSuplente WHERE id_plantilla IN (SELECT id_plantilla FROM Plantilla WHERE id_usuario IN (1, 2));
+DELETE FROM Plantilla WHERE id_usuario IN (1, 2);
+
+-- Eliminar usuarios
+DELETE FROM Usuario WHERE email IN ('nuevo@mail.com', 'juan@mail.com', 'maria@mail.com');
+
+-- Resetear auto_increment
+ALTER TABLE Usuario AUTO_INCREMENT = 1;
+
+-- Insertar usuarios de prueba CON HASH SHA2
+INSERT INTO Usuario (id_usuario, nombre, apellido, email, contrasenia, fecha_nacimiento)
+VALUES 
+(1, 'Juan', 'Perez', 'juan@mail.com', SHA2('pass123', 256), '1990-01-01'),
+(2, 'Maria', 'Lopez', 'maria@mail.com', SHA2('pass456', 256), '1985-05-15');
+
+-- === Verificación ===
+SELECT '=== VERIFICACIÓN DE USUARIOS ===' as mensaje;
+
+SELECT 
+    id_usuario,
+    nombre,
+    apellido,
+    email,
+    LENGTH(contrasenia) as longitud_hash
+FROM Usuario
+WHERE email IN ('juan@mail.com', 'maria@mail.com');
+
+-- Verificar que las contraseñas coinciden con SHA2
+SELECT 
+    email,
+    (contrasenia = SHA2('pass123', 256)) as juan_password_ok,
+    (contrasenia = SHA2('pass456', 256)) as maria_password_ok
+FROM Usuario
+WHERE email IN ('juan@mail.com', 'maria@mail.com');
+
+-- Probar el stored procedure AltaUsuario
+CALL AltaUsuario(@new_id, 'Test', 'Usuario', 'test@mail.com', '1995-01-01', 'testpass');
+SELECT @new_id as nuevo_id_usuario;
+
+-- Verificar que se guardó con hash
+SELECT 
+    id_usuario,
+    email,
+    (contrasenia = SHA2('testpass', 256)) as password_hasheada_correctamente
+FROM Usuario 
+WHERE id_usuario = @new_id;
+
+-- Limpiar el usuario de prueba
+DELETE FROM Usuario WHERE id_usuario = @new_id;

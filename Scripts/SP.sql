@@ -77,20 +77,25 @@ BEGIN
     DELETE FROM Futbolista WHERE id_futbolista = p_id_futbolista;
 END $$
 
--- === Alta / Modificación / Baja Usuario  
+-- === CORRECCIÓN: Alta Usuario con SHA2 ===
 DROP PROCEDURE IF EXISTS AltaUsuario $$
 CREATE PROCEDURE AltaUsuario(
+    OUT p_idUsuario INT,
     IN p_nombre VARCHAR(100),
     IN p_apellido VARCHAR(100),
     IN p_email VARCHAR(150),
     IN p_fecha_nacimiento DATE,
-    IN p_contrasenia CHAR(64)
+    IN p_contrasenia VARCHAR(100)
 )
 BEGIN
-
+    -- Hashear la contraseña antes de insertarla
     INSERT INTO Usuario (nombre, apellido, email, fecha_nacimiento, contrasenia)
-    VALUES (p_nombre, p_apellido, p_email, p_fecha_nacimiento, p_contrasenia);
+    VALUES (p_nombre, p_apellido, p_email, p_fecha_nacimiento, SHA2(p_contrasenia, 256));
+    
+    -- Devolver el ID generado
+    SET p_idUsuario = LAST_INSERT_ID();
 END $$
+-- === CORRECCIÓN: Modificar Usuario con SHA2 ===
 DROP PROCEDURE IF EXISTS ModificarUsuario $$
 CREATE PROCEDURE ModificarUsuario(
     IN p_id_usuario INT,
@@ -98,18 +103,21 @@ CREATE PROCEDURE ModificarUsuario(
     IN p_apellido VARCHAR(100),
     IN p_email VARCHAR(150),
     IN p_fecha_nacimiento DATE,
-    IN p_contrasenia CHAR(64)
+    IN p_contrasenia VARCHAR(100),
+    IN p_rol VARCHAR(50)  -- Parámetro que espera el código C#
 )
 BEGIN
+    -- Hashear la contraseña antes de actualizarla
     UPDATE Usuario
     SET nombre = p_nombre,
         apellido = p_apellido,
         email = p_email,
         fecha_nacimiento = p_fecha_nacimiento,
-        contrasenia = p_contrasenia
-
+        contrasenia = SHA2(p_contrasenia, 256)
     WHERE id_usuario = p_id_usuario;
 END $$
+
+DELIMITER ;
 DROP PROCEDURE IF EXISTS EliminarUsuario $$
 CREATE PROCEDURE EliminarUsuario(IN p_id_usuario INT)
 BEGIN
