@@ -2,9 +2,7 @@
 using MySqlConnector;
 
 namespace Fifa.Test;
-/// <summary>
 /// El objetivo de esta clase es brindar una instancia de Ado para los test
-/// </summary>
 public class TestRepo
 {
     protected readonly IDbConnection _conexion;

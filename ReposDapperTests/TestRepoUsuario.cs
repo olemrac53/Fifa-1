@@ -9,7 +9,7 @@ public class TestRepoUsuario : TestRepo
     // Repo que vamos a usar en este test
     readonly IRepoUsuario repoUsuario;
     
-    // Este test va a usar la cadena de conexión que definí en la clase base TestRepo
+    // Este test va a usar la cadena de conexión que esta en test repo en la clase base TestRepo (redundancia?)
     public TestRepoUsuario() : base()
         => repoUsuario = new RepoUsuario(_conexion);
 
@@ -34,7 +34,7 @@ public class TestRepoUsuario : TestRepo
 
         Assert.Null(usuario);
     }
-
+    
     [Fact]
     public void AltaUsuario()
     {
