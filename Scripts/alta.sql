@@ -124,3 +124,5 @@ ALTER TABLE Administrador AUTO_INCREMENT = 1;
 INSERT INTO Administrador (nombre, apellido, email, contrasenia, fecha_nacimiento)
 VALUES ('Admin', 'Test', 'admin@fifa.com', SHA2('123456', 256), '1990-01-01');
 
+-- Verificar
+SELECT * FROM Administrador;
