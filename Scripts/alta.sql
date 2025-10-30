@@ -1,3 +1,4 @@
+-- Active: 1700068523370@@127.0.0.1@3306@GranET12
 USE GranET12;
 
 -- PASO 1: Limpiar SOLO el usuario de prueba temporal
@@ -126,3 +127,5 @@ VALUES ('Admin', 'Test', 'admin@fifa.com', SHA2('123456', 256), '1990-01-01');
 
 -- Verificar
 SELECT * FROM Administrador;
+
+SELECT * FROM Usuario;

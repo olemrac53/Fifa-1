@@ -166,11 +166,14 @@ DROP PROCEDURE IF EXISTS CrearPlantilla $$
 CREATE PROCEDURE CrearPlantilla(
     IN p_id_usuario INT,
     IN p_presupuesto_max DECIMAL(10,2),
-    IN p_cant_max_futbolistas INT
+    IN p_cant_max_futbolistas INT,
+    OUT p_id_plantilla INT
 )
 BEGIN
     INSERT INTO Plantilla (id_usuario, presupuesto_max, cant_max_futbolistas)
     VALUES (p_id_usuario, p_presupuesto_max, p_cant_max_futbolistas);
+    
+    SET p_id_plantilla = LAST_INSERT_ID();
 END $$
 
 DROP PROCEDURE IF EXISTS ModificarPlantilla $$

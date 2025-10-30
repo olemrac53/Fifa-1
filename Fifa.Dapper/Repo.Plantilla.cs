@@ -163,9 +163,15 @@ public class RepoPlantilla : Repo, IRepoPlantilla
         parametros.Add("@p_id_usuario", plantilla.Usuario.IdUsuario);
         parametros.Add("@p_presupuesto_max", plantilla.PresupuestoMax);
         parametros.Add("@p_cant_max_futbolistas", plantilla.CantMaxFutbolistas);
+        parametros.Add("@p_id_plantilla", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
 
         Conexion.Execute("CrearPlantilla", parametros, commandType: CommandType.StoredProcedure);
         plantilla.IdPlantilla = Conexion.QuerySingle<int>("SELECT LAST_INSERT_ID()");
+        plantilla.IdPlantilla = parametros.Get<int>("@p_id_plantilla");
+
+        
+        ;
     }
 
     public void UpdatePlantilla(Plantilla plantilla)

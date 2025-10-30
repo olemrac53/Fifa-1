@@ -208,10 +208,10 @@ BEGIN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Error: La plantilla ya tiene el máximo de jugadores (20)';
     END IF;
-END;
+END; $$
 
 
-DELIMITER ;
+
 
 
 
