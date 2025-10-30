@@ -1,131 +1,53 @@
 -- Active: 1700068523370@@127.0.0.1@3306@GranET12
 USE GranET12;
 
--- PASO 1: Limpiar SOLO el usuario de prueba temporal
-DELETE FROM Usuario WHERE email = 'nuevo@mail.com';
+-- ============================================
+-- SCRIPT DE INICIALIZACIÓN PARA TESTS
+-- ============================================
 
--- PASO 2: Verificar si existen juan y maria
-SELECT id_usuario, email FROM Usuario WHERE email IN ('juan@mail.com', 'maria@mail.com');
+-- 1. LIMPIAR DATOS DE PRUEBA
+-- ============================================
+DELETE FROM PlantillaTitular WHERE id_plantilla IN (SELECT id_plantilla FROM Plantilla WHERE id_usuario IN (1, 2));
+DELETE FROM PlantillaSuplente WHERE id_plantilla IN (SELECT id_plantilla FROM Plantilla WHERE id_usuario IN (1, 2));
+DELETE FROM Plantilla WHERE id_usuario IN (1, 2);
+DELETE FROM Usuario WHERE id_usuario IN (1, 2);
+DELETE FROM Administrador;
 
--- PASO 3A: Si NO existen (la consulta anterior devuelve vacío), ejecutar esto:
--- Primero borra todos los usuarios para resetear el auto_increment
-DELETE FROM Usuario;
-
--- Resetear el auto_increment
+-- 2. RESETEAR AUTO_INCREMENT
+-- ============================================
 ALTER TABLE Usuario AUTO_INCREMENT = 1;
+ALTER TABLE Administrador AUTO_INCREMENT = 1;
 
--- Insertar con IDs específicos
+-- 3. INSERTAR USUARIOS DE PRUEBA
+-- ============================================
 INSERT INTO Usuario (id_usuario, nombre, apellido, email, contrasenia, fecha_nacimiento)
 VALUES 
 (1, 'Juan', 'Perez', 'juan@mail.com', SHA2('pass123', 256), '1990-01-01'),
 (2, 'Maria', 'Lopez', 'maria@mail.com', SHA2('pass456', 256), '1985-05-15');
 
--- PASO 3B: Si YA existen pero con contraseña incorrecta, ejecutar esto:
-UPDATE Usuario 
-SET contrasenia = SHA2('pass123', 256)
-WHERE email = 'juan@mail.com';
+-- 4. INSERTAR ADMINISTRADOR DE PRUEBA
+-- ============================================
+INSERT INTO Administrador (nombre, apellido, email, contrasenia, fecha_nacimiento)
+VALUES ('Admin', 'Test', 'admin@fifa.com', SHA2('123456', 256), '1990-01-01');
 
-UPDATE Usuario 
-SET contrasenia = SHA2('pass456', 256)
-WHERE email = 'maria@mail.com';
-
--- PASO 4: Verificar que quedaron con los IDs correctos
+-- 5. VERIFICAR DATOS INSERTADOS
+-- ============================================
+SELECT '=== USUARIOS DISPONIBLES ===' as info;
 SELECT 
     id_usuario, 
     nombre, 
     apellido, 
     email,
-    LENGTH(contrasenia) as longitud_hash
-FROM Usuario 
-WHERE email IN ('juan@mail.com', 'maria@mail.com')
+    fecha_nacimiento
+FROM Usuario
+WHERE id_usuario IN (1, 2)
 ORDER BY id_usuario;
 
--- PASO 5: Verificar que las contraseñas funcionan
-SELECT  
-    id_usuario,
-    nombre,
-    email
-FROM Usuario
-WHERE email = 'juan@mail.com'
-AND contrasenia = SHA2('pass123', 256);
-
-SELECT  
-    id_usuario,
-    nombre,
-    email
-FROM Usuario
-WHERE email = 'maria@mail.com'
-AND contrasenia = SHA2('pass456', 256);
-
-
-
-
-DELETE FROM PlantillaTitular WHERE id_plantilla IN (SELECT id_plantilla FROM Plantilla WHERE id_usuario IN (1, 2));
-DELETE FROM PlantillaSuplente WHERE id_plantilla IN (SELECT id_plantilla FROM Plantilla WHERE id_usuario IN (1, 2));
-DELETE FROM Plantilla WHERE id_usuario IN (1, 2);
-
--- Eliminar usuarios
-DELETE FROM Usuario WHERE email IN ('nuevo@mail.com', 'juan@mail.com', 'maria@mail.com');
-
--- Resetear auto_increment
-ALTER TABLE Usuario AUTO_INCREMENT = 1;
-
--- Insertar usuarios de prueba CON HASH SHA2
-INSERT INTO Usuario (id_usuario, nombre, apellido, email, contrasenia, fecha_nacimiento)
-VALUES 
-(1, 'Juan', 'Perez', 'juan@mail.com', SHA2('pass123', 256), '1990-01-01'),
-(2, 'Maria', 'Lopez', 'maria@mail.com', SHA2('pass456', 256), '1985-05-15');
-
--- === Verificación ===
-SELECT '=== VERIFICACIÓN DE USUARIOS ===' as mensaje;
-
+SELECT '=== ADMINISTRADORES DISPONIBLES ===' as info;
 SELECT 
-    id_usuario,
-    nombre,
-    apellido,
+    id_admin,
+    nombre, 
+    apellido, 
     email,
-    LENGTH(contrasenia) as longitud_hash
-FROM Usuario
-WHERE email IN ('juan@mail.com', 'maria@mail.com');
-
--- Verificar que las contraseñas coinciden con SHA2
-SELECT 
-    email,
-    (contrasenia = SHA2('pass123', 256)) as juan_password_ok,
-    (contrasenia = SHA2('pass456', 256)) as maria_password_ok
-FROM Usuario
-WHERE email IN ('juan@mail.com', 'maria@mail.com');
-
--- Probar el stored procedure AltaUsuario
-CALL AltaUsuario(@new_id, 'Test', 'Usuario', 'test@mail.com', '1995-01-01', 'testpass');
-SELECT @new_id as nuevo_id_usuario;
-
--- Verificar que se guardó con hash
-SELECT 
-    id_usuario,
-    email,
-    (contrasenia = SHA2('testpass', 256)) as password_hasheada_correctamente
-FROM Usuario 
-WHERE id_usuario = @new_id;
-
--- Limpiar el usuario de prueba
-DELETE FROM Usuario WHERE id_usuario = @new_id;
-
-
-
-USE GranET12;
-
--- Limpiar todo
-DELETE FROM Administrador;
-
--- Resetear auto_increment
-ALTER TABLE Administrador AUTO_INCREMENT = 1;
-
--- Insertar admin de prueba
-INSERT INTO Administrador (nombre, apellido, email, contrasenia, fecha_nacimiento)
-VALUES ('Admin', 'Test', 'admin@fifa.com', SHA2('123456', 256), '1990-01-01');
-
--- Verificar
-SELECT * FROM Administrador;
-
-SELECT * FROM Usuario;
+    fecha_nacimiento
+FROM Administrador;

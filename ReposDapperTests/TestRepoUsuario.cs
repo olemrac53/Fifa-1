@@ -1,17 +1,55 @@
 using Fifa.Core;
 using Fifa.Core.Repos;
 using Fifa.Dapper;
+using Dapper;
 
 namespace Fifa.Test;
 
-public class TestRepoUsuario : TestRepo
+public class TestRepoUsuario : TestRepo, IDisposable
 {
     // Repo que vamos a usar en este test
     readonly IRepoUsuario repoUsuario;
     
-    // Este test va a usar la cadena de conexión que esta en test repo en la clase base TestRepo (redundancia?)
+    // Guardar valores originales para restaurar
+    private Dictionary<int, (string nombre, string apellido, string email)> usuariosOriginales;
+    
     public TestRepoUsuario() : base()
-        => repoUsuario = new RepoUsuario(_conexion);
+    {
+        repoUsuario = new RepoUsuario(_conexion);
+        
+        // Guardar estado original de usuarios de prueba
+        usuariosOriginales = new Dictionary<int, (string, string, string)>
+        {
+            { 1, ("Juan", "Perez", "juan@mail.com") },
+            { 2, ("Maria", "Lopez", "maria@mail.com") }
+        };
+    }
+
+    public void Dispose()
+    {
+        // Restaurar usuarios a su estado original después de cada test
+        foreach (var kvp in usuariosOriginales)
+        {
+            _conexion.Execute(@"
+                UPDATE Usuario 
+                SET nombre = @nombre, 
+                    apellido = @apellido, 
+                    email = @email,
+                    contrasenia = SHA2(@pass, 256)
+                WHERE id_usuario = @id
+            ", new 
+            { 
+                id = kvp.Key,
+                nombre = kvp.Value.nombre,
+                apellido = kvp.Value.apellido,
+                email = kvp.Value.email,
+                pass = kvp.Key == 1 ? "pass123" : "pass456"
+            });
+        }
+        
+        // Limpiar usuario temporal creado en AltaUsuario
+        _conexion.Execute("DELETE FROM Usuario WHERE email = 'nuevo@mail.com'");
+    }
 
     [Theory]
     [InlineData("juan@mail.com", "pass123", "Juan")]
@@ -63,6 +101,9 @@ public class TestRepoUsuario : TestRepo
         Assert.Equal(nombre, mismoUsuario.Nombre);
         Assert.Equal(apellido, mismoUsuario.Apellido);
         Assert.Equal(email, mismoUsuario.Email);
+        
+        // Cleanup inmediato (aunque Dispose también lo hace)
+        _conexion.Execute("DELETE FROM Usuario WHERE email = @email", new { email });
     }
 
     [Fact]
@@ -94,6 +135,9 @@ public class TestRepoUsuario : TestRepo
 
         var usuario = repoUsuario.GetUsuario(idUsuario);
         Assert.NotNull(usuario);
+        
+        // Guardar nombre original
+        string nombreOriginal = usuario.Nombre;
 
         usuario.Nombre = nuevoNombre;
         repoUsuario.UpdateUsuario(usuario, pass);
@@ -101,6 +145,9 @@ public class TestRepoUsuario : TestRepo
         var usuarioModificado = repoUsuario.GetUsuario(idUsuario);
         Assert.NotNull(usuarioModificado);
         Assert.Equal(nuevoNombre, usuarioModificado.Nombre);
+        
+        // IMPORTANTE: El Dispose() restaurará automáticamente el nombre original
+        // No necesitamos hacer cleanup manual aquí
     }
 
     [Fact]
