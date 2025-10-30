@@ -2,6 +2,8 @@ using Fifa.Core;
 using Fifa.Core.Repos;
 using Fifa.Dapper;
 using MySqlConnector;
+using Dapper;
+
 
 namespace Fifa.Test;
 

@@ -12,4 +12,5 @@ public class Futbolista
 
     public Tipo Tipo { get; set; } = null!;  
     public Equipo Equipo { get; set; } = null!;
+
 }

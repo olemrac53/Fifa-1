@@ -2,6 +2,8 @@ using Fifa.Core;
 using Fifa.Core.Repos;
 using Fifa.Dapper;
 using Dapper;
+using MySqlConnector;
+
 
 namespace Fifa.Test;
 
@@ -47,7 +49,6 @@ public class TestRepoUsuario : TestRepo, IDisposable
             });
         }
         
-        // Limpiar usuario temporal creado en AltaUsuario
         _conexion.Execute("DELETE FROM Usuario WHERE email = 'nuevo@mail.com'");
     }
 
@@ -147,7 +148,6 @@ public class TestRepoUsuario : TestRepo, IDisposable
         Assert.Equal(nuevoNombre, usuarioModificado.Nombre);
         
         // IMPORTANTE: El Dispose() restaurará automáticamente el nombre original
-        // No necesitamos hacer cleanup manual aquí
     }
 
     [Fact]
