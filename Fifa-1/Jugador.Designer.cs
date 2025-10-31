@@ -43,6 +43,7 @@
             btnCrearEquipo = new Button();
             txtNuevoEquipoNombre = new TextBox();
             lblNuevoEquipo = new Label();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvFutbolistas).BeginInit();
             gbDetalle.SuspendLayout();
             gbNuevoEquipo.SuspendLayout();
@@ -319,12 +320,22 @@
             lblNuevoEquipo.TabIndex = 0;
             lblNuevoEquipo.Text = "Nombre de Equipo:";
             // 
+            // button1
+            // 
+            button1.Location = new Point(940, 663);
+            button1.Name = "button1";
+            button1.Size = new Size(103, 23);
+            button1.TabIndex = 13;
+            button1.Text = "Volver al Menu";
+            button1.UseVisualStyleBackColor = true;
+            // 
             // Jugador
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(981, 684);
+            ClientSize = new Size(1045, 708);
+            Controls.Add(button1);
             Controls.Add(gbNuevoEquipo);
             Controls.Add(btnEliminar);
             Controls.Add(btnNuevo);
@@ -369,5 +380,6 @@
         private System.Windows.Forms.Button btnCrearEquipo;
         private System.Windows.Forms.TextBox txtNuevoEquipoNombre;
         private System.Windows.Forms.Label lblNuevoEquipo;
+        private Button button1;
     }
 }
