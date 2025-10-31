@@ -17,296 +17,329 @@
 
         private void InitializeComponent()
         {
-            this.dgvFutbolistas = new System.Windows.Forms.DataGridView();
-            this.gbDetalle = new System.Windows.Forms.GroupBox();
-            this.btnGuardar = new System.Windows.Forms.Button();
-            this.cmbEquipo = new System.Windows.Forms.ComboBox();
-            this.lblEquipo = new System.Windows.Forms.Label();
-            this.cmbTipo = new System.Windows.Forms.ComboBox();
-            this.lblTipo = new System.Windows.Forms.Label();
-            this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
-            this.lblFechaNac = new System.Windows.Forms.Label();
-            this.txtCotizacion = new System.Windows.Forms.TextBox();
-            this.lblCotizacion = new System.Windows.Forms.Label();
-            this.txtNumCamisa = new System.Windows.Forms.TextBox();
-            this.lblNumCamisa = new System.Windows.Forms.Label();
-            this.txtApodo = new System.Windows.Forms.TextBox();
-            this.lblApodo = new System.Windows.Forms.Label();
-            this.txtApellido = new System.Windows.Forms.TextBox();
-            this.lblApellido = new System.Windows.Forms.Label();
-            this.txtNombre = new System.Windows.Forms.TextBox();
-            this.lblNombre = new System.Windows.Forms.Label();
-            this.btnNuevo = new System.Windows.Forms.Button();
-            this.btnEliminar = new System.Windows.Forms.Button();
-            this.gbNuevoEquipo = new System.Windows.Forms.GroupBox();
-            this.btnCrearEquipo = new System.Windows.Forms.Button();
-            this.txtNuevoEquipoNombre = new System.Windows.Forms.TextBox();
-            this.lblNuevoEquipo = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvFutbolistas)).BeginInit();
-            this.gbDetalle.SuspendLayout();
-            this.gbNuevoEquipo.SuspendLayout();
-            this.SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Jugador));
+            dgvFutbolistas = new DataGridView();
+            gbDetalle = new GroupBox();
+            btnGuardar = new Button();
+            cmbEquipo = new ComboBox();
+            lblEquipo = new Label();
+            cmbTipo = new ComboBox();
+            lblTipo = new Label();
+            dtpFechaNacimiento = new DateTimePicker();
+            lblFechaNac = new Label();
+            txtCotizacion = new TextBox();
+            lblCotizacion = new Label();
+            txtNumCamisa = new TextBox();
+            lblNumCamisa = new Label();
+            txtApodo = new TextBox();
+            lblApodo = new Label();
+            txtApellido = new TextBox();
+            lblApellido = new Label();
+            txtNombre = new TextBox();
+            lblNombre = new Label();
+            btnNuevo = new Button();
+            btnEliminar = new Button();
+            gbNuevoEquipo = new GroupBox();
+            btnCrearEquipo = new Button();
+            txtNuevoEquipoNombre = new TextBox();
+            lblNuevoEquipo = new Label();
+            ((System.ComponentModel.ISupportInitialize)dgvFutbolistas).BeginInit();
+            gbDetalle.SuspendLayout();
+            gbNuevoEquipo.SuspendLayout();
+            SuspendLayout();
             // 
             // dgvFutbolistas
             // 
-            this.dgvFutbolistas.AllowUserToAddRows = false;
-            this.dgvFutbolistas.AllowUserToDeleteRows = false;
-            this.dgvFutbolistas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvFutbolistas.Location = new System.Drawing.Point(12, 12);
-            this.dgvFutbolistas.MultiSelect = false;
-            this.dgvFutbolistas.Name = "dgvFutbolistas";
-            this.dgvFutbolistas.ReadOnly = true;
-            this.dgvFutbolistas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvFutbolistas.Size = new System.Drawing.Size(776, 250);
-            this.dgvFutbolistas.TabIndex = 0;
-            this.dgvFutbolistas.SelectionChanged += new System.EventHandler(this.dgvFutbolistas_SelectionChanged);
+            dgvFutbolistas.AllowUserToAddRows = false;
+            dgvFutbolistas.AllowUserToDeleteRows = false;
+            dgvFutbolistas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvFutbolistas.Location = new Point(14, 14);
+            dgvFutbolistas.Margin = new Padding(4, 3, 4, 3);
+            dgvFutbolistas.MultiSelect = false;
+            dgvFutbolistas.Name = "dgvFutbolistas";
+            dgvFutbolistas.ReadOnly = true;
+            dgvFutbolistas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvFutbolistas.Size = new Size(905, 288);
+            dgvFutbolistas.TabIndex = 0;
+            dgvFutbolistas.SelectionChanged += dgvFutbolistas_SelectionChanged;
             // 
             // gbDetalle
             // 
-            this.gbDetalle.Controls.Add(this.btnGuardar);
-            this.gbDetalle.Controls.Add(this.cmbEquipo);
-            this.gbDetalle.Controls.Add(this.lblEquipo);
-            this.gbDetalle.Controls.Add(this.cmbTipo);
-            this.gbDetalle.Controls.Add(this.lblTipo);
-            this.gbDetalle.Controls.Add(this.dtpFechaNacimiento);
-            this.gbDetalle.Controls.Add(this.lblFechaNac);
-            this.gbDetalle.Controls.Add(this.txtCotizacion);
-            this.gbDetalle.Controls.Add(this.lblCotizacion);
-            this.gbDetalle.Controls.Add(this.txtNumCamisa);
-            this.gbDetalle.Controls.Add(this.lblNumCamisa);
-            this.gbDetalle.Controls.Add(this.txtApodo);
-            this.gbDetalle.Controls.Add(this.lblApodo);
-            this.gbDetalle.Controls.Add(this.txtApellido);
-            this.gbDetalle.Controls.Add(this.lblApellido);
-            this.gbDetalle.Controls.Add(this.txtNombre);
-            this.gbDetalle.Controls.Add(this.lblNombre);
-            this.gbDetalle.Location = new System.Drawing.Point(12, 310);
-            this.gbDetalle.Name = "gbDetalle";
-            this.gbDetalle.Size = new System.Drawing.Size(776, 180);
-            this.gbDetalle.TabIndex = 1;
-            this.gbDetalle.TabStop = false;
-            this.gbDetalle.Text = "Detalle de Futbolista";
+            gbDetalle.BackColor = SystemColors.ButtonFace;
+            gbDetalle.BackgroundImage = (Image)resources.GetObject("gbDetalle.BackgroundImage");
+            gbDetalle.Controls.Add(btnGuardar);
+            gbDetalle.Controls.Add(cmbEquipo);
+            gbDetalle.Controls.Add(lblEquipo);
+            gbDetalle.Controls.Add(cmbTipo);
+            gbDetalle.Controls.Add(lblTipo);
+            gbDetalle.Controls.Add(dtpFechaNacimiento);
+            gbDetalle.Controls.Add(lblFechaNac);
+            gbDetalle.Controls.Add(txtCotizacion);
+            gbDetalle.Controls.Add(lblCotizacion);
+            gbDetalle.Controls.Add(txtNumCamisa);
+            gbDetalle.Controls.Add(lblNumCamisa);
+            gbDetalle.Controls.Add(txtApodo);
+            gbDetalle.Controls.Add(lblApodo);
+            gbDetalle.Controls.Add(txtApellido);
+            gbDetalle.Controls.Add(lblApellido);
+            gbDetalle.Controls.Add(txtNombre);
+            gbDetalle.Controls.Add(lblNombre);
+            gbDetalle.Location = new Point(14, 358);
+            gbDetalle.Margin = new Padding(4, 3, 4, 3);
+            gbDetalle.Name = "gbDetalle";
+            gbDetalle.Padding = new Padding(4, 3, 4, 3);
+            gbDetalle.Size = new Size(905, 208);
+            gbDetalle.TabIndex = 1;
+            gbDetalle.TabStop = false;
+            gbDetalle.Text = "Detalle de Futbolista";
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardar.Location = new System.Drawing.Point(660, 130);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(110, 40);
-            this.btnGuardar.TabIndex = 9;
-            this.btnGuardar.Text = "Guardar";
-            this.btnGuardar.UseVisualStyleBackColor = true;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            btnGuardar.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGuardar.Location = new Point(770, 150);
+            btnGuardar.Margin = new Padding(4, 3, 4, 3);
+            btnGuardar.Name = "btnGuardar";
+            btnGuardar.Size = new Size(128, 46);
+            btnGuardar.TabIndex = 9;
+            btnGuardar.Text = "Guardar";
+            btnGuardar.UseVisualStyleBackColor = true;
+            btnGuardar.Click += btnGuardar_Click;
             // 
             // cmbEquipo
             // 
-            this.cmbEquipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbEquipo.FormattingEnabled = true;
-            this.cmbEquipo.Location = new System.Drawing.Point(400, 130);
-            this.cmbEquipo.Name = "cmbEquipo";
-            this.cmbEquipo.Size = new System.Drawing.Size(200, 21);
-            this.cmbEquipo.TabIndex = 8;
+            cmbEquipo.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbEquipo.FormattingEnabled = true;
+            cmbEquipo.Location = new Point(467, 150);
+            cmbEquipo.Margin = new Padding(4, 3, 4, 3);
+            cmbEquipo.Name = "cmbEquipo";
+            cmbEquipo.Size = new Size(233, 23);
+            cmbEquipo.TabIndex = 8;
             // 
             // lblEquipo
             // 
-            this.lblEquipo.AutoSize = true;
-            this.lblEquipo.Location = new System.Drawing.Point(340, 133);
-            this.lblEquipo.Name = "lblEquipo";
-            this.lblEquipo.Size = new System.Drawing.Size(43, 13);
-            this.lblEquipo.TabIndex = 14;
-            this.lblEquipo.Text = "Equipo:";
+            lblEquipo.AutoSize = true;
+            lblEquipo.Location = new Point(397, 153);
+            lblEquipo.Margin = new Padding(4, 0, 4, 0);
+            lblEquipo.Name = "lblEquipo";
+            lblEquipo.Size = new Size(47, 15);
+            lblEquipo.TabIndex = 14;
+            lblEquipo.Text = "Equipo:";
             // 
             // cmbTipo
             // 
-            this.cmbTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTipo.FormattingEnabled = true;
-            this.cmbTipo.Location = new System.Drawing.Point(400, 90);
-            this.cmbTipo.Name = "cmbTipo";
-            this.cmbTipo.Size = new System.Drawing.Size(200, 21);
-            this.cmbTipo.TabIndex = 7;
+            cmbTipo.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbTipo.FormattingEnabled = true;
+            cmbTipo.Location = new Point(467, 104);
+            cmbTipo.Margin = new Padding(4, 3, 4, 3);
+            cmbTipo.Name = "cmbTipo";
+            cmbTipo.Size = new Size(233, 23);
+            cmbTipo.TabIndex = 7;
             // 
             // lblTipo
             // 
-            this.lblTipo.AutoSize = true;
-            this.lblTipo.Location = new System.Drawing.Point(340, 93);
-            this.lblTipo.Name = "lblTipo";
-            this.lblTipo.Size = new System.Drawing.Size(31, 13);
-            this.lblTipo.TabIndex = 12;
-            this.lblTipo.Text = "Tipo:";
+            lblTipo.AutoSize = true;
+            lblTipo.Location = new Point(397, 107);
+            lblTipo.Margin = new Padding(4, 0, 4, 0);
+            lblTipo.Name = "lblTipo";
+            lblTipo.Size = new Size(33, 15);
+            lblTipo.TabIndex = 12;
+            lblTipo.Text = "Tipo:";
             // 
             // dtpFechaNacimiento
             // 
-            this.dtpFechaNacimiento.Location = new System.Drawing.Point(400, 50);
-            this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
-            this.dtpFechaNacimiento.Size = new System.Drawing.Size(200, 20);
-            this.dtpFechaNacimiento.TabIndex = 6;
+            dtpFechaNacimiento.Location = new Point(467, 58);
+            dtpFechaNacimiento.Margin = new Padding(4, 3, 4, 3);
+            dtpFechaNacimiento.Name = "dtpFechaNacimiento";
+            dtpFechaNacimiento.Size = new Size(233, 23);
+            dtpFechaNacimiento.TabIndex = 6;
             // 
             // lblFechaNac
             // 
-            this.lblFechaNac.AutoSize = true;
-            this.lblFechaNac.Location = new System.Drawing.Point(340, 53);
-            this.lblFechaNac.Name = "lblFechaNac";
-            this.lblFechaNac.Size = new System.Drawing.Size(63, 13);
-            this.lblFechaNac.TabIndex = 10;
-            this.lblFechaNac.Text = "Nacimiento:";
+            lblFechaNac.AutoSize = true;
+            lblFechaNac.Location = new Point(397, 61);
+            lblFechaNac.Margin = new Padding(4, 0, 4, 0);
+            lblFechaNac.Name = "lblFechaNac";
+            lblFechaNac.Size = new Size(72, 15);
+            lblFechaNac.TabIndex = 10;
+            lblFechaNac.Text = "Nacimiento:";
             // 
             // txtCotizacion
             // 
-            this.txtCotizacion.Location = new System.Drawing.Point(400, 20);
-            this.txtCotizacion.Name = "txtCotizacion";
-            this.txtCotizacion.Size = new System.Drawing.Size(100, 20);
-            this.txtCotizacion.TabIndex = 5;
+            txtCotizacion.Location = new Point(467, 23);
+            txtCotizacion.Margin = new Padding(4, 3, 4, 3);
+            txtCotizacion.Name = "txtCotizacion";
+            txtCotizacion.Size = new Size(116, 23);
+            txtCotizacion.TabIndex = 5;
             // 
             // lblCotizacion
             // 
-            this.lblCotizacion.AutoSize = true;
-            this.lblCotizacion.Location = new System.Drawing.Point(340, 23);
-            this.lblCotizacion.Name = "lblCotizacion";
-            this.lblCotizacion.Size = new System.Drawing.Size(59, 13);
-            this.lblCotizacion.TabIndex = 8;
-            this.lblCotizacion.Text = "Cotización:";
+            lblCotizacion.AutoSize = true;
+            lblCotizacion.Location = new Point(397, 27);
+            lblCotizacion.Margin = new Padding(4, 0, 4, 0);
+            lblCotizacion.Name = "lblCotizacion";
+            lblCotizacion.Size = new Size(66, 15);
+            lblCotizacion.TabIndex = 8;
+            lblCotizacion.Text = "Cotización:";
             // 
             // txtNumCamisa
             // 
-            this.txtNumCamisa.Location = new System.Drawing.Point(80, 140);
-            this.txtNumCamisa.Name = "txtNumCamisa";
-            this.txtNumCamisa.Size = new System.Drawing.Size(100, 20);
-            this.txtNumCamisa.TabIndex = 4;
+            txtNumCamisa.Location = new Point(93, 162);
+            txtNumCamisa.Margin = new Padding(4, 3, 4, 3);
+            txtNumCamisa.Name = "txtNumCamisa";
+            txtNumCamisa.Size = new Size(116, 23);
+            txtNumCamisa.TabIndex = 4;
             // 
             // lblNumCamisa
             // 
-            this.lblNumCamisa.AutoSize = true;
-            this.lblNumCamisa.Location = new System.Drawing.Point(20, 143);
-            this.lblNumCamisa.Name = "lblNumCamisa";
-            this.lblNumCamisa.Size = new System.Drawing.Size(46, 13);
-            this.lblNumCamisa.TabIndex = 6;
-            this.lblNumCamisa.Text = "Camisa:";
+            lblNumCamisa.AutoSize = true;
+            lblNumCamisa.Location = new Point(23, 165);
+            lblNumCamisa.Margin = new Padding(4, 0, 4, 0);
+            lblNumCamisa.Name = "lblNumCamisa";
+            lblNumCamisa.Size = new Size(49, 15);
+            lblNumCamisa.TabIndex = 6;
+            lblNumCamisa.Text = "Camisa:";
             // 
             // txtApodo
             // 
-            this.txtApodo.Location = new System.Drawing.Point(80, 100);
-            this.txtApodo.Name = "txtApodo";
-            this.txtApodo.Size = new System.Drawing.Size(200, 20);
-            this.txtApodo.TabIndex = 3;
+            txtApodo.Location = new Point(93, 115);
+            txtApodo.Margin = new Padding(4, 3, 4, 3);
+            txtApodo.Name = "txtApodo";
+            txtApodo.Size = new Size(233, 23);
+            txtApodo.TabIndex = 3;
             // 
             // lblApodo
             // 
-            this.lblApodo.AutoSize = true;
-            this.lblApodo.Location = new System.Drawing.Point(20, 103);
-            this.lblApodo.Name = "lblApodo";
-            this.lblApodo.Size = new System.Drawing.Size(41, 13);
-            this.lblApodo.TabIndex = 4;
-            this.lblApodo.Text = "Apodo:";
+            lblApodo.AutoSize = true;
+            lblApodo.Location = new Point(23, 119);
+            lblApodo.Margin = new Padding(4, 0, 4, 0);
+            lblApodo.Name = "lblApodo";
+            lblApodo.Size = new Size(46, 15);
+            lblApodo.TabIndex = 4;
+            lblApodo.Text = "Apodo:";
             // 
             // txtApellido
             // 
-            this.txtApellido.Location = new System.Drawing.Point(80, 60);
-            this.txtApellido.Name = "txtApellido";
-            this.txtApellido.Size = new System.Drawing.Size(200, 20);
-            this.txtApellido.TabIndex = 2;
+            txtApellido.Location = new Point(93, 69);
+            txtApellido.Margin = new Padding(4, 3, 4, 3);
+            txtApellido.Name = "txtApellido";
+            txtApellido.Size = new Size(233, 23);
+            txtApellido.TabIndex = 2;
             // 
             // lblApellido
             // 
-            this.lblApellido.AutoSize = true;
-            this.lblApellido.Location = new System.Drawing.Point(20, 63);
-            this.lblApellido.Name = "lblApellido";
-            this.lblApellido.Size = new System.Drawing.Size(47, 13);
-            this.lblApellido.TabIndex = 2;
-            this.lblApellido.Text = "Apellido:";
+            lblApellido.AutoSize = true;
+            lblApellido.Location = new Point(23, 73);
+            lblApellido.Margin = new Padding(4, 0, 4, 0);
+            lblApellido.Name = "lblApellido";
+            lblApellido.Size = new Size(54, 15);
+            lblApellido.TabIndex = 2;
+            lblApellido.Text = "Apellido:";
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(80, 20);
-            this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(200, 20);
-            this.txtNombre.TabIndex = 1;
+            txtNombre.Location = new Point(93, 23);
+            txtNombre.Margin = new Padding(4, 3, 4, 3);
+            txtNombre.Name = "txtNombre";
+            txtNombre.Size = new Size(233, 23);
+            txtNombre.TabIndex = 1;
             // 
             // lblNombre
             // 
-            this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(20, 23);
-            this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(47, 13);
-            this.lblNombre.TabIndex = 0;
-            this.lblNombre.Text = "Nombre:";
+            lblNombre.AutoSize = true;
+            lblNombre.Location = new Point(23, 27);
+            lblNombre.Margin = new Padding(4, 0, 4, 0);
+            lblNombre.Name = "lblNombre";
+            lblNombre.Size = new Size(54, 15);
+            lblNombre.TabIndex = 0;
+            lblNombre.Text = "Nombre:";
             // 
             // btnNuevo
             // 
-            this.btnNuevo.Location = new System.Drawing.Point(12, 270);
-            this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(75, 23);
-            this.btnNuevo.TabIndex = 10;
-            this.btnNuevo.Text = "Nuevo";
-            this.btnNuevo.UseVisualStyleBackColor = true;
-            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
+            btnNuevo.Location = new Point(14, 312);
+            btnNuevo.Margin = new Padding(4, 3, 4, 3);
+            btnNuevo.Name = "btnNuevo";
+            btnNuevo.Size = new Size(88, 27);
+            btnNuevo.TabIndex = 10;
+            btnNuevo.Text = "Nuevo";
+            btnNuevo.UseVisualStyleBackColor = true;
+            btnNuevo.Click += btnNuevo_Click;
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(93, 270);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(75, 23);
-            this.btnEliminar.TabIndex = 11;
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.UseVisualStyleBackColor = true;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            btnEliminar.Location = new Point(108, 312);
+            btnEliminar.Margin = new Padding(4, 3, 4, 3);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(88, 27);
+            btnEliminar.TabIndex = 11;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.Click += btnEliminar_Click;
             // 
             // gbNuevoEquipo
             // 
-            this.gbNuevoEquipo.Controls.Add(this.btnCrearEquipo);
-            this.gbNuevoEquipo.Controls.Add(this.txtNuevoEquipoNombre);
-            this.gbNuevoEquipo.Controls.Add(this.lblNuevoEquipo);
-            this.gbNuevoEquipo.Location = new System.Drawing.Point(12, 496);
-            this.gbNuevoEquipo.Name = "gbNuevoEquipo";
-            this.gbNuevoEquipo.Size = new System.Drawing.Size(776, 55);
-            this.gbNuevoEquipo.TabIndex = 12;
-            this.gbNuevoEquipo.TabStop = false;
-            this.gbNuevoEquipo.Text = "Crear Nuevo Equipo";
+            gbNuevoEquipo.BackgroundImage = (Image)resources.GetObject("gbNuevoEquipo.BackgroundImage");
+            gbNuevoEquipo.Controls.Add(btnCrearEquipo);
+            gbNuevoEquipo.Controls.Add(txtNuevoEquipoNombre);
+            gbNuevoEquipo.Controls.Add(lblNuevoEquipo);
+            gbNuevoEquipo.Location = new Point(14, 572);
+            gbNuevoEquipo.Margin = new Padding(4, 3, 4, 3);
+            gbNuevoEquipo.Name = "gbNuevoEquipo";
+            gbNuevoEquipo.Padding = new Padding(4, 3, 4, 3);
+            gbNuevoEquipo.Size = new Size(905, 97);
+            gbNuevoEquipo.TabIndex = 12;
+            gbNuevoEquipo.TabStop = false;
+            gbNuevoEquipo.Text = "Crear Nuevo Equipo";
             // 
             // btnCrearEquipo
             // 
-            this.btnCrearEquipo.Location = new System.Drawing.Point(343, 17);
-            this.btnCrearEquipo.Name = "btnCrearEquipo";
-            this.btnCrearEquipo.Size = new System.Drawing.Size(100, 23);
-            this.btnCrearEquipo.TabIndex = 2;
-            this.btnCrearEquipo.Text = "Crear Equipo";
-            this.btnCrearEquipo.UseVisualStyleBackColor = true;
-            this.btnCrearEquipo.Click += new System.EventHandler(this.btnCrearEquipo_Click);
+            btnCrearEquipo.Location = new Point(400, 20);
+            btnCrearEquipo.Margin = new Padding(4, 3, 4, 3);
+            btnCrearEquipo.Name = "btnCrearEquipo";
+            btnCrearEquipo.Size = new Size(117, 27);
+            btnCrearEquipo.TabIndex = 2;
+            btnCrearEquipo.Text = "Crear Equipo";
+            btnCrearEquipo.UseVisualStyleBackColor = true;
+            btnCrearEquipo.Click += btnCrearEquipo_Click;
             // 
             // txtNuevoEquipoNombre
             // 
-            this.txtNuevoEquipoNombre.Location = new System.Drawing.Point(120, 19);
-            this.txtNuevoEquipoNombre.Name = "txtNuevoEquipoNombre";
-            this.txtNuevoEquipoNombre.Size = new System.Drawing.Size(200, 20);
-            this.txtNuevoEquipoNombre.TabIndex = 1;
+            txtNuevoEquipoNombre.Location = new Point(140, 22);
+            txtNuevoEquipoNombre.Margin = new Padding(4, 3, 4, 3);
+            txtNuevoEquipoNombre.Name = "txtNuevoEquipoNombre";
+            txtNuevoEquipoNombre.Size = new Size(233, 23);
+            txtNuevoEquipoNombre.TabIndex = 1;
             // 
             // lblNuevoEquipo
             // 
-            this.lblNuevoEquipo.AutoSize = true;
-            this.lblNuevoEquipo.Location = new System.Drawing.Point(20, 22);
-            this.lblNuevoEquipo.Name = "lblNuevoEquipo";
-            this.lblNuevoEquipo.Size = new System.Drawing.Size(94, 13);
-            this.lblNuevoEquipo.TabIndex = 0;
-            this.lblNuevoEquipo.Text = "Nombre de Equipo:";
+            lblNuevoEquipo.AutoSize = true;
+            lblNuevoEquipo.Location = new Point(23, 25);
+            lblNuevoEquipo.Margin = new Padding(4, 0, 4, 0);
+            lblNuevoEquipo.Name = "lblNuevoEquipo";
+            lblNuevoEquipo.Size = new Size(110, 15);
+            lblNuevoEquipo.TabIndex = 0;
+            lblNuevoEquipo.Text = "Nombre de Equipo:";
             // 
             // Jugador
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 563);
-            this.Controls.Add(this.gbNuevoEquipo);
-            this.Controls.Add(this.btnEliminar);
-            this.Controls.Add(this.btnNuevo);
-            this.Controls.Add(this.gbDetalle);
-            this.Controls.Add(this.dgvFutbolistas);
-            this.Name = "Jugador";
-            this.Text = "Gestión de Futbolistas (Admin)";
-            this.Load += new System.EventHandler(this.Jugador_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvFutbolistas)).EndInit();
-            this.gbDetalle.ResumeLayout(false);
-            this.gbDetalle.PerformLayout();
-            this.gbNuevoEquipo.ResumeLayout(false);
-            this.gbNuevoEquipo.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            ClientSize = new Size(981, 684);
+            Controls.Add(gbNuevoEquipo);
+            Controls.Add(btnEliminar);
+            Controls.Add(btnNuevo);
+            Controls.Add(gbDetalle);
+            Controls.Add(dgvFutbolistas);
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "Jugador";
+            Text = "Gestión de Futbolistas (Admin)";
+            Load += Jugador_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvFutbolistas).EndInit();
+            gbDetalle.ResumeLayout(false);
+            gbDetalle.PerformLayout();
+            gbNuevoEquipo.ResumeLayout(false);
+            gbNuevoEquipo.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion
