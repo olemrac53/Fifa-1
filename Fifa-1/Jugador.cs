@@ -34,6 +34,7 @@ namespace Fifa_1
             using (var con = ConexionDB.CrearConexion())
             {
                 con.Open();
+                // Asumo que RepoTipo y RepoEquipo existen e implementan las interfaces
                 IRepoTipo repoTipo = new RepoTipo(con);
                 IRepoEquipo repoEquipo = new RepoEquipo(con);
 
@@ -56,7 +57,7 @@ namespace Fifa_1
             }
         }
 
-        // --- CORRECCIÓN DEL BUG DEL DATAGRIDVIEW ---
+        // --- INICIO DE CORRECCIÓN (BUG 1) ---
         private void CargarGrilla()
         {
             using (var con = ConexionDB.CrearConexion())
@@ -66,7 +67,7 @@ namespace Fifa_1
 
                 dgvFutbolistas.DataSource = null;
                 dgvFutbolistas.Columns.Clear();
-                dgvFutbolistas.AutoGenerateColumns = false; // ¡Importante!
+                dgvFutbolistas.AutoGenerateColumns = false;
 
                 // Columnas manuales
                 dgvFutbolistas.Columns.Add(new DataGridViewTextBoxColumn
@@ -85,13 +86,13 @@ namespace Fifa_1
                 {
                     Name = "Tipo",
                     HeaderText = "Posición",
-                    DataPropertyName = "Tipo.Nombre" // ¡Arreglado!
+                    DataPropertyName = "Tipo.Nombre" // CORREGIDO: Notación de Punto
                 });
                 dgvFutbolistas.Columns.Add(new DataGridViewTextBoxColumn
                 {
                     Name = "Equipo",
                     HeaderText = "Equipo",
-                    DataPropertyName = "Equipo.Nombre" // ¡Arreglado!
+                    DataPropertyName = "Equipo.Nombre" // CORREGIDO: Notación de Punto
                 });
                 dgvFutbolistas.Columns.Add(new DataGridViewTextBoxColumn
                 {
@@ -106,7 +107,7 @@ namespace Fifa_1
                 dgvFutbolistas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
         }
-        // --- FIN DE LA CORRECCIÓN ---
+        // --- FIN DE CORRECCIÓN (BUG 1) ---
 
         private void dgvFutbolistas_SelectionChanged(object sender, EventArgs e)
         {

@@ -167,11 +167,8 @@ public class RepoPlantilla : Repo, IRepoPlantilla
 
 
         Conexion.Execute("CrearPlantilla", parametros, commandType: CommandType.StoredProcedure);
-        plantilla.IdPlantilla = Conexion.QuerySingle<int>("SELECT LAST_INSERT_ID()");
+        // Se usa Get<int> para obtener el ID de retorno del SP
         plantilla.IdPlantilla = parametros.Get<int>("@p_id_plantilla");
-
-        
-        ;
     }
 
     public void UpdatePlantilla(Plantilla plantilla)
@@ -208,19 +205,25 @@ public class RepoPlantilla : Repo, IRepoPlantilla
         }
         catch (MySqlException e)
         {
-            if (e.Message.Contains("ya está en suplentes"))
+            // CORRECCIÓN (BUG 3): Manejo del error de presupuesto lanzado por TR_VerificarPresupuesto
+            if (e.Message.Contains("Presupuesto máximo de la plantilla excedido") || e.Message.Contains("excede presupuesto"))
+            {
+                throw new InvalidOperationException("ERROR: Agregar este titular excede el presupuesto máximo de la plantilla.");
+            }
+
+            // Manejo del error de duplicidad (ya está en suplentes) del SP
+            if (e.Message.Contains("ya está en suplentes") || e.Message.Contains("El futbolista ya está como suplente en esta plantilla"))
             {
                 throw new InvalidOperationException("El futbolista ya está registrado como suplente en esta plantilla.");
             }
-            if (e.Message.Contains("excede presupuesto"))
+
+            // Manejo del error de cantidad máxima (lanzado por TR_LimiteJugadores)
+            if (e.Message.Contains("máximo de jugadores") || e.Message.Contains("La plantilla ya tiene el máximo de jugadores"))
             {
-                throw new InvalidOperationException("Agregar este titular excede el presupuesto de la plantilla.");
+                throw new InvalidOperationException("La plantilla ya tiene la cantidad máxima de futbolistas (20).");
             }
-            if (e.Message.Contains("máximo"))
-            {
-                throw new InvalidOperationException("La plantilla ya tiene la cantidad máxima de futbolistas.");
-            }
-            throw;
+
+            throw; // Relanza cualquier otro error inesperado
         }
     }
 
