@@ -36,3 +36,28 @@ ORDER BY id_usuario;
 
 SELECT '=== ADMINISTRADORES DISPONIBLES ===' as info;
 SELECT * FROM Administrador;
+
+
+
+-- Verificar Equipo
+SELECT * FROM Equipo WHERE id_equipo = 1;
+
+-- Verificar Tipos
+SELECT * FROM Tipo WHERE id_tipo IN (1, 2, 3, 4);
+
+-- Si no existen, ejecuta esto:
+INSERT INTO Equipo (id_equipo, nombre, presupuesto) 
+VALUES (1, 'Equipo Test 1', 1000000.00)
+ON DUPLICATE KEY UPDATE nombre = 'Equipo Test 1';
+
+INSERT INTO Tipo (id_tipo, nombre) VALUES (1, 'Delantero')
+ON DUPLICATE KEY UPDATE nombre = 'Delantero';
+
+INSERT INTO Tipo (id_tipo, nombre) VALUES (2, 'Mediocampista')
+ON DUPLICATE KEY UPDATE nombre = 'Mediocampista';
+
+INSERT INTO Tipo (id_tipo, nombre) VALUES (3, 'Defensa')
+ON DUPLICATE KEY UPDATE nombre = 'Defensa';
+
+INSERT INTO Tipo (id_tipo, nombre) VALUES (4, 'Arquero')
+ON DUPLICATE KEY UPDATE nombre = 'Arquero';

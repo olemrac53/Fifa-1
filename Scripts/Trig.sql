@@ -111,66 +111,7 @@ BEGIN
     END IF;
 END $$
 
--- 7) mezcla: PlantillaTitular/Suplente -> PlantillaFutbolista
--- Cuando se inserta en Titular, creamos o actualizamos la fila en PlantillaFutbolista con es_titular=TRUE
-DROP TRIGGER IF EXISTS TR_Sync_Titular_To_General $$
-CREATE TRIGGER TR_Sync_Titular_To_General
-AFTER INSERT ON PlantillaTitular
-FOR EACH ROW
-BEGIN
-    INSERT INTO PlantillaFutbolista (id_plantilla, id_futbolista, es_titular)
-    VALUES (NEW.id_plantilla, NEW.id_futbolista, TRUE)
-    ON DUPLICATE KEY UPDATE es_titular = TRUE;
-END $$
 
--- Cuando se elimina de Titular, borramos o actualizamos la fila general (si existía)
-DROP TRIGGER IF EXISTS TR_Sync_Titular_Delete_To_General $$
-CREATE TRIGGER TR_Sync_Titular_Delete_To_General
-AFTER DELETE ON PlantillaTitular
-FOR EACH ROW
-BEGIN
-    DELETE FROM PlantillaFutbolista WHERE id_plantilla = OLD.id_plantilla AND id_futbolista = OLD.id_futbolista;
-END $$
-
--- mezcla para Suplente -> PlantillaFutbolista
-DROP TRIGGER IF EXISTS TR_Sync_Suplente_To_General $$
-CREATE TRIGGER TR_Sync_Suplente_To_General
-AFTER INSERT ON PlantillaSuplente
-FOR EACH ROW
-BEGIN
-    INSERT INTO PlantillaFutbolista (id_plantilla, id_futbolista, es_titular)
-    VALUES (NEW.id_plantilla, NEW.id_futbolista, FALSE)
-    ON DUPLICATE KEY UPDATE es_titular = FALSE;
-END $$
-
-DROP TRIGGER IF EXISTS TR_Sync_Suplente_Delete_To_General $$
-CREATE TRIGGER TR_Sync_Suplente_Delete_To_General
-AFTER DELETE ON PlantillaSuplente
-FOR EACH ROW
-BEGIN
-    DELETE FROM PlantillaFutbolista WHERE id_plantilla = OLD.id_plantilla AND id_futbolista = OLD.id_futbolista;
-END $$
-
--- 8) mezcla inversa: Insert en PlantillaFutbolista crea en Titular o Suplente
-DROP TRIGGER IF EXISTS TR_Sync_General_To_Specific $$
-CREATE TRIGGER TR_Sync_General_To_Specific
-AFTER INSERT ON PlantillaFutbolista
-FOR EACH ROW
-BEGIN
-    IF NEW.es_titular = TRUE THEN
-        -- intentar insertar en Titular (si no existe)
-        IF NOT EXISTS (SELECT 1 FROM PlantillaTitular WHERE id_plantilla = NEW.id_plantilla AND id_futbolista = NEW.id_futbolista) THEN
-            INSERT IGNORE INTO PlantillaTitular (id_plantilla, id_futbolista) VALUES (NEW.id_plantilla, NEW.id_futbolista);
-        END IF;
-        -- asegurar que no esté en suplentes
-        DELETE FROM PlantillaSuplente WHERE id_plantilla = NEW.id_plantilla AND id_futbolista = NEW.id_futbolista;
-    ELSE
-        IF NOT EXISTS (SELECT 1 FROM PlantillaSuplente WHERE id_plantilla = NEW.id_plantilla AND id_futbolista = NEW.id_futbolista) THEN
-            INSERT IGNORE INTO PlantillaSuplente (id_plantilla, id_futbolista) VALUES (NEW.id_plantilla, NEW.id_futbolista);
-        END IF;
-        DELETE FROM PlantillaTitular WHERE id_plantilla = NEW.id_plantilla AND id_futbolista = NEW.id_futbolista;
-    END IF;
-END $$
 
 
 CREATE TRIGGER TR_VerificarPresupuesto

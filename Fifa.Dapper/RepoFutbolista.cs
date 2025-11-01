@@ -63,18 +63,8 @@ public class RepoFutbolista : Repo, IRepoFutbolista
                 futbolista.Tipo = tipo;
                 return futbolista;
             },
-            splitOn: "IdEquipo, IdTipo")
+            splitOn: "IdEquipo,IdTipo")
             .ToList();
-
-        // Optimización: eliminar duplicados de Equipo y Tipo
-        var equipos = futbolistas.Select(f => f.Equipo).Distinct().ToList();
-        var tipos = futbolistas.Select(f => f.Tipo).Distinct().ToList();
-
-        futbolistas.ForEach(f =>
-        {
-            f.Equipo = equipos.First(e => e.idEquipo == f.Equipo.idEquipo);  
-            f.Tipo = tipos.First(t => t.idTipo == f.Tipo.idTipo);  
-        });
 
         return futbolistas;
     }
@@ -90,7 +80,7 @@ public class RepoFutbolista : Repo, IRepoFutbolista
                 return futbolista;
             },
             new { id = idFutbolista },
-            splitOn: "IdEquipo, IdTipo")
+            splitOn: "IdEquipo,IdTipo")
             .FirstOrDefault();
 
         return futbolista;
@@ -105,8 +95,8 @@ public class RepoFutbolista : Repo, IRepoFutbolista
         parametros.Add("@p_num_camisa", futbolista.NumCamisa);
         parametros.Add("@p_fecha_nacimiento", futbolista.FechaNacimiento); 
         parametros.Add("@p_cotizacion", futbolista.Cotizacion);  
-        parametros.Add("@p_id_tipo", futbolista.Tipo.idTipo);  
-        parametros.Add("@p_id_equipo", futbolista.Equipo.idEquipo);  
+        parametros.Add("@p_id_tipo", futbolista.Tipo?.idTipo ?? 0);  
+        parametros.Add("@p_id_equipo", futbolista.Equipo?.idEquipo ?? 0);  
 
         try
         {
@@ -134,8 +124,8 @@ public class RepoFutbolista : Repo, IRepoFutbolista
         parametros.Add("@p_num_camisa", futbolista.NumCamisa);
         parametros.Add("@p_fecha_nacimiento", futbolista.FechaNacimiento);  
         parametros.Add("@p_cotizacion", futbolista.Cotizacion);  
-        parametros.Add("@p_id_tipo", futbolista.Tipo.idTipo); 
-        parametros.Add("@p_id_equipo", futbolista.Equipo.idEquipo);  
+        parametros.Add("@p_id_tipo", futbolista.Tipo?.idTipo ?? 0); 
+        parametros.Add("@p_id_equipo", futbolista.Equipo?.idEquipo ?? 0);  
 
         Conexion.Execute("ModificarFutbolista", parametros, commandType: CommandType.StoredProcedure);
     }
@@ -160,12 +150,13 @@ public class RepoFutbolista : Repo, IRepoFutbolista
 
     public void InsertTipo(Tipo tipo)
     {
-        var parametros = new { p_nombre = tipo.nombre }; 
+        var parametros = new DynamicParameters();
+        parametros.Add("@p_nombre", tipo.nombre);
         
         try
         {
             Conexion.Execute("AltaTipo", parametros, commandType: CommandType.StoredProcedure);
-            tipo.idTipo = Conexion.QuerySingle<int>("SELECT LAST_INSERT_ID()");  
+            tipo.idTipo = Conexion.QuerySingle<int>("SELECT LAST_INSERT_ID()");
         }
         catch (MySqlException e)
         {

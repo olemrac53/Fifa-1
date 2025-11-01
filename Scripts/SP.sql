@@ -248,4 +248,89 @@ BEGIN
 END $$
 
 
+
+-- 01_SP_Complementario.sql
+-- Script para agregar los Stored Procedures que faltan
+-- Ejecutar DESPUÉS de 01_SP.sql
+
+USE GranET12;
+DELIMITER $$
+
+-- === Procedimientos de LOGIN/AUTENTICACIÓN ===
+
+DROP PROCEDURE IF EXISTS LoginUsuario $$
+CREATE PROCEDURE LoginUsuario(
+    IN p_email VARCHAR(150),
+    IN p_contrasenia VARCHAR(100)
+)
+BEGIN
+    SELECT 
+        id_usuario,
+        nombre,
+        apellido,
+        email,
+        fecha_nacimiento
+    FROM Usuario
+    WHERE email = p_email 
+    AND contrasenia = SHA2(p_contrasenia, 256);
+END $$
+
+DROP PROCEDURE IF EXISTS LoginAdministrador $$
+CREATE PROCEDURE LoginAdministrador(
+    IN p_email VARCHAR(150),
+    IN p_contrasenia VARCHAR(100)
+)
+BEGIN
+    SELECT 
+        id_administrador,
+        nombre,
+        apellido,
+        email,
+        fecha_nacimiento
+    FROM Administrador
+    WHERE email = p_email 
+    AND contrasenia = SHA2(p_contrasenia, 256);
+END $$
+
+DELIMITER ;
+
+-- === SCRIPT DE DATOS DE PRUEBA PARA TESTS ===
+-- Limpiar datos existentes de prueba
+DELETE FROM PlantillaTitular WHERE id_plantilla IN (SELECT id_plantilla FROM Plantilla WHERE id_usuario IN (1, 2));
+DELETE FROM PlantillaSuplente WHERE id_plantilla IN (SELECT id_plantilla FROM Plantilla WHERE id_usuario IN (1, 2));
+DELETE FROM Plantilla WHERE id_usuario IN (1, 2);
+DELETE FROM PuntuacionFutbolista;
+DELETE FROM Futbolista;
+DELETE FROM Tipo;
+DELETE FROM Equipo WHERE id_equipo = 1;
+
+-- Insertar Equipo de prueba
+INSERT INTO Equipo (id_equipo, nombre, presupuesto) 
+VALUES (1, 'Equipo Test 1', 1000000.00)
+ON DUPLICATE KEY UPDATE nombre = 'Equipo Test 1', presupuesto = 1000000.00;
+
+-- Insertar Tipos básicos para los tests
+INSERT INTO Tipo (id_tipo, nombre) VALUES (1, 'Delantero')
+ON DUPLICATE KEY UPDATE nombre = 'Delantero';
+
+INSERT INTO Tipo (id_tipo, nombre) VALUES (2, 'Mediocampista')
+ON DUPLICATE KEY UPDATE nombre = 'Mediocampista';
+
+INSERT INTO Tipo (id_tipo, nombre) VALUES (3, 'Defensa')
+ON DUPLICATE KEY UPDATE nombre = 'Defensa';
+
+INSERT INTO Tipo (id_tipo, nombre) VALUES (4, 'Arquero')
+ON DUPLICATE KEY UPDATE nombre = 'Arquero';
+
+-- Verificación de datos insertados
+SELECT '=== EQUIPOS DISPONIBLES PARA TESTS ===' as Info;
+SELECT * FROM Equipo WHERE id_equipo = 1;
+
+SELECT '=== TIPOS DISPONIBLES PARA TESTS ===' as Info;
+SELECT * FROM Tipo ORDER BY id_tipo;
+
+SELECT '=== SETUP COMPLETADO ===' as Info;
+SELECT 'Base de datos lista para ejecutar tests' as Mensaje;
+
+
 DELIMITER ;

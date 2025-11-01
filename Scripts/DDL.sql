@@ -11,6 +11,8 @@ CREATE TABLE Equipo (
     nombre VARCHAR(100) NOT NULL UNIQUE
 );
 
+ALTER TABLE Equipo ADD COLUMN presupuesto DECIMAL(10,2) DEFAULT 0;
+
 -- =============================
 -- TABLA TIPO
 -- =============================
