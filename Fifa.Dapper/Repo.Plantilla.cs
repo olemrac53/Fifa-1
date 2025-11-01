@@ -191,8 +191,36 @@ public class RepoPlantilla : Repo, IRepoPlantilla
     #endregion
 
     #region Titulares y Suplentes
+    // En Fifa.Dapper/RepoPlantilla.cs
+
     public void AgregarTitular(int idPlantilla, int idFutbolista)
     {
+        // 1. VALIDACIÓN MANUAL DE PRESUPUESTO (C#)
+        // Obtenemos el costo del jugador
+        decimal costoJugador = Conexion.QuerySingleOrDefault<decimal>(
+            "SELECT cotizacion FROM Futbolista WHERE id_futbolista = @id",
+            new { id = idFutbolista });
+
+        // Obtenemos presupuesto actual y máximo
+        var datosPlantilla = Conexion.QuerySingleOrDefault(
+            @"SELECT presupuesto_max, 
+                 (SELECT PresupuestoPlantilla(@id)) as usado 
+          FROM Plantilla 
+          WHERE id_plantilla = @id",
+            new { id = idPlantilla });
+
+        if (datosPlantilla != null)
+        {
+            decimal presupuestoMax = datosPlantilla.presupuesto_max;
+            decimal presupuestoUsado = datosPlantilla.usado;
+
+            if (presupuestoUsado + costoJugador > presupuestoMax)
+            {
+                throw new InvalidOperationException($"ERROR: Agregar este titular excede el presupuesto máximo ({presupuestoMax:C}). Faltan {(presupuestoUsado + costoJugador - presupuestoMax):C}.");
+            }
+        }
+
+        // 2. EJECUCIÓN DEL SP ORIGINAL
         var parametros = new
         {
             p_id_plantilla = idPlantilla,
@@ -205,25 +233,14 @@ public class RepoPlantilla : Repo, IRepoPlantilla
         }
         catch (MySqlException e)
         {
-            // CORRECCIÓN (BUG 3): Manejo del error de presupuesto lanzado por TR_VerificarPresupuesto
-            if (e.Message.Contains("Presupuesto máximo de la plantilla excedido") || e.Message.Contains("excede presupuesto"))
-            {
-                throw new InvalidOperationException("ERROR: Agregar este titular excede el presupuesto máximo de la plantilla.");
-            }
-
-            // Manejo del error de duplicidad (ya está en suplentes) del SP
-            if (e.Message.Contains("ya está en suplentes") || e.Message.Contains("El futbolista ya está como suplente en esta plantilla"))
-            {
+            // Mantenemos las capturas originales por si acaso
+            if (e.Message.Contains("ya está en suplentes"))
                 throw new InvalidOperationException("El futbolista ya está registrado como suplente en esta plantilla.");
-            }
 
-            // Manejo del error de cantidad máxima (lanzado por TR_LimiteJugadores)
-            if (e.Message.Contains("máximo de jugadores") || e.Message.Contains("La plantilla ya tiene el máximo de jugadores"))
-            {
+            if (e.Message.Contains("máximo de jugadores"))
                 throw new InvalidOperationException("La plantilla ya tiene la cantidad máxima de futbolistas (20).");
-            }
 
-            throw; // Relanza cualquier otro error inesperado
+            throw;
         }
     }
 

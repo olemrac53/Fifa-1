@@ -13,9 +13,10 @@ public class Futbolista
     public Tipo Tipo { get; set; } = null!;
     public Equipo Equipo { get; set; } = null!;
 
-    //  Propiedad  para mostrar en DataGridView y ComboBox
-    public string NombreCompleto
-    {
-        get { return $"{Apellido}, {Nombre}"; }
-    }
+    // Propiedad existente
+    public string NombreCompleto => $"{Apellido}, {Nombre}";
+
+    // --- AGREGAR ESTAS DOS PROPIEDADES ---
+    public string NombreTipo => Tipo?.Nombre ?? "Sin Posición";
+    public string NombreEquipo => Equipo?.Nombre ?? "Sin Equipo";
 }

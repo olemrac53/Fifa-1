@@ -13,7 +13,7 @@ public class PuntuacionFutbolista
 
     public Futbolista Futbolista { get; set; } = null!;
 
-
+    public string NombreFutbolista => Futbolista?.NombreCompleto ?? "Desconocido";
 
     public override bool Equals(object? obj)
         => obj is PuntuacionFutbolista p && p.IdPuntuacion == IdPuntuacion;

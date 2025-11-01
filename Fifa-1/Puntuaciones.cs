@@ -51,7 +51,7 @@ namespace Fifa_1
             {
                 Name = "Futbolista",
                 HeaderText = "Futbolista",
-                DataPropertyName = "Futbolista.NombreCompleto" // CORREGIDO: Usar la propiedad NombreCompleto
+                DataPropertyName = "NombreFutbolista" // CORREGIDO: Usar la propiedad NombreCompleto
             });
             dgvPuntuaciones.Columns.Add(new DataGridViewTextBoxColumn
             {

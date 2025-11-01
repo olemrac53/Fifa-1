@@ -115,8 +115,10 @@ namespace Fifa_1
 
             dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Nombre", HeaderText = "Nombre", DataPropertyName = "Nombre" });
             dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Apellido", HeaderText = "Apellido", DataPropertyName = "Apellido" });
-            dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Tipo", HeaderText = "Posición", DataPropertyName = "Tipo.Nombre" });
-            dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Equipo", HeaderText = "Equipo", DataPropertyName = "Equipo.Nombre" });
+
+            dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Tipo", HeaderText = "Posición", DataPropertyName = "NombreTipo" });
+            dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Equipo", HeaderText = "Equipo", DataPropertyName = "NombreEquipo" });
+
             dgv.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Cotizacion",
