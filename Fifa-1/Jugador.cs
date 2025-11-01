@@ -57,7 +57,7 @@ namespace Fifa_1
             }
         }
 
-        // --- INICIO DE CORRECCIÓN (BUG DE COLUMNAS EN BLANCO) ---
+        // --- INICIO DE CORRECCIÓN (BUG 1) ---
         private void CargarGrilla()
         {
             using (var con = ConexionDB.CrearConexion())
@@ -86,13 +86,13 @@ namespace Fifa_1
                 {
                     Name = "Tipo",
                     HeaderText = "Posición",
-                    DataPropertyName = "Tipo.Nombre" // FIX: Notación de Punto
+                    DataPropertyName = "Tipo.Nombre" // CORREGIDO: Notación de Punto
                 });
                 dgvFutbolistas.Columns.Add(new DataGridViewTextBoxColumn
                 {
                     Name = "Equipo",
                     HeaderText = "Equipo",
-                    DataPropertyName = "Equipo.Nombre" // FIX: Notación de Punto
+                    DataPropertyName = "Equipo.Nombre" // CORREGIDO: Notación de Punto
                 });
                 dgvFutbolistas.Columns.Add(new DataGridViewTextBoxColumn
                 {
@@ -107,7 +107,7 @@ namespace Fifa_1
                 dgvFutbolistas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
         }
-        // --- FIN DE CORRECCIÓN ---
+        // --- FIN DE CORRECCIÓN (BUG 1) ---
 
         private void dgvFutbolistas_SelectionChanged(object sender, EventArgs e)
         {
@@ -274,6 +274,7 @@ namespace Fifa_1
             return true;
         }
 
+        // --- BOTÓN VOLVER AÑADIDO ---
         private void btnVolverMenu_Click(object sender, EventArgs e)
         {
             this.Close();

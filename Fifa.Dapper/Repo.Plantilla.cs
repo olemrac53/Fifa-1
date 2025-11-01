@@ -205,28 +205,22 @@ public class RepoPlantilla : Repo, IRepoPlantilla
         }
         catch (MySqlException e)
         {
-            // 1. Manejo del error de presupuesto (TR_VerificarPresupuesto)
+            // CORRECCIÓN (BUG 3): Manejo del error de presupuesto lanzado por TR_VerificarPresupuesto
             if (e.Message.Contains("Presupuesto máximo de la plantilla excedido") || e.Message.Contains("excede presupuesto"))
             {
                 throw new InvalidOperationException("ERROR: Agregar este titular excede el presupuesto máximo de la plantilla.");
             }
 
-            // 2. Manejo del error de límite de titulares (TR_LimiteTitulares)
-            if (e.Message.Contains("La plantilla titular ya tiene el máximo de 11 jugadores"))
-            {
-                throw new InvalidOperationException("ERROR: La plantilla titular ya tiene el máximo de 11 jugadores.");
-            }
-
-            // 3. Manejo del error de duplicidad (ya está en suplentes)
+            // Manejo del error de duplicidad (ya está en suplentes) del SP
             if (e.Message.Contains("ya está en suplentes") || e.Message.Contains("El futbolista ya está como suplente en esta plantilla"))
             {
                 throw new InvalidOperationException("El futbolista ya está registrado como suplente en esta plantilla.");
             }
 
-            // 4. Manejo del error de límite total (por si se utiliza el cant_max_futbolistas)
+            // Manejo del error de cantidad máxima (lanzado por TR_LimiteJugadores)
             if (e.Message.Contains("máximo de jugadores") || e.Message.Contains("La plantilla ya tiene el máximo de jugadores"))
             {
-                throw new InvalidOperationException("ERROR: La plantilla ha alcanzado su límite de jugadores permitido.");
+                throw new InvalidOperationException("La plantilla ya tiene la cantidad máxima de futbolistas (20).");
             }
 
             throw; // Relanza cualquier otro error inesperado
@@ -258,7 +252,6 @@ public class RepoPlantilla : Repo, IRepoPlantilla
         }
         catch (MySqlException e)
         {
-            // Este manejo es similar al del suplente original, que funciona
             if (e.Message.Contains("ya está en titulares"))
             {
                 throw new InvalidOperationException("El futbolista ya está registrado como titular en esta plantilla.");

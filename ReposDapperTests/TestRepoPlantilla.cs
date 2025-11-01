@@ -17,10 +17,11 @@ public class TestRepoPlantilla : TestRepo
     [Fact]
     public void AltaPlantilla()
     {
+        // Given - Usuario Juan existe con id 1
         var nuevaPlantilla = new Plantilla()
         {
             Usuario = new Usuario() { IdUsuario = 1 },
-            PresupuestoMax = 5000000, 
+            PresupuestoMax = 5000000, // Valor más realista
             CantMaxFutbolistas = 25
         };
 

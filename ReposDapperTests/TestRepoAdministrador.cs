@@ -80,6 +80,7 @@ public class TestRepoAdministrador : TestRepo, IDisposable
         
         repoAdministrador.InsertAdministrador(nuevoAdmin, "mipassword");
         
+        // Ahora el ID debe estar asignado por el SP
         Assert.True(nuevoAdmin.IdAdministrador > 0);
         administradoresCreados.Add(nuevoAdmin.IdAdministrador);
         

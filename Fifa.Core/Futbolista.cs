@@ -13,7 +13,7 @@ public class Futbolista
     public Tipo Tipo { get; set; } = null!;
     public Equipo Equipo { get; set; } = null!;
 
-    // CORRECCIÓN INTEGRAL DE DISPLAY: Propiedad computada
+    //  Propiedad  para mostrar en DataGridView y ComboBox
     public string NombreCompleto
     {
         get { return $"{Apellido}, {Nombre}"; }
