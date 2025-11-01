@@ -39,10 +39,8 @@ BEGIN
     END IF;
 END $$
 
--- 4) Validar presupuesto al insertar Titular/Suplente (se usa PresupuestoPlantilla)
-
-
-DROP TRIGGER IF EXISTS TR_ValidarPresupuesto_AltaSuplente $$
+-- 4) Validar presupuesto al insertar Suplente 
+DROP PROCEDURE IF EXISTS TR_ValidarPresupuesto_AltaSuplente $$
 CREATE TRIGGER TR_ValidarPresupuesto_AltaSuplente
 BEFORE INSERT ON PlantillaSuplente
 FOR EACH ROW
@@ -54,9 +52,7 @@ BEGIN
     END IF;
 END $$
 
--- 5) Validar cantidad máxima por plantilla en titulares+suplentes
-
--- Reutilizo para suplentes
+-- 5) Validar cantidad máxima total (Titulares + Suplentes)
 DROP TRIGGER IF EXISTS TR_ValidarCantidadPlantilla_Suplente $$
 CREATE TRIGGER TR_ValidarCantidadPlantilla_Suplente
 BEFORE INSERT ON PlantillaSuplente
@@ -90,15 +86,16 @@ BEGIN
     END IF;
 END $$
 
-
-
-
+-- CORRECCIÓN (BUG DE PRESUPUESTO TITULAR): Trigger para verificar el PRESUPUESTO de Titulares
+DROP TRIGGER IF EXISTS TR_VerificarPresupuesto $$
 CREATE TRIGGER TR_VerificarPresupuesto
 BEFORE INSERT ON PlantillaTitular
 FOR EACH ROW
 BEGIN
     DECLARE total DECIMAL(12,2);
-    DECLARE presupuesto_max DECIMAL(12,2) DEFAULT 99999999.99; -- según consigna
+    DECLARE presupuesto_max DECIMAL(12,2); 
+    
+    SELECT presupuesto_max INTO presupuesto_max FROM Plantilla WHERE id_plantilla = NEW.id_plantilla;
 
     SELECT IFNULL(SUM(f.cotizacion), 0)
     INTO total
@@ -110,22 +107,26 @@ BEGIN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Error: Presupuesto máximo de la plantilla excedido';
     END IF;
-END; $$ -- <-- ESTA LÍNEA FUE CORREGIDA
+END; $$ 
 
-
-CREATE TRIGGER TR_LimiteJugadores
+-- CORRECCIÓN (BUG DE LIMITE DE JUGADORES TITULARES): Limita a 11 (la formación inicial).
+DROP TRIGGER IF EXISTS TR_LimiteJugadores $$ 
+DROP TRIGGER IF EXISTS TR_LimiteTitulares $$
+CREATE TRIGGER TR_LimiteTitulares
 BEFORE INSERT ON PlantillaTitular
 FOR EACH ROW
 BEGIN
     DECLARE cantidad INT;
-    DECLARE max_jugadores INT DEFAULT 20;
+    DECLARE max_titulares INT DEFAULT 11; -- CORREGIDO: El máximo lógico para titulares es 11
 
     SELECT COUNT(*) INTO cantidad
     FROM PlantillaTitular
     WHERE id_plantilla = NEW.id_plantilla;
 
-    IF cantidad >= max_jugadores THEN
+    IF cantidad >= max_titulares THEN
         SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error: La plantilla ya tiene el máximo de jugadores (20)';
+        SET MESSAGE_TEXT = 'Error: La plantilla titular ya tiene el máximo de 11 jugadores';
     END IF;
 END; $$
+
+DELIMITER ;

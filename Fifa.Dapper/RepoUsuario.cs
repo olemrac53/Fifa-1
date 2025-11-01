@@ -127,7 +127,7 @@ public class RepoUsuario : Repo, IRepoUsuario
         parametros.Add("@p_email", usuario.Email);
         parametros.Add("@p_fecha_nacimiento", usuario.FechaNacimiento);
         parametros.Add("@p_contrasenia", password);
-        parametros.Add("@p_rol", "usuario");  // ← AGREGAR ESTA LÍNEA con un valor por defecto
+        parametros.Add("@p_rol", "usuario");  
 
 
         Conexion.Execute("ModificarUsuario", parametros, commandType: CommandType.StoredProcedure);

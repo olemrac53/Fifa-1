@@ -8,7 +8,6 @@ namespace Fifa.Dapper
 {
     public class RepoEquipo : Repo, IRepoEquipo
     {
-        // === QUERIES ===
 
         private static readonly string _queryEquipos = 
             @"SELECT id_equipo AS IdEquipo, 
@@ -46,11 +45,9 @@ namespace Fifa.Dapper
               ORDER BY f.apellido, f.nombre";
 
         
-        // === CONSTRUCTOR ===
 
         public RepoEquipo(IDbConnection conexion) : base(conexion) { }
 
-        // === IMPLEMENTACIÓN DE MÉTODOS ===
 
         public List<Equipo> GetEquipos()
         {
@@ -66,17 +63,15 @@ namespace Fifa.Dapper
         {
             using (var multi = Conexion.QueryMultiple(_queryEquipoConFutbolistas, new { id = idEquipo }))
             {
-                // Leer el equipo
                 var equipo = multi.ReadSingleOrDefault<Equipo>();
                 
                 if (equipo is not null)
                 {
-                    // Leer los futbolistas (con su Tipo)
                     equipo.Futbolistas = multi.Read<Futbolista, Tipo, Futbolista>
                         ((f, t) => 
                         {
                             f.Tipo = t;
-                            f.Equipo = equipo; // Asignamos el equipo que ya leímos
+                            f.Equipo = equipo; 
                             return f;
                         }, 
                         splitOn: "IdTipo")
@@ -88,22 +83,19 @@ namespace Fifa.Dapper
 
         public void InsertEquipo(Equipo equipo)
         {
-            // Usamos el SP 'AltaEquipo' de tu SP.sql
-            // Nota: Tu SP 'AltaEquipo' solo inserta 'nombre'.
+
             var parametros = new DynamicParameters();
             parametros.Add("p_nombre", equipo.Nombre);
             parametros.Add("p_id_equipo", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
             Conexion.Execute("AltaEquipo", parametros, commandType: CommandType.StoredProcedure);
             
-            // Asignamos el ID devuelto por el SP al objeto
             equipo.IdEquipo = parametros.Get<int>("p_id_equipo");
         }
 
         public void UpdateEquipo(Equipo equipo)
         {
-            // Usamos el SP 'ModificarEquipo' de tu SP.sql
-            // Nota: Tu SP 'ModificarEquipo' solo actualiza 'nombre'.
+
             var parametros = new 
             {
                 p_id_equipo = equipo.IdEquipo,
@@ -115,7 +107,6 @@ namespace Fifa.Dapper
 
         public void DeleteEquipo(int idEquipo)
         {
-            // Usamos el SP 'EliminarEquipo' de tu SP.sql
             var parametros = new { p_id_equipo = idEquipo };
             Conexion.Execute("EliminarEquipo", parametros, commandType: CommandType.StoredProcedure);
         }

@@ -12,9 +12,7 @@ namespace Fifa_1
             InitializeComponent();
         }
 
-        // Tu button1_Click era para saltar el login, lo quitamos para la lógica real.
 
-        // Esto es lo que se ejecuta al hacer clic en "¡Regístrate!"
         private void label4_Click(object sender, EventArgs e)
         {
             Registro registro = new Registro();
@@ -39,35 +37,29 @@ namespace Fifa_1
                 using var conexion = ConexionDB.CrearConexion();
                 conexion.Open();
 
-                // 1. Intentar como Usuario
                 var repoUsuario = new RepoUsuario(conexion);
                 var usuario = repoUsuario.UsuarioPorEmailYPass(email, password);
 
                 if (usuario != null)
                 {
-                    // Éxito como Usuario
-                    // Pasamos el usuario y 'null' como admin
                     var menu = new Menu(usuario, adminLogueado: null);
                     menu.Show();
                     this.Hide();
-                    return; // Importante salir del método
+                    return;
                 }
 
-                // 2. Si falló, intentar como Administrador
                 var repoAdmin = new RepoAdministrador(conexion);
                 var admin = repoAdmin.AdministradorPorEmailYPass(email, password);
 
                 if (admin != null)
                 {
-                    // Éxito como Administrador
-                    // Pasamos 'null' como usuario y el admin
+                    
                     var menu = new Menu(null, admin);
                     menu.Show();
                     this.Hide();
-                    return; // Importante salir del método
+                    return; 
                 }
 
-                // 3. Si ambos fallan
                 MessageBox.Show("Email o contraseña incorrectos.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception ex)
