@@ -1,5 +1,5 @@
--- 02_SF.sql
 USE GranET12;
+
 DELIMITER $$
 
 -- Presupuesto total: suma cotizaciones de titulares + suplentes en la plantilla
@@ -20,7 +20,6 @@ BEGIN
     RETURN IFNULL(v_pres,0);
 END $$
 
-
 -- Cantidad de futbolistas en plantilla (titulares + suplentes)
 DROP FUNCTION IF EXISTS CantidadFutbolistasPlantilla $$
 CREATE FUNCTION CantidadFutbolistasPlantilla(p_id_plantilla INT)
@@ -37,9 +36,7 @@ BEGIN
     RETURN IFNULL(v_cnt,0);
 END $$
 
--- Validar composición de titulares
-DELIMITER $$
-
+-- Validar composición de titulares (1-4-4-2)
 DROP FUNCTION IF EXISTS PlantillaEsValida $$
 CREATE FUNCTION PlantillaEsValida(p_id_plantilla INT)
 RETURNS BOOLEAN
@@ -50,36 +47,36 @@ BEGIN
     DECLARE v_def INT; 
     DECLARE v_med INT; 
     DECLARE v_del INT;
-    
+
     -- Arquero
     SELECT COUNT(*) INTO v_arq
     FROM PlantillaTitular pt
     JOIN Futbolista f ON pt.id_futbolista = f.id_futbolista
     JOIN Tipo t ON f.id_tipo = t.id_tipo
     WHERE pt.id_plantilla = p_id_plantilla AND t.nombre = 'Arquero';
-    
-    -- Defensa (CORRECCIÓN: era 'Defensor')
+
+    -- Defensa
     SELECT COUNT(*) INTO v_def
     FROM PlantillaTitular pt
     JOIN Futbolista f ON pt.id_futbolista = f.id_futbolista
     JOIN Tipo t ON f.id_tipo = t.id_tipo
     WHERE pt.id_plantilla = p_id_plantilla AND t.nombre = 'Defensa';
-    
+
     -- Mediocampista
     SELECT COUNT(*) INTO v_med
     FROM PlantillaTitular pt
     JOIN Futbolista f ON pt.id_futbolista = f.id_futbolista
     JOIN Tipo t ON f.id_tipo = t.id_tipo
     WHERE pt.id_plantilla = p_id_plantilla AND t.nombre = 'Mediocampista';
-    
+
     -- Delantero
     SELECT COUNT(*) INTO v_del
     FROM PlantillaTitular pt
     JOIN Futbolista f ON pt.id_futbolista = f.id_futbolista
     JOIN Tipo t ON f.id_tipo = t.id_tipo
     WHERE pt.id_plantilla = p_id_plantilla AND t.nombre = 'Delantero';
-    
-    -- Validar formación 1-4-4-2
+
+    -- Validar formación
     IF v_arq = 1 AND v_def = 4 AND v_med = 4 AND v_del = 2 THEN
         RETURN TRUE;
     ELSE
@@ -87,9 +84,8 @@ BEGIN
     END IF;
 END $$
 
-DELIMITER ;
--- Puntaje de un futbolista en una fecha (0 si no jugó)
-DROP FUNCTION IF EXISTS PuntajeFutbolistaFecha$$
+-- Puntaje de un futbolista en una fecha
+DROP FUNCTION IF EXISTS PuntajeFutbolistaFecha $$
 CREATE FUNCTION PuntajeFutbolistaFecha(p_id_futbolista INT, p_fecha INT)
 RETURNS DECIMAL(3,1)
 DETERMINISTIC
@@ -102,8 +98,8 @@ BEGIN
     RETURN IFNULL(v_p,0);
 END $$
 
--- Puntaje total de la plantilla en una fecha (suma de titulares)
-DROP FUNCTION IF EXISTS PuntajePlantillaFecha$$
+-- Puntaje total de la plantilla en una fecha
+DROP FUNCTION IF EXISTS PuntajePlantillaFecha $$
 CREATE FUNCTION PuntajePlantillaFecha(p_id_plantilla INT, p_fecha INT)
 RETURNS DECIMAL(6,1)
 DETERMINISTIC
