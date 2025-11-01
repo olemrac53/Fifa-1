@@ -234,16 +234,18 @@ namespace Fifa_1
         private void btnVolverMenu_Click(object sender, EventArgs e)
         {
             Menu menuForm = (Menu)Application.OpenForms["Menu"];
-            if (menuForm == null)
-            {
-                Inicio_sesion login = new Inicio_sesion();
-                login.Show();
-            }
-            else
+
+            if (menuForm != null)
             {
                 menuForm.Show();
                 menuForm.CargarPlantillas();
             }
+            else
+            {
+                Inicio_sesion login = new Inicio_sesion();
+                login.Show();
+            }
+
             this.Close();
         }
     }

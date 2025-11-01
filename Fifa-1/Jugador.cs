@@ -83,8 +83,6 @@ namespace Fifa_1
                     DataPropertyName = "Apellido"
                 });
 
-                // --- CORRECCIÓN AQUÍ ---
-                // Antes decía "Tipo.Nombre", ahora usamos la propiedad directa "NombreTipo"
                 dgvFutbolistas.Columns.Add(new DataGridViewTextBoxColumn
                 {
                     Name = "Tipo",
@@ -92,15 +90,13 @@ namespace Fifa_1
                     DataPropertyName = "NombreTipo"
                 });
 
-                // --- CORRECCIÓN AQUÍ ---
-                // Antes decía "Equipo.Nombre", ahora usamos la propiedad directa "NombreEquipo"
                 dgvFutbolistas.Columns.Add(new DataGridViewTextBoxColumn
                 {
                     Name = "Equipo",
                     HeaderText = "Equipo",
                     DataPropertyName = "NombreEquipo"
                 });
-                // -----------------------
+               
 
                 dgvFutbolistas.Columns.Add(new DataGridViewTextBoxColumn
                 {

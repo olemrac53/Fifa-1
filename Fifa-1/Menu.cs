@@ -68,8 +68,11 @@ namespace Fifa_1
 
         public void CargarPlantillas()
         {
-            // Esta función usa _usuarioLogueado, lo cual es correcto
-            // porque solo la llamamos si _usuarioLogueado no es null.
+            if (_usuarioLogueado == null)
+            {
+                return;
+            }
+
             try
             {
                 using var con = ConexionDB.CrearConexion();
@@ -90,7 +93,7 @@ namespace Fifa_1
                 else
                 {
                     cmbPlantillas.DataSource = _usuarioConPlantillas.Plantillas;
-                    cmbPlantillas.DisplayMember = "IdPlantilla"; // <- Asegúrate que 'Plantilla' tenga esta propiedad
+                    cmbPlantillas.DisplayMember = "IdPlantilla";
                     cmbPlantillas.ValueMember = "IdPlantilla";
                     btnGestionarPlantilla.Enabled = true;
                     btnEliminarPlantilla.Enabled = true;

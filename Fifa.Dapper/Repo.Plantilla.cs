@@ -191,12 +191,9 @@ public class RepoPlantilla : Repo, IRepoPlantilla
     #endregion
 
     #region Titulares y Suplentes
-    // En Fifa.Dapper/RepoPlantilla.cs
 
     public void AgregarTitular(int idPlantilla, int idFutbolista)
     {
-        // 1. VALIDACIÓN MANUAL DE PRESUPUESTO (C#)
-        // Obtenemos el costo del jugador
         decimal costoJugador = Conexion.QuerySingleOrDefault<decimal>(
             "SELECT cotizacion FROM Futbolista WHERE id_futbolista = @id",
             new { id = idFutbolista });
