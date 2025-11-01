@@ -1,4 +1,3 @@
--- 01_SP.sql
 USE GranET12;
 DELIMITER $$
 
@@ -249,11 +248,6 @@ END $$
 
 
 
--- 01_SP_Complementario.sql
--- Script para agregar los Stored Procedures que faltan
--- Ejecutar DESPUÉS de 01_SP.sql
-
-USE GranET12;
 DELIMITER $$
 
 -- === Procedimientos de LOGIN/AUTENTICACIÓN ===

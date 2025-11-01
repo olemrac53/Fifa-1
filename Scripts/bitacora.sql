@@ -1,3 +1,4 @@
+-- Active: 1758815312179@@127.0.0.1@3306@granet12
 USE GranET12;
 
 -- Tabla: Bitacora

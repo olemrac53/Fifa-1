@@ -10,7 +10,8 @@ public class Futbolista
     public DateTime FechaNacimiento { get; set; }  
     public decimal Cotizacion { get; set; }  
 
-    public Tipo Tipo { get; set; } = null!;  
+    public Tipo Tipo { get; set; } = null!;
     public Equipo Equipo { get; set; } = null!;
+    
 
 }
