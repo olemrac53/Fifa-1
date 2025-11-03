@@ -13,5 +13,15 @@
             Menu.Show();
             this.Hide();
         }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void Jugador_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
