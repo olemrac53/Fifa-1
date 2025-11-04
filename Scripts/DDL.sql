@@ -95,17 +95,7 @@ CREATE TABLE PlantillaSuplente (
     CONSTRAINT fk_suplente_futbolista FOREIGN KEY (id_futbolista) REFERENCES Futbolista(id_futbolista) ON DELETE CASCADE
 );
 
--- =============================
--- TABLA PLANTILLA FUTBOLISTA (tabla general)
--- =============================
-CREATE TABLE PlantillaFutbolista (
-    id_plantilla INT NOT NULL,
-    id_futbolista INT NOT NULL,
-    es_titular BOOLEAN NOT NULL DEFAULT FALSE,
-    PRIMARY KEY (id_plantilla, id_futbolista),
-    CONSTRAINT fk_pf_plantilla FOREIGN KEY (id_plantilla) REFERENCES Plantilla(id_plantilla) ON DELETE CASCADE,
-    CONSTRAINT fk_pf_futbolista FOREIGN KEY (id_futbolista) REFERENCES Futbolista(id_futbolista) ON DELETE CASCADE
-);
+
 
 -- =============================
 -- TABLA PUNTUACION FUTBOLISTA
@@ -119,14 +109,3 @@ CREATE TABLE PuntuacionFutbolista (
     CONSTRAINT fk_puntuacion_futbolista FOREIGN KEY (id_futbolista) REFERENCES Futbolista(id_futbolista) ON DELETE CASCADE
 );
 
--- =============================
--- TABLA BITACORA
--- =============================
-CREATE TABLE Bitacora (
-    id_bitacora INT AUTO_INCREMENT PRIMARY KEY,
-    tabla VARCHAR(50) NOT NULL,
-    operacion VARCHAR(10) NOT NULL,
-    id_registro INT NOT NULL,
-    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    usuario VARCHAR(100) DEFAULT CURRENT_USER
-);
