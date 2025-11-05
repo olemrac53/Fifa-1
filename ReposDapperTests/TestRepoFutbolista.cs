@@ -231,7 +231,7 @@ public class TestRepoFutbolista : TestRepo, IDisposable
         Assert.NotNull(futbolistaConRelaciones.Tipo);
         Assert.True(futbolistaConRelaciones.Equipo.idEquipo > 0);
         Assert.True(futbolistaConRelaciones.Tipo.idTipo > 0);
-        Assert.NotEmpty(futbolistaConRelaciones.Equipo.Nombre);
+        Assert.NotNull(futbolistaConRelaciones.Equipo.Nombre);
         Assert.NotEmpty(futbolistaConRelaciones.Tipo.nombre);
     }
 

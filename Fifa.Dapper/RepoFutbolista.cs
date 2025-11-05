@@ -19,31 +19,31 @@ public class RepoFutbolista : Repo, IRepoFutbolista
                 f.num_camisa AS NumCamisa,
                 f.fecha_nacimiento AS FechaNacimiento,
                 f.cotizacion AS Cotizacion,
-                e.id_equipo AS IdEquipo,
-                e.nombre AS NombreEquipo,
-                t.id_tipo AS IdTipo,
-                t.nombre AS NombreTipo
+                e.id_equipo AS idEquipo,
+                e.nombre AS Nombre,
+                t.id_tipo AS idTipo,
+                t.nombre AS nombre
         FROM Futbolista f
         JOIN Equipo e ON f.id_equipo = e.id_equipo
         JOIN Tipo t ON f.id_tipo = t.id_tipo
         ORDER BY f.id_futbolista;";
 
     private static readonly string _queryFutbolista =
-        @"SELECT  f.id_futbolista AS IdFutbolista,
-                f.nombre AS Nombre,
-                f.apellido AS Apellido,
-                f.apodo AS Apodo,
-                f.num_camisa AS NumCamisa,
-                f.fecha_nacimiento AS FechaNacimiento,
-                f.cotizacion AS Cotizacion,
-                e.id_equipo AS IdEquipo,
-                e.nombre AS NombreEquipo,
-                t.id_tipo AS IdTipo,
-                t.nombre AS NombreTipo
-        FROM Futbolista f
-        JOIN Equipo e ON f.id_equipo = e.id_equipo
-        JOIN Tipo t ON f.id_tipo = t.id_tipo
-        WHERE f.id_futbolista = @id;";
+    @"SELECT  f.id_futbolista AS IdFutbolista,
+              f.nombre AS Nombre,
+              f.apellido AS Apellido,
+              f.apodo AS Apodo,
+              f.num_camisa AS NumCamisa,
+              f.fecha_nacimiento AS FechaNacimiento,
+              f.cotizacion AS Cotizacion,
+              e.id_equipo AS idEquipo,
+              e.nombre AS Nombre,
+              t.id_tipo AS idTipo,
+              t.nombre AS nombre
+      FROM Futbolista f
+      JOIN Equipo e ON f.id_equipo = e.id_equipo
+      JOIN Tipo t ON f.id_tipo = t.id_tipo
+      WHERE f.id_futbolista = @id;";
     #endregion
 
     #region Futbolista - CRUD
