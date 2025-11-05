@@ -11,121 +11,119 @@ public class RepoFutbolista : Repo, IRepoFutbolista
     public RepoFutbolista(IDbConnection conexion) : base(conexion) { }
 
     #region Queries
-    private static readonly string _queryFutbolistas
-        = @"SELECT  f.id_futbolista AS IdFutbolista,
-                    f.nombre AS Nombre,
-                    f.apellido AS Apellido,
-                    f.apodo AS Apodo,
-                    f.num_camisa AS NumCamisa,
-                    f.fecha_nacimiento AS FechaNacimiento,
-                    f.cotizacion AS Cotizacion,
-                    e.id_equipo AS IdEquipo,
-                    e.nombre AS Nombre,
-                    t.id_tipo AS IdTipo,
-                    t.nombre AS Nombre
-            FROM    Futbolista f
-            JOIN    Equipo e ON f.id_equipo = e.id_equipo
-            JOIN    Tipo t ON f.id_tipo = t.id_tipo
-            ORDER BY f.id_futbolista";
+    private static readonly string _queryFutbolistas =
+        @"SELECT  f.id_futbolista AS IdFutbolista,
+                f.nombre AS Nombre,
+                f.apellido AS Apellido,
+                f.apodo AS Apodo,
+                f.num_camisa AS NumCamisa,
+                f.fecha_nacimiento AS FechaNacimiento,
+                f.cotizacion AS Cotizacion,
+                e.id_equipo AS IdEquipo,
+                e.nombre AS NombreEquipo,
+                t.id_tipo AS IdTipo,
+                t.nombre AS NombreTipo
+        FROM Futbolista f
+        JOIN Equipo e ON f.id_equipo = e.id_equipo
+        JOIN Tipo t ON f.id_tipo = t.id_tipo
+        ORDER BY f.id_futbolista;";
 
-    private static readonly string _queryFutbolista
-        = @"SELECT  f.id_futbolista AS IdFutbolista,
-                    f.nombre AS Nombre,
-                    f.apellido AS Apellido,
-                    f.apodo AS Apodo,
-                    f.num_camisa AS NumCamisa,
-                    f.fecha_nacimiento AS FechaNacimiento,
-                    f.cotizacion AS Cotizacion,
-                    e.id_equipo AS IdEquipo,
-                    e.nombre AS Nombre,
-                    t.id_tipo AS IdTipo,
-                    t.nombre AS Nombre
-            FROM    Futbolista f
-            JOIN    Equipo e ON f.id_equipo = e.id_equipo
-            JOIN    Tipo t ON f.id_tipo = t.id_tipo
-            WHERE   f.id_futbolista = @id";
-
-    private static readonly string _queryTipos
-        = @"SELECT id_tipo AS IdTipo, nombre AS Nombre FROM Tipo ORDER BY id_tipo";
-
-    private static readonly string _queryTipo
-        = @"SELECT id_tipo AS IdTipo, nombre AS Nombre FROM Tipo WHERE id_tipo = @id";
+    private static readonly string _queryFutbolista =
+        @"SELECT  f.id_futbolista AS IdFutbolista,
+                f.nombre AS Nombre,
+                f.apellido AS Apellido,
+                f.apodo AS Apodo,
+                f.num_camisa AS NumCamisa,
+                f.fecha_nacimiento AS FechaNacimiento,
+                f.cotizacion AS Cotizacion,
+                e.id_equipo AS IdEquipo,
+                e.nombre AS NombreEquipo,
+                t.id_tipo AS IdTipo,
+        t.nombre AS NombreTipo
+        FROM Futbolista f
+        JOIN Equipo e ON f.id_equipo = e.id_equipo
+        JOIN Tipo t ON f.id_tipo = t.id_tipo
+        WHERE f.id_futbolista = @id;";
     #endregion
 
     #region Futbolista - CRUD
     public List<Futbolista> GetFutbolistas()
     {
-        var futbolistas = Conexion.Query<Futbolista, Equipo, Tipo, Futbolista>
-            (_queryFutbolistas,
-            (futbolista, equipo, tipo) =>
+        return Conexion.Query<Futbolista, Equipo, Tipo, Futbolista>(
+            _queryFutbolistas,
+            (f, e, t) =>
             {
-                futbolista.Equipo = equipo;
-                futbolista.Tipo = tipo;
-                return futbolista;
+                e.Nombre = e.Nombre ?? string.Empty;
+                t.nombre = t.nombre ?? string.Empty;
+                f.Equipo = e;
+                f.Tipo = t;
+                return f;
             },
-            splitOn: "IdEquipo,IdTipo")
-            .ToList();
-
-        return futbolistas;
+            splitOn: "IdEquipo,IdTipo"
+        ).ToList();
     }
 
     public Futbolista? GetFutbolista(int idFutbolista)
     {
-        var futbolista = Conexion.Query<Futbolista, Equipo, Tipo, Futbolista>
-            (_queryFutbolista,
-            (futbolista, equipo, tipo) =>
+        return Conexion.Query<Futbolista, Equipo, Tipo, Futbolista>(
+            _queryFutbolista,
+            (f, e, t) =>
             {
-                futbolista.Equipo = equipo;
-                futbolista.Tipo = tipo;
-                return futbolista;
+                f.Equipo = e;
+                f.Tipo = t;
+                return f;
             },
             new { id = idFutbolista },
-            splitOn: "IdEquipo,IdTipo")
-            .FirstOrDefault();
-
-        return futbolista;
+            splitOn: "IdEquipo,IdTipo"
+        ).FirstOrDefault();
     }
 
-    public void InsertFutbolista(Futbolista futbolista)
+public void InsertFutbolista(Futbolista futbolista)
+{
+    var parametros = new DynamicParameters();
+    // parámetros IN — nombres idénticos a los del PROCEDURE (sin @)
+    parametros.Add("p_nombre", futbolista.Nombre);
+    parametros.Add("p_apellido", futbolista.Apellido);
+    parametros.Add("p_apodo", futbolista.Apodo);
+    parametros.Add("p_num_camisa", futbolista.NumCamisa);
+    parametros.Add("p_fecha_nacimiento", futbolista.FechaNacimiento);
+    parametros.Add("p_cotizacion", futbolista.Cotizacion);
+    parametros.Add("p_id_tipo", futbolista.Tipo?.idTipo ?? 0);
+    parametros.Add("p_id_equipo", futbolista.Equipo?.idEquipo ?? 0);
+
+    // parámetro OUT: nombre EXACTO que declaráste en el PROCEDURE
+    parametros.Add("p_id_futbolista", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+    try
     {
-        var parametros = new DynamicParameters();
-        parametros.Add("@p_nombre", futbolista.Nombre);
-        parametros.Add("@p_apellido", futbolista.Apellido);
-        parametros.Add("@p_apodo", futbolista.Apodo);
-        parametros.Add("@p_num_camisa", futbolista.NumCamisa);
-        parametros.Add("@p_fecha_nacimiento", futbolista.FechaNacimiento); 
-        parametros.Add("@p_cotizacion", futbolista.Cotizacion);  
-        parametros.Add("@p_id_tipo", futbolista.Tipo?.idTipo ?? 0);  
-        parametros.Add("@p_id_equipo", futbolista.Equipo?.idEquipo ?? 0);  
+        Conexion.Execute("AltaFutbolista", parametros, commandType: CommandType.StoredProcedure);
 
-        try
-        {
-            Conexion.Execute("AltaFutbolista", parametros, commandType: CommandType.StoredProcedure);
-            
-            futbolista.IdFutbolista = Conexion.QuerySingle<int>("SELECT LAST_INSERT_ID()");
-        }
-        catch (MySqlException e)
-        {
-            if (e.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
-            {
-                throw new ConstraintException($"El futbolista {futbolista.Nombre} {futbolista.Apellido} ya existe.");
-            }
-            throw;
-        }
+        // obtener el OUT usando el mismo nombre
+        futbolista.IdFutbolista = parametros.Get<int>("p_id_futbolista");
     }
+    catch (MySqlException e)
+    {
+        if (e.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
+        {
+            throw new ConstraintException($"El futbolista {futbolista.Nombre} {futbolista.Apellido} ya existe.");
+        }
+        throw;
+    }
+}
+
 
     public void UpdateFutbolista(Futbolista futbolista)
     {
         var parametros = new DynamicParameters();
-        parametros.Add("@p_id_futbolista", futbolista.IdFutbolista);  
+        parametros.Add("@p_id_futbolista", futbolista.IdFutbolista);
         parametros.Add("@p_nombre", futbolista.Nombre);
         parametros.Add("@p_apellido", futbolista.Apellido);
         parametros.Add("@p_apodo", futbolista.Apodo);
         parametros.Add("@p_num_camisa", futbolista.NumCamisa);
-        parametros.Add("@p_fecha_nacimiento", futbolista.FechaNacimiento);  
-        parametros.Add("@p_cotizacion", futbolista.Cotizacion);  
-        parametros.Add("@p_id_tipo", futbolista.Tipo?.idTipo ?? 0); 
-        parametros.Add("@p_id_equipo", futbolista.Equipo?.idEquipo ?? 0);  
+        parametros.Add("@p_fecha_nacimiento", futbolista.FechaNacimiento);
+        parametros.Add("@p_cotizacion", futbolista.Cotizacion);
+        parametros.Add("@p_id_tipo", futbolista.Tipo?.idTipo ?? 0);
+        parametros.Add("@p_id_equipo", futbolista.Equipo?.idEquipo ?? 0);
 
         Conexion.Execute("ModificarFutbolista", parametros, commandType: CommandType.StoredProcedure);
     }
@@ -140,33 +138,39 @@ public class RepoFutbolista : Repo, IRepoFutbolista
     #region Tipo - CRUD
     public List<Tipo> GetTipos()
     {
-        return Conexion.Query<Tipo>(_queryTipos).ToList();
+        return Conexion.Query<Tipo>("SELECT id_tipo AS idTipo, nombre AS Nombre FROM Tipo ORDER BY id_tipo;").ToList();
     }
 
     public Tipo? GetTipo(int idTipo)
     {
-        return Conexion.QueryFirstOrDefault<Tipo>(_queryTipo, new { id = idTipo });
+        return Conexion.QueryFirstOrDefault<Tipo>(
+            "SELECT id_tipo AS idTipo, nombre AS Nombre FROM Tipo WHERE id_tipo = @id;",
+            new { id = idTipo });
     }
 
-    public void InsertTipo(Tipo tipo)
+public void InsertTipo(Tipo tipo)
+{
+    var parametros = new DynamicParameters();
+    parametros.Add("p_nombre", tipo.nombre);
+
+    // OUT con el mismo nombre que declaraste en el SP
+    parametros.Add("p_id_tipo", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+    try
     {
-        var parametros = new DynamicParameters();
-        parametros.Add("@p_nombre", tipo.nombre);
-        
-        try
-        {
-            Conexion.Execute("AltaTipo", parametros, commandType: CommandType.StoredProcedure);
-            tipo.idTipo = Conexion.QuerySingle<int>("SELECT LAST_INSERT_ID()");
-        }
-        catch (MySqlException e)
-        {
-            if (e.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
-            {
-                throw new ConstraintException($"El tipo {tipo.nombre} ya existe.");
-            }
-            throw;
-        }
+        Conexion.Execute("AltaTipo", parametros, commandType: CommandType.StoredProcedure);
+        tipo.idTipo = parametros.Get<int>("p_id_tipo");
     }
+    catch (MySqlException e)
+    {
+        if (e.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
+        {
+            throw new ConstraintException($"El tipo {tipo.nombre} ya existe.");
+        }
+        throw;
+    }
+}
+
 
     public void DeleteTipo(int idTipo)
     {
