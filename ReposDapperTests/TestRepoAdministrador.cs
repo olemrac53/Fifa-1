@@ -4,15 +4,30 @@ using Fifa.Dapper;
 using MySqlConnector;
 using Dapper;
 
-
 namespace Fifa.Test;
 
-public class TestRepoAdministrador : TestRepo
+public class TestRepoAdministrador : TestRepo, IDisposable
 {
     readonly IRepoAdministrador repoAdministrador;
+    private List<int> administradoresCreados = new List<int>();
     
     public TestRepoAdministrador() : base()
-        => repoAdministrador = new RepoAdministrador(_conexion);
+    {
+        repoAdministrador = new RepoAdministrador(_conexion);
+    }
+
+    public void Dispose()
+    {
+        // Limpiar administradores creados durante los tests
+        foreach (var id in administradoresCreados)
+        {
+            try
+            {
+                repoAdministrador.DeleteAdministrador(id);
+            }
+            catch { }
+        }
+    }
 
     [Fact]
     public void TraerAdministradores()
@@ -26,7 +41,6 @@ public class TestRepoAdministrador : TestRepo
     [Fact]
     public void AdministradorPorId()
     {
-        // Obtener el primer admin que exista
         var admins = repoAdministrador.GetAdministradores();
         Assert.NotEmpty(admins);
         
@@ -66,20 +80,20 @@ public class TestRepoAdministrador : TestRepo
         
         repoAdministrador.InsertAdministrador(nuevoAdmin, "mipassword");
         
-        // Como el SP no asigna el ID, lo buscamos manualmente
-        var adminCreado = repoAdministrador.GetAdministradores()
-            .FirstOrDefault(a => a.Email == emailUnico);
+        // Ahora el ID debe estar asignado por el SP
+        Assert.True(nuevoAdmin.IdAdministrador > 0);
+        administradoresCreados.Add(nuevoAdmin.IdAdministrador);
         
+        var adminCreado = repoAdministrador.GetAdministrador(nuevoAdmin.IdAdministrador);
         Assert.NotNull(adminCreado);
-        Assert.Equal(nuevoAdmin.Nombre, adminCreado.Nombre);
-        Assert.Equal(nuevoAdmin.Apellido, adminCreado.Apellido);
-        Assert.Equal(nuevoAdmin.Email, adminCreado.Email);
+        Assert.Equal("Carlos", adminCreado.Nombre);
+        Assert.Equal("Tevez", adminCreado.Apellido);
+        Assert.Equal(emailUnico, adminCreado.Email);
     }
 
     [Fact]
     public void ModificarAdministrador()
     {
-        // Obtener el primer admin
         var admins = repoAdministrador.GetAdministradores();
         Assert.NotEmpty(admins);
         
@@ -113,17 +127,12 @@ public class TestRepoAdministrador : TestRepo
         };
         
         repoAdministrador.InsertAdministrador(nuevoAdmin, "pass123");
+        Assert.True(nuevoAdmin.IdAdministrador > 0);
         
-        // Buscar el admin recién creado
-        var adminCreado = repoAdministrador.GetAdministradores()
-            .FirstOrDefault(a => a.Email == emailUnico);
-        
-        Assert.NotNull(adminCreado);
-        
-        repoAdministrador.DeleteAdministrador(adminCreado.IdAdministrador);
+        int idAEliminar = nuevoAdmin.IdAdministrador;
+        repoAdministrador.DeleteAdministrador(idAEliminar);
 
-        var adminEliminado = repoAdministrador.GetAdministrador(adminCreado.IdAdministrador);
-        
+        var adminEliminado = repoAdministrador.GetAdministrador(idAEliminar);
         Assert.Null(adminEliminado);
     }
 }

@@ -1,6 +1,6 @@
 using System.Data;
 using Dapper;
-using MySqlConnector;
+using MySqlConnector; 
 using Fifa.Core;
 using Fifa.Core.Repos;
 
@@ -62,16 +62,18 @@ public class RepoAdministrador : Repo, IRepoAdministrador
     public void InsertAdministrador(Administrador administrador, string password)
     {
         var parametros = new DynamicParameters();
-        parametros.Add("@p_nombre", administrador.Nombre);
-        parametros.Add("@p_apellido", administrador.Apellido);
-        parametros.Add("@p_email", administrador.Email);
-        parametros.Add("@p_fecha_nacimiento", administrador.FechaNacimiento);
-        parametros.Add("@p_contrasenia", password);
+        // CORREGIDO: Sin @ en los nombres de parámetros
+        parametros.Add("p_nombre", administrador.Nombre);
+        parametros.Add("p_apellido", administrador.Apellido);
+        parametros.Add("p_email", administrador.Email);
+        parametros.Add("p_fecha_nacimiento", administrador.FechaNacimiento);
+        parametros.Add("p_contrasenia", password);
+        parametros.Add("p_id_administrador", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
         try
         {
             Conexion.Execute("AltaAdministrador", parametros, commandType: CommandType.StoredProcedure);
-            administrador.IdAdministrador = Conexion.QuerySingle<int>("SELECT LAST_INSERT_ID()");
+            administrador.IdAdministrador = parametros.Get<int>("p_id_administrador");
         }
         catch (MySqlException e)
         {
@@ -86,12 +88,13 @@ public class RepoAdministrador : Repo, IRepoAdministrador
     public void UpdateAdministrador(Administrador administrador, string password)
     {
         var parametros = new DynamicParameters();
-        parametros.Add("@p_id_administrador", administrador.IdAdministrador);
-        parametros.Add("@p_nombre", administrador.Nombre);
-        parametros.Add("@p_apellido", administrador.Apellido);
-        parametros.Add("@p_email", administrador.Email);
-        parametros.Add("@p_fecha_nacimiento", administrador.FechaNacimiento);
-        parametros.Add("@p_contrasenia", password);
+        // CORREGIDO: Sin @ en los nombres de parámetros
+        parametros.Add("p_id_administrador", administrador.IdAdministrador);
+        parametros.Add("p_nombre", administrador.Nombre);
+        parametros.Add("p_apellido", administrador.Apellido);
+        parametros.Add("p_email", administrador.Email);
+        parametros.Add("p_fecha_nacimiento", administrador.FechaNacimiento);
+        parametros.Add("p_contrasenia", password);
 
         Conexion.Execute("ModificarAdministrador", parametros, commandType: CommandType.StoredProcedure);
     }
@@ -101,6 +104,4 @@ public class RepoAdministrador : Repo, IRepoAdministrador
         var parametros = new { p_id_administrador = idAdministrador };
         Conexion.Execute("EliminarAdministrador", parametros, commandType: CommandType.StoredProcedure);
     }
-
 }
-

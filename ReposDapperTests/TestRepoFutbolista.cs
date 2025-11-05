@@ -17,16 +17,13 @@ public class TestRepoFutbolista : TestRepo, IDisposable
     public TestRepoFutbolista() : base()
     {
         repoFutbolista = new RepoFutbolista(_conexion);
-        
-        // Configurar datos base para todos los tests
         SetupTestData();
     }
 
     private void SetupTestData()
     {
-        // Crear o verificar que existe un equipo para usar en los tests
-        // NOTA: La tabla Equipo solo tiene (id_equipo, nombre)
-        var sql = @"INSERT INTO equipo (nombre) 
+        // CORREGIDO: Usar 'Equipo' con mayúscula (case-sensitive en Linux)
+        var sql = @"INSERT INTO Equipo (nombre) 
                    VALUES (@nombre);
                    SELECT LAST_INSERT_ID();";
         
@@ -35,8 +32,8 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             nombre = $"Equipo Test {Guid.NewGuid().ToString().Substring(0, 8)}"
         });
 
-        // Crear o verificar que existe un tipo para usar en los tests
-        var tipoSql = @"INSERT INTO tipo (nombre) 
+        // CORREGIDO: Usar 'Tipo' con mayúscula
+        var tipoSql = @"INSERT INTO Tipo (nombre) 
                        VALUES (@nombre);
                        SELECT LAST_INSERT_ID();";
         
@@ -48,7 +45,6 @@ public class TestRepoFutbolista : TestRepo, IDisposable
 
     public void Dispose()
     {
-        // Limpiar futbolistas creados durante los tests
         foreach (var id in futbolistasCreados)
         {
             try
@@ -58,7 +54,6 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             catch { }
         }
 
-        // Limpiar tipos creados durante los tests
         foreach (var id in tiposCreados)
         {
             try
@@ -68,11 +63,11 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             catch { }
         }
 
-        // Limpiar equipo y tipo de test
         try
         {
-            _conexion.Execute("DELETE FROM equipo WHERE id_equipo = @id", new { id = equipoTestId });
-            _conexion.Execute("DELETE FROM tipo WHERE id_tipo = @id", new { id = tipoTestId });
+            // CORREGIDO: Usar nombres con mayúscula
+            _conexion.Execute("DELETE FROM Equipo WHERE id_equipo = @id", new { id = equipoTestId });
+            _conexion.Execute("DELETE FROM Tipo WHERE id_tipo = @id", new { id = tipoTestId });
         }
         catch { }
     }
@@ -82,7 +77,6 @@ public class TestRepoFutbolista : TestRepo, IDisposable
     [Fact]
     public void AltaFutbolista()
     {
-        // Given - Crear futbolista con equipo y tipo existentes
         var nuevoFutbolista = new Futbolista()
         {
             Nombre = "Lionel",
@@ -95,11 +89,9 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             Equipo = new Equipo() { idEquipo = equipoTestId, Nombre = "Equipo Test" }
         };
 
-        // When
         repoFutbolista.InsertFutbolista(nuevoFutbolista);
         futbolistasCreados.Add(nuevoFutbolista.IdFutbolista);
 
-        // Then
         Assert.True(nuevoFutbolista.IdFutbolista > 0);
         
         var futbolistaGuardado = repoFutbolista.GetFutbolista(nuevoFutbolista.IdFutbolista);
@@ -113,7 +105,6 @@ public class TestRepoFutbolista : TestRepo, IDisposable
     [Fact]
     public void TraerTodosLosFutbolistas()
     {
-        // Given - Crear al menos un futbolista para el test
         var futbolista = new Futbolista()
         {
             Nombre = "Test",
@@ -128,10 +119,8 @@ public class TestRepoFutbolista : TestRepo, IDisposable
         repoFutbolista.InsertFutbolista(futbolista);
         futbolistasCreados.Add(futbolista.IdFutbolista);
 
-        // When
         var futbolistas = repoFutbolista.GetFutbolistas();
 
-        // Then
         Assert.NotNull(futbolistas);
         Assert.NotEmpty(futbolistas);
         Assert.All(futbolistas, f => 
@@ -144,7 +133,6 @@ public class TestRepoFutbolista : TestRepo, IDisposable
     [Fact]
     public void TraerFutbolistaPorId()
     {
-        // Given - Crear futbolista temporal
         var futbolista = new Futbolista()
         {
             Nombre = "Cristiano",
@@ -159,10 +147,8 @@ public class TestRepoFutbolista : TestRepo, IDisposable
         repoFutbolista.InsertFutbolista(futbolista);
         futbolistasCreados.Add(futbolista.IdFutbolista);
 
-        // When
         var futbolistaObtenido = repoFutbolista.GetFutbolista(futbolista.IdFutbolista);
 
-        // Then
         Assert.NotNull(futbolistaObtenido);
         Assert.Equal(futbolista.IdFutbolista, futbolistaObtenido.IdFutbolista);
         Assert.Equal("Cristiano", futbolistaObtenido.Nombre);
@@ -174,7 +160,6 @@ public class TestRepoFutbolista : TestRepo, IDisposable
     [Fact]
     public void ModificarFutbolista()
     {
-        // Given - Crear futbolista temporal
         var futbolista = new Futbolista()
         {
             Nombre = "Neymar",
@@ -189,12 +174,10 @@ public class TestRepoFutbolista : TestRepo, IDisposable
         repoFutbolista.InsertFutbolista(futbolista);
         futbolistasCreados.Add(futbolista.IdFutbolista);
 
-        // When - Modificar cotización y número de camiseta
         futbolista.Cotizacion = 55000000;
         futbolista.NumCamisa = "10";
         repoFutbolista.UpdateFutbolista(futbolista);
 
-        // Then
         var futbolistaModificado = repoFutbolista.GetFutbolista(futbolista.IdFutbolista);
         Assert.NotNull(futbolistaModificado);
         Assert.Equal(55000000, futbolistaModificado.Cotizacion);
@@ -204,7 +187,6 @@ public class TestRepoFutbolista : TestRepo, IDisposable
     [Fact]
     public void EliminarFutbolista()
     {
-        // Given - Crear futbolista temporal
         var futbolista = new Futbolista()
         {
             Nombre = "Kylian",
@@ -219,10 +201,8 @@ public class TestRepoFutbolista : TestRepo, IDisposable
         repoFutbolista.InsertFutbolista(futbolista);
         int idFutbolista = futbolista.IdFutbolista;
 
-        // When
         repoFutbolista.DeleteFutbolista(idFutbolista);
 
-        // Then - No debe existir
         var futbolistaEliminado = repoFutbolista.GetFutbolista(idFutbolista);
         Assert.Null(futbolistaEliminado);
     }
@@ -230,7 +210,6 @@ public class TestRepoFutbolista : TestRepo, IDisposable
     [Fact]
     public void FutbolistaConEquipoYTipo()
     {
-        // Given - Crear futbolista
         var futbolista = new Futbolista()
         {
             Nombre = "Sergio",
@@ -245,10 +224,8 @@ public class TestRepoFutbolista : TestRepo, IDisposable
         repoFutbolista.InsertFutbolista(futbolista);
         futbolistasCreados.Add(futbolista.IdFutbolista);
 
-        // When
         var futbolistaConRelaciones = repoFutbolista.GetFutbolista(futbolista.IdFutbolista);
 
-        // Then
         Assert.NotNull(futbolistaConRelaciones);
         Assert.NotNull(futbolistaConRelaciones.Equipo);
         Assert.NotNull(futbolistaConRelaciones.Tipo);
@@ -265,7 +242,6 @@ public class TestRepoFutbolista : TestRepo, IDisposable
     [Fact]
     public void AltaTipo()
     {
-        // Given - Usar nombre único para evitar duplicados
         var nombreUnico = $"Lateral Derecho {Guid.NewGuid().ToString().Substring(0, 8)}";
         var nuevoTipo = new Tipo()
         {
@@ -273,11 +249,9 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             nombre = nombreUnico
         };
 
-        // When
         repoFutbolista.InsertTipo(nuevoTipo);
         tiposCreados.Add(nuevoTipo.idTipo);
 
-        // Then
         Assert.True(nuevoTipo.idTipo > 0);
         
         var tipoGuardado = repoFutbolista.GetTipo(nuevoTipo.idTipo);
@@ -288,10 +262,8 @@ public class TestRepoFutbolista : TestRepo, IDisposable
     [Fact]
     public void TraerTodosLosTipos()
     {
-        // When
         var tipos = repoFutbolista.GetTipos();
 
-        // Then
         Assert.NotNull(tipos);
         Assert.NotEmpty(tipos);
     }
@@ -299,16 +271,13 @@ public class TestRepoFutbolista : TestRepo, IDisposable
     [Fact]
     public void TraerTipoPorId()
     {
-        // Given - Crear tipo temporal con nombre único
         var nombreUnico = $"Portero Test {Guid.NewGuid().ToString().Substring(0, 8)}";
         var tipo = new Tipo() { idTipo = 0, nombre = nombreUnico };
         repoFutbolista.InsertTipo(tipo);
         tiposCreados.Add(tipo.idTipo);
 
-        // When
         var tipoObtenido = repoFutbolista.GetTipo(tipo.idTipo);
 
-        // Then
         Assert.NotNull(tipoObtenido);
         Assert.Equal(tipo.idTipo, tipoObtenido.idTipo);
         Assert.Equal(nombreUnico, tipoObtenido.nombre);
@@ -317,16 +286,13 @@ public class TestRepoFutbolista : TestRepo, IDisposable
     [Fact]
     public void EliminarTipo()
     {
-        // Given - Crear tipo temporal con nombre único
         var nombreUnico = $"Tipo Temporal {Guid.NewGuid().ToString().Substring(0, 8)}";
         var tipo = new Tipo() { idTipo = 0, nombre = nombreUnico };
         repoFutbolista.InsertTipo(tipo);
         int idTipo = tipo.idTipo;
 
-        // When
         repoFutbolista.DeleteTipo(idTipo);
 
-        // Then - No debe existir
         var tipoEliminado = repoFutbolista.GetTipo(idTipo);
         Assert.Null(tipoEliminado);
     }
@@ -334,13 +300,11 @@ public class TestRepoFutbolista : TestRepo, IDisposable
     [Fact]
     public void TipoDuplicadoLanzaExcepcion()
     {
-        // Given - Crear tipo con nombre único
         var nombreUnico = $"Mediocampista Test {Guid.NewGuid().ToString().Substring(0, 8)}";
         var tipo = new Tipo() { idTipo = 0, nombre = nombreUnico };
         repoFutbolista.InsertTipo(tipo);
         tiposCreados.Add(tipo.idTipo);
 
-        // When/Then - Intentar crear otro con mismo nombre debe fallar
         var tipoDuplicado = new Tipo() { idTipo = 0, nombre = nombreUnico };
         Assert.Throws<System.Data.ConstraintException>(() => 
             repoFutbolista.InsertTipo(tipoDuplicado)
@@ -354,7 +318,6 @@ public class TestRepoFutbolista : TestRepo, IDisposable
     [Fact]
     public void FutbolistaConCotizacionCero()
     {
-        // Given
         var futbolista = new Futbolista()
         {
             Nombre = "Jugador",
@@ -362,16 +325,14 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             Apodo = "Novato",
             NumCamisa = "99",
             FechaNacimiento = new DateTime(2005, 1, 1),
-            Cotizacion = 0, // Cotización en 0
+            Cotizacion = 0,
             Tipo = new Tipo() { idTipo = tipoTestId, nombre = "Delantero" },
             Equipo = new Equipo() { idEquipo = equipoTestId, Nombre = "Equipo Test" }
         };
 
-        // When
         repoFutbolista.InsertFutbolista(futbolista);
         futbolistasCreados.Add(futbolista.IdFutbolista);
 
-        // Then
         var futbolistaGuardado = repoFutbolista.GetFutbolista(futbolista.IdFutbolista);
         Assert.NotNull(futbolistaGuardado);
         Assert.Equal(0, futbolistaGuardado.Cotizacion);

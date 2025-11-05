@@ -2,6 +2,6 @@
 
 public class Equipo
 {
-    public required int idEquipo { get; set; } = 0;
+    public required int idEquipo { get; set; }
     public required string Nombre { get; set; }
 }
