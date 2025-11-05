@@ -1,6 +1,5 @@
 using Fifa_1;
 using System.Media;
-using 
 
 namespace animacion_fifa
 {
@@ -30,9 +29,7 @@ namespace animacion_fifa
 
         private void pictureBox2_Click_1(object sender, EventArgs e)
         {
-            SoundPlayer Sonido = new SoundPlayer();
-            Sonido.SoundLocation = "D:\\Repos\\Fifa-1\\Fifa-1\\Resources\\Musica.wav";
-            Sonido.Play();
+
             
             Inicio_sesion Inicio_sesion = new Inicio_sesion();
             Inicio_sesion.Show();
@@ -43,6 +40,10 @@ namespace animacion_fifa
 
         private void Animacion_Load(object sender, EventArgs e)
         {
+
+            SoundPlayer Sonido = new SoundPlayer();
+            Sonido.SoundLocation = "D:\\Repos\\Fifa-1\\Fifa-1\\Resources\\Musica.wav";
+            Sonido.Play();
 
         }
     }
