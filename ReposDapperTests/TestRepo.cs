@@ -6,7 +6,7 @@ namespace Fifa.Test;
 public class TestRepo
 {
     protected readonly IDbConnection _conexion;
-    private const string _cadena = "Server=localhost;Database=GranET12;Uid=5to_agbd;pwd=Trigg3rs!;Allow User Variables=True";
+    private const string _cadena = "Server=localhost;Database=5to_GranET12;Uid=5to_agbd;pwd=Trigg3rs!;Allow User Variables=True";
     public TestRepo() => _conexion = new MySqlConnection(_cadena);
     public TestRepo(string cadena) => _conexion = new MySqlConnection(cadena);
 }

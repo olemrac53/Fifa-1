@@ -1,7 +1,6 @@
-DROP DATABASE IF EXISTS GranET12;
-CREATE DATABASE GranET12;
-USE GranET12;
-
+DROP DATABASE IF EXISTS `5to_GranET12`;
+CREATE DATABASE `5to_GranET12`;
+USE `5to_GranET12`;
 
 -- =============================
 -- TABLA EQUIPO
@@ -97,8 +96,6 @@ CREATE TABLE PlantillaSuplente (
     CONSTRAINT fk_suplente_futbolista FOREIGN KEY (id_futbolista) REFERENCES Futbolista(id_futbolista) ON DELETE CASCADE
 );
 
-
-
 -- =============================
 -- TABLA PUNTUACION FUTBOLISTA
 -- =============================
@@ -110,4 +107,3 @@ CREATE TABLE PuntuacionFutbolista (
     CONSTRAINT uq_futbolista_fecha UNIQUE (id_futbolista, fecha),
     CONSTRAINT fk_puntuacion_futbolista FOREIGN KEY (id_futbolista) REFERENCES Futbolista(id_futbolista) ON DELETE CASCADE
 );
-

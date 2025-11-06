@@ -1,5 +1,5 @@
 -- 03_Triggers.sql
-USE GranET12;
+USE 5to_GranET12;
 DELIMITER $$
 
 -- 1) Validación: no permitir puntaje si futbolista NO está en PlantillaTitular
