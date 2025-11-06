@@ -33,8 +33,10 @@
             button1 = new Button();
             label3 = new Label();
             label2 = new Label();
-            listBox1 = new ListBox();
-            listBox2 = new ListBox();
+            label4 = new Label();
+            textBox1 = new TextBox();
+            textBox2 = new TextBox();
+            button2 = new Button();
             SuspendLayout();
             // 
             // label1
@@ -49,9 +51,9 @@
             // 
             // button1
             // 
-            button1.Location = new Point(330, 357);
+            button1.Location = new Point(313, 355);
             button1.Name = "button1";
-            button1.Size = new Size(146, 39);
+            button1.Size = new Size(146, 33);
             button1.TabIndex = 2;
             button1.Text = "Continuar";
             button1.UseVisualStyleBackColor = true;
@@ -75,27 +77,49 @@
             label2.ForeColor = Color.Black;
             label2.Location = new Point(262, 253);
             label2.Name = "label2";
-            label2.Size = new Size(89, 26);
+            label2.Size = new Size(123, 26);
             label2.TabIndex = 4;
-            label2.Text = "Usuario:";
+            label2.Text = "Contraseña:";
             // 
-            // listBox1
+            // label4
             // 
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(262, 116);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(232, 34);
-            listBox1.TabIndex = 2;
+            label4.AutoSize = true;
+            label4.BackColor = Color.Transparent;
+            label4.Font = new Font("Segoe UI", 11.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            label4.ForeColor = Color.Cyan;
+            label4.ImageAlign = ContentAlignment.BottomCenter;
+            label4.Location = new Point(230, 410);
+            label4.Name = "label4";
+            label4.Size = new Size(333, 20);
+            label4.TabIndex = 6;
+            label4.Text = "¿No tenes una cuenta registrada? create una nueva";
+            label4.Click += label4_Click;
             // 
-            // listBox2
+            // textBox1
             // 
-            listBox2.FormattingEnabled = true;
-            listBox2.ItemHeight = 15;
-            listBox2.Location = new Point(262, 291);
-            listBox2.Name = "listBox2";
-            listBox2.Size = new Size(232, 34);
-            listBox2.TabIndex = 5;
+            textBox1.Location = new Point(262, 120);
+            textBox1.Multiline = true;
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(197, 34);
+            textBox1.TabIndex = 7;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(262, 300);
+            textBox2.Multiline = true;
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(197, 34);
+            textBox2.TabIndex = 8;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(39, 351);
+            button2.Name = "button2";
+            button2.Size = new Size(134, 41);
+            button2.TabIndex = 9;
+            button2.Text = "Conectar BD";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // Inicio_sesion
             // 
@@ -104,9 +128,11 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
-            Controls.Add(listBox1);
+            Controls.Add(button2);
+            Controls.Add(textBox2);
+            Controls.Add(textBox1);
+            Controls.Add(label4);
             Controls.Add(label2);
-            Controls.Add(listBox2);
             Controls.Add(label3);
             Controls.Add(button1);
             Controls.Add(label1);
@@ -122,7 +148,9 @@
         private Button button1;
         private Label label3;
         private Label label2;
-        private ListBox listBox1;
-        private ListBox listBox2;
+        private Label label4;
+        private TextBox textBox1;
+        private TextBox textBox2;
+        private Button button2;
     }
 }

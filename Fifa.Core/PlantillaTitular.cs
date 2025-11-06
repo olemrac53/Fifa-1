@@ -2,7 +2,6 @@
 {
     public class PlantillaTitular
     {
-        public required int idPlantillaTitular { get; set; }
         public required Plantilla Plantilla { get; set; }
         public required Futbolista Futbolista { get; set; }
     }

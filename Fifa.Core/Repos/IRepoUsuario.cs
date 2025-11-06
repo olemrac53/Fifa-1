@@ -3,15 +3,10 @@ namespace Fifa.Core.Repos;
 public interface IRepoUsuario
 {
     List<Usuario> GetUsuarios();
-    Usuario GetUsuario(int idUsuario);
-    void InsertUsuario(Usuario usuario);
-    void UpdateUsuario(Usuario usuario);
+    Usuario? GetUsuario(int idUsuario);
+    Usuario? UsuarioPorEmailYPass(string email, string password);
+    Usuario? GetUsuarioConPlantillas(int idUsuario);
+    void InsertUsuario(Usuario usuario, string password);
+    void UpdateUsuario(Usuario usuario, string password);
     void DeleteUsuario(int idUsuario);
-
-    List<Administrador> GetAdministradores();
-    Administrador GetAdministrador(int idAdministrador);
-    void InsertAdministrador(Administrador administrador);
-    void UpdateAdministrador(Administrador administrador);
-    void DeleteAdministrador(int idAdministrador);
-
 }
