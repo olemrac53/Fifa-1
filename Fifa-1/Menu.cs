@@ -1,21 +1,19 @@
 using System;
 using System.Windows.Forms;
 using Fifa.Core;
-using Fifa.Dapper; // Asegúrate de tener la conexión a la BD aquí
+using Fifa.Dapper; 
 using Fifa.Core.Repos;
-using Microsoft.VisualBasic; // Necesario para el InputBox
+using Microsoft.VisualBasic; 
 
 namespace Fifa_1
 {
     public partial class Menu : Form
     {
-        // Guardamos ambos, uno será null
         private readonly Usuario _usuarioLogueado;
         private readonly Administrador _adminLogueado;
 
         private Usuario _usuarioConPlantillas;
 
-        // --- CORRECCIÓN 1: Modificar el Constructor ---
         public Menu(Usuario usuarioLogueado, Administrador adminLogueado)
         {
             InitializeComponent();
@@ -23,7 +21,6 @@ namespace Fifa_1
             _adminLogueado = adminLogueado;
         }
 
-        // --- CORRECCIÓN 2: Modificar el Menu_Load ---
         private void Menu_Load(object sender, EventArgs e)
         {
             if (_adminLogueado != null)
@@ -40,7 +37,6 @@ namespace Fifa_1
                 btnGestionarPlantilla.Visible = false;
                 btnCrearPlantilla.Visible = false;
                 btnEliminarPlantilla.Visible = false;
-                // (Puedes ajustar la posición de los botones si quedan huecos)
             }
             else if (_usuarioLogueado != null)
             {
@@ -136,7 +132,6 @@ namespace Fifa_1
                 {
                     Usuario = _usuarioLogueado,
 
-                    // El valor debe ser '99999999.99m' (con 'm' de decimal)
                     PresupuestoMax = 99999999.99m,
                     CantMaxFutbolistas = 20 // Valor por defecto
                 };
@@ -145,7 +140,6 @@ namespace Fifa_1
                 {
                     con.Open();
                     IRepoPlantilla repo = new RepoPlantilla(con);
-                    // Usamos el SP 'CrearPlantilla'
                     repo.InsertPlantilla(nuevaPlantilla);
                 }
 

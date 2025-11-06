@@ -1,6 +1,5 @@
 USE 5to_GranET12;
 
--- Corrección del delimitador (sin el +)
 DELIMITER $$
 
 -- ======================================================

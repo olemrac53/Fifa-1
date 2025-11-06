@@ -40,7 +40,7 @@ namespace Fifa_1
 
                     // Cargar Mercado
                     dgvMercado.DataSource = null;
-                    ConfigurarGrilla(dgvMercado); // Configurar ANTES de cargar datos
+                    ConfigurarGrilla(dgvMercado); 
                     dgvMercado.DataSource = repoFutbolista.GetFutbolistas();
 
                     // Cargar Plantilla
@@ -88,12 +88,10 @@ namespace Fifa_1
         {
             if (_plantillaActual == null) return;
 
-            // 1. Lógica de Puntaje
             int fechaActual = 1;
             decimal puntaje = repoPlantilla.CalcularPuntajePlantillaFecha(_idPlantilla, fechaActual);
             lblPuntaje.Text = $"Puntaje Fecha {fechaActual}: {puntaje}";
 
-            // 2. LÓGICA DE VALIDACIÓN DE FORMACIÓN AÑADIDA
             bool esValida = repoPlantilla.PlantillaEsValida(_idPlantilla);
 
             if (esValida)

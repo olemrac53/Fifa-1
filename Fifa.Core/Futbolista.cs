@@ -13,7 +13,6 @@ public class Futbolista
     public Equipo Equipo { get; set; } = null!;
     public string NombreCompleto => $"{Apellido}, {Nombre}";
 
-    // --- AGREGAR ESTAS DOS PROPIEDADES ---
     public string NombreTipo => Tipo?.Nombre ?? "Sin Posición";
     public string NombreEquipo => Equipo?.Nombre ?? "Sin Equipo";
 }

@@ -34,7 +34,6 @@ namespace Fifa_1
             using (var con = ConexionDB.CrearConexion())
             {
                 con.Open();
-                // Asumo que RepoTipo y RepoEquipo existen e implementan las interfaces
                 IRepoTipo repoTipo = new RepoTipo(con);
                 IRepoEquipo repoEquipo = new RepoEquipo(con);
 

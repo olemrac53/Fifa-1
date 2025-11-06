@@ -50,7 +50,7 @@ namespace Fifa_1
             {
                 Name = "Futbolista",
                 HeaderText = "Futbolista",
-                DataPropertyName = "NombreFutbolista" // CORREGIDO: Usar la propiedad NombreCompleto
+                DataPropertyName = "NombreFutbolista" 
             });
             dgvPuntuaciones.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -129,7 +129,7 @@ namespace Fifa_1
                     con.Open();
                     var repo = new RepoPuntuacion(con);
 
-                    if (_puntuacionSeleccionada == null) // Es NUEVO
+                    if (_puntuacionSeleccionada == null) 
                     {
                         var nuevaPuntuacion = new PuntuacionFutbolista
                         {

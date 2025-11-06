@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Fifa.Dapper;
-using Fifa.Core; // Necesario para la clase Usuario
+using Fifa.Core; 
 
 namespace Fifa_1
 {
@@ -14,7 +14,6 @@ namespace Fifa_1
 
       
 
-        // Esto es lo que se ejecuta al hacer clic en "¡Regístrate!"
         private void label4_Click(object sender, EventArgs e)
         {
             Registro registro = new Registro();
@@ -22,7 +21,6 @@ namespace Fifa_1
             this.Hide();
         }
 
-        // Esto es lo que se ejecuta al hacer clic en "Ingresar"
         private void button2_Click(object sender, EventArgs e)
         {
             string email = txtEmail.Text.Trim();
@@ -50,7 +48,7 @@ namespace Fifa_1
                     var menu = new Menu(usuario, adminLogueado: null);
                     menu.Show();
                     this.Hide();
-                    return; // Importante salir del método
+                    return; 
                 }
 
                 // 2. Si falló, intentar como Administrador
@@ -64,7 +62,7 @@ namespace Fifa_1
                     var menu = new Menu(null, admin);
                     menu.Show();
                     this.Hide();
-                    return; // Importante salir del método
+                    return; 
                 }
 
                 // 3. Si ambos fallan
