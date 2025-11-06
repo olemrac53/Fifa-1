@@ -52,3 +52,16 @@ INSERT IGNORE INTO Tipo (id_tipo, nombre) VALUES
 (2, 'Mediocampista'),
 (3, 'Defensa'),
 (4, 'Arquero');
+
+
+
+
+-- Insertar futbolistas de prueba
+INSERT IGNORE INTO Futbolista (id_futbolista, nombre, apellido, apodo, num_camisa, fecha_nacimiento, cotizacion, id_tipo, id_equipo)
+VALUES 
+(1, 'Lionel', 'Messi', 'Leo', '10', '1987-06-24', 500000.00, 1, 1),
+(2, 'Cristiano', 'Ronaldo', 'CR7', '7', '1985-02-05', 450000.00, 1, 1),
+(3, 'Neymar', 'Junior', 'Ney', '11', '1992-02-05', 400000.00, 1, 1);
+
+SELECT '=== FUTBOLISTAS DISPONIBLES ===' as info;
+SELECT * FROM Futbolista WHERE id_futbolista IN (1, 2, 3);
