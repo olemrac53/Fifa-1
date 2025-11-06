@@ -8,7 +8,10 @@ namespace Fifa.Dapper;
 
 public class RepoFutbolista : Repo, IRepoFutbolista
 {
-    public RepoFutbolista(IDbConnection conexion) : base(conexion) { }
+    
+    public RepoFutbolista(IDbConnection conexion) : base(conexion)
+    {
+    }
 
     #region Queries
     private static readonly string _queryFutbolistas =
