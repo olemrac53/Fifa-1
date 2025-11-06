@@ -62,7 +62,6 @@ public class RepoAdministrador : Repo, IRepoAdministrador
     public void InsertAdministrador(Administrador administrador, string password)
     {
         var parametros = new DynamicParameters();
-        // CORREGIDO: Sin @ en los nombres de parámetros
         parametros.Add("p_nombre", administrador.Nombre);
         parametros.Add("p_apellido", administrador.Apellido);
         parametros.Add("p_email", administrador.Email);
@@ -88,7 +87,6 @@ public class RepoAdministrador : Repo, IRepoAdministrador
     public void UpdateAdministrador(Administrador administrador, string password)
     {
         var parametros = new DynamicParameters();
-        // CORREGIDO: Sin @ en los nombres de parámetros
         parametros.Add("p_id_administrador", administrador.IdAdministrador);
         parametros.Add("p_nombre", administrador.Nombre);
         parametros.Add("p_apellido", administrador.Apellido);

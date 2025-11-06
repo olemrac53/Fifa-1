@@ -85,7 +85,6 @@ public class RepoFutbolista : Repo, IRepoFutbolista
     {
         var parametros = new DynamicParameters();
         
-        // CORREGIDO: Sin @ en los nombres de parámetros
         parametros.Add("p_nombre", futbolista.Nombre);
         parametros.Add("p_apellido", futbolista.Apellido);
         parametros.Add("p_apodo", futbolista.Apodo);
@@ -117,7 +116,6 @@ public class RepoFutbolista : Repo, IRepoFutbolista
     {
         var parametros = new DynamicParameters();
         
-        // CORREGIDO: Sin @ en los nombres de parámetros (consistente con Insert)
         parametros.Add("p_id_futbolista", futbolista.IdFutbolista);
         parametros.Add("p_nombre", futbolista.Nombre);
         parametros.Add("p_apellido", futbolista.Apellido);

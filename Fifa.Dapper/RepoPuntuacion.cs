@@ -112,7 +112,6 @@ public class RepoPuntuacion : Repo, IRepoPuntuacion
                 throw new InvalidOperationException("El futbolista debe ser titular en alguna plantilla para asignarle puntaje.");
             }
             
-            // CORRECCIÓN: Capturar tanto el mensaje del Trigger COMO el error nativo de Unique Key (1062)
             if (e.Number == 1062 || e.Message.Contains("Duplicate entry") || 
                 e.Message.Contains("ya tiene una puntuación"))
             {

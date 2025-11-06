@@ -88,8 +88,6 @@ namespace Fifa.Dapper
 
         public void InsertEquipo(Equipo equipo)
         {
-            // Usamos el SP 'AltaEquipo' de tu SP.sql
-            // Nota: Tu SP 'AltaEquipo' solo inserta 'nombre'.
             var parametros = new DynamicParameters();
             parametros.Add("p_nombre", equipo.Nombre);
             parametros.Add("p_id_equipo", dbType: DbType.Int32, direction: ParameterDirection.Output);
@@ -102,8 +100,6 @@ namespace Fifa.Dapper
 
         public void UpdateEquipo(Equipo equipo)
         {
-            // Usamos el SP 'ModificarEquipo' de tu SP.sql
-            // Nota: Tu SP 'ModificarEquipo' solo actualiza 'nombre'.
             var parametros = new 
             {
                 p_id_equipo = equipo.IdEquipo,
