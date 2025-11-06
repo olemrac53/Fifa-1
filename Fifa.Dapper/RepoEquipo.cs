@@ -111,7 +111,6 @@ namespace Fifa.Dapper
 
         public void DeleteEquipo(int idEquipo)
         {
-            // Usamos el SP 'EliminarEquipo' de tu SP.sql
             var parametros = new { p_id_equipo = idEquipo };
             Conexion.Execute("EliminarEquipo", parametros, commandType: CommandType.StoredProcedure);
         }
