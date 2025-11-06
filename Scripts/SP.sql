@@ -1,4 +1,6 @@
 -- === DATOS DE PRUEBA PARA TESTS (al final de SP.sql) ===
+USE DATABASE `5to_GranET12`;
+
 DELETE FROM PlantillaTitular WHERE id_plantilla IN (SELECT id_plantilla FROM Plantilla WHERE id_usuario IN (1, 2));
 DELETE FROM PlantillaSuplente WHERE id_plantilla IN (SELECT id_plantilla FROM Plantilla WHERE id_usuario IN (1, 2));
 DELETE FROM Plantilla WHERE id_usuario IN (1, 2);

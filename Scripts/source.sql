@@ -1,6 +1,6 @@
--- Active: 1758815312179@@127.0.0.1@3306
-SOURCE DDL.sql
-SOURCE Gran.sql
-SOURCE SF.sql
-SOURCE SP.sql
-SOURCE Trig.sql
+SOURCE DDL.sql;
+SOURCE SF.sql;
+SOURCE SP.sql;
+SOURCE Trig.sql;
+SOURCE alta.sql;
+SOURCE Gran.sql;

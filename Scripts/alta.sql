@@ -1,5 +1,5 @@
--- Active: 1700068523370@@127.0.0.1@3306@GranET12
-USE GranET12;
+-- Active: 1759169468515@@127.0.0.1@3306@5to_GranET12
+USE 5to_GranET12;
 
 -- 1. LIMPIAR DATOS DE PRUEBA
 DELETE FROM PlantillaTitular WHERE id_plantilla IN (SELECT id_plantilla FROM Plantilla WHERE id_usuario IN (1, 2));

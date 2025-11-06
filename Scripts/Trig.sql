@@ -1,5 +1,5 @@
 -- 03_Triggers.sql
-USE 5to_GranET12;
+USE `5to_GranET12`;
 DELIMITER $$
 
 -- 1) Validación: no permitir puntaje si futbolista NO está en PlantillaTitular
@@ -40,17 +40,7 @@ BEGIN
 END $$
 
 -- 4) Validar presupuesto al insertar Titular/Suplente (se usa PresupuestoPlantilla)
-DROP TRIGGER IF EXISTS TR_ValidarPresupuesto_AltaTitularSuplente $$
-CREATE TRIGGER TR_ValidarPresupuesto_AltaTitularSuplente
-BEFORE INSERT ON PlantillaTitular
-FOR EACH ROW
-BEGIN
-    DECLARE presupuesto DECIMAL(10,2);
-    SELECT PresupuestoPlantilla(NEW.id_plantilla) INTO presupuesto;
-    IF (presupuesto + (SELECT cotizacion FROM Futbolista WHERE id_futbolista = NEW.id_futbolista)) > (SELECT presupuesto_max FROM Plantilla WHERE id_plantilla = NEW.id_plantilla) THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Agregar titular excede presupuesto de la plantilla.';
-    END IF;
-END $$
+
 
 DROP TRIGGER IF EXISTS TR_ValidarPresupuesto_AltaSuplente $$
 CREATE TRIGGER TR_ValidarPresupuesto_AltaSuplente
@@ -65,17 +55,6 @@ BEGIN
 END $$
 
 -- 5) Validar cantidad máxima por plantilla en titulares+suplentes
-DROP TRIGGER IF EXISTS TR_ValidarCantidadPlantilla $$
-CREATE TRIGGER TR_ValidarCantidadPlantilla
-BEFORE INSERT ON PlantillaTitular
-FOR EACH ROW
-BEGIN
-    DECLARE cnt INT;
-    SELECT CantidadFutbolistasPlantilla(NEW.id_plantilla) INTO cnt;
-    IF cnt >= (SELECT cant_max_futbolistas FROM Plantilla WHERE id_plantilla = NEW.id_plantilla) THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No se pueden agregar más futbolistas a la plantilla (se alcanza el máximo).';
-    END IF;
-END $$
 
 -- Reutilizo para suplentes
 DROP TRIGGER IF EXISTS TR_ValidarCantidadPlantilla_Suplente $$

@@ -1,3 +1,4 @@
+
 DROP USER IF EXISTS 'admin1'@'%';
 DROP USER IF EXISTS 'usuario1'@'%';
 DROP ROLE IF EXISTS rol_admin;
