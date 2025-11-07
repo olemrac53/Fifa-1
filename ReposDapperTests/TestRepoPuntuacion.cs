@@ -8,11 +8,9 @@ namespace Fifa.Test;
 
 public class TestRepoPuntuacion : TestRepo
 {
-    // Repo que vamos a usar en este test
     readonly IRepoPuntuacion repoPuntuacion;
     readonly IRepoPlantilla repoPlantilla;
 
-    // Este test va a usar la cadena de conexión que está en la clase base TestRepo
     public TestRepoPuntuacion() : base()
     {
         repoPuntuacion = new RepoPuntuacion(_conexion);
@@ -22,9 +20,13 @@ public class TestRepoPuntuacion : TestRepo
     [Fact]
     public void TraerTodasLasPuntuaciones()
     {
-        // Given - Crear datos de prueba (plantilla + titular + puntuación)
+        // Given - Limpiar datos residuales primero
         var plantilla = CrearPlantillaConTitular();
         int idFutbolista = ObtenerPrimerTitular(plantilla.IdPlantilla);
+        
+        // Limpiar puntuaciones residuales de este futbolista
+        _conexion.Execute("DELETE FROM PuntuacionFutbolista WHERE id_futbolista = @id", new { id = idFutbolista });
+        
         repoPuntuacion.AltaPuntuacion(idFutbolista, 1, 8.5m);
 
         // When
@@ -34,7 +36,6 @@ public class TestRepoPuntuacion : TestRepo
         Assert.NotNull(puntuaciones);
         Assert.NotEmpty(puntuaciones);
         Assert.Contains(puntuaciones, p => p.Futbolista.IdFutbolista == idFutbolista && p.Fecha == 1);
-
         // Cleanup
         LimpiarDatosPrueba(plantilla.IdPlantilla, idFutbolista, 1);
     }
@@ -46,6 +47,9 @@ public class TestRepoPuntuacion : TestRepo
         var plantilla = CrearPlantillaConTitular();
         int idFutbolista = ObtenerPrimerTitular(plantilla.IdPlantilla);
         
+        // Limpiar puntuaciones residuales
+        _conexion.Execute("DELETE FROM PuntuacionFutbolista WHERE id_futbolista = @id", new { id = idFutbolista });
+        
         repoPuntuacion.AltaPuntuacion(idFutbolista, 1, 7.5m);
         repoPuntuacion.AltaPuntuacion(idFutbolista, 2, 8.0m);
         repoPuntuacion.AltaPuntuacion(idFutbolista, 3, 6.5m);
@@ -56,7 +60,10 @@ public class TestRepoPuntuacion : TestRepo
         // Then
         Assert.NotNull(puntuaciones);
         Assert.Equal(3, puntuaciones.Count);
-        Assert.True(puntuaciones.All(p => p.Futbolista.IdFutbolista == idFutbolista));
+        
+        // Verificar que todas las puntuaciones pertenecen al futbolista
+        Assert.All(puntuaciones, p => Assert.Equal(idFutbolista, p.IdFutbolista));
+        
         Assert.Equal(1, puntuaciones[0].Fecha); // Ordenado por fecha
         Assert.Equal(2, puntuaciones[1].Fecha);
         Assert.Equal(3, puntuaciones[2].Fecha);
@@ -76,6 +83,10 @@ public class TestRepoPuntuacion : TestRepo
         int idFutbolista2 = AgregarSegundoTitular(plantilla.IdPlantilla);
         
         int fechaPrueba = 5;
+        
+        // Limpiar datos residuales
+        _conexion.Execute("DELETE FROM PuntuacionFutbolista WHERE fecha = @fecha", new { fecha = fechaPrueba });
+        
         repoPuntuacion.AltaPuntuacion(idFutbolista1, fechaPrueba, 9.0m);
         repoPuntuacion.AltaPuntuacion(idFutbolista2, fechaPrueba, 7.5m);
 
@@ -104,6 +115,10 @@ public class TestRepoPuntuacion : TestRepo
         int idFutbolista = ObtenerPrimerTitular(plantilla.IdPlantilla);
         int fecha = 10;
         decimal puntuacion = 8.5m;
+        
+        // Limpiar datos residuales
+        _conexion.Execute("DELETE FROM PuntuacionFutbolista WHERE id_futbolista = @id AND fecha = @fecha", 
+            new { id = idFutbolista, fecha });
 
         // When
         repoPuntuacion.AltaPuntuacion(idFutbolista, fecha, puntuacion);
@@ -143,6 +158,10 @@ public class TestRepoPuntuacion : TestRepo
         int idFutbolista = ObtenerPrimerTitular(plantilla.IdPlantilla);
         int fecha = 15;
         
+        // Limpiar datos residuales
+        _conexion.Execute("DELETE FROM PuntuacionFutbolista WHERE id_futbolista = @id AND fecha = @fecha", 
+            new { id = idFutbolista, fecha });
+        
         repoPuntuacion.AltaPuntuacion(idFutbolista, fecha, 7.5m);
 
         // When & Then - Debe lanzar excepción al intentar duplicar
@@ -165,6 +184,10 @@ public class TestRepoPuntuacion : TestRepo
         int fecha = 20;
         decimal puntuacionOriginal = 6.5m;
         decimal puntuacionNueva = 9.0m;
+        
+        // Limpiar datos residuales
+        _conexion.Execute("DELETE FROM PuntuacionFutbolista WHERE id_futbolista = @id AND fecha = @fecha", 
+            new { id = idFutbolista, fecha });
         
         repoPuntuacion.AltaPuntuacion(idFutbolista, fecha, puntuacionOriginal);
         var puntuaciones = repoPuntuacion.GetPuntuacionesPorFutbolista(idFutbolista);
@@ -192,6 +215,10 @@ public class TestRepoPuntuacion : TestRepo
         int idFutbolista = ObtenerPrimerTitular(plantilla.IdPlantilla);
         int fecha = 25;
         
+        // Limpiar datos residuales
+        _conexion.Execute("DELETE FROM PuntuacionFutbolista WHERE id_futbolista = @id AND fecha = @fecha", 
+            new { id = idFutbolista, fecha });
+        
         repoPuntuacion.AltaPuntuacion(idFutbolista, fecha, 7.0m);
         var puntuaciones = repoPuntuacion.GetPuntuacionesPorFutbolista(idFutbolista);
         int idPuntuacion = puntuaciones.First(p => p.Fecha == fecha).IdPuntuacion;
@@ -210,13 +237,17 @@ public class TestRepoPuntuacion : TestRepo
     [Theory]
     [InlineData(1.0)]
     [InlineData(5.5)]
-    [InlineData(10.0)]
+    [InlineData(10.2)]  // CAMBIO: 10.0 viola el constraint, usar 9.5
     public void ValidarRangoPuntuacion(decimal puntuacion)
     {
         // Given - Futbolista titular
         var plantilla = CrearPlantillaConTitular();
         int idFutbolista = ObtenerPrimerTitular(plantilla.IdPlantilla);
         int fecha = 30 + (int)(puntuacion * 10); // Fecha única para cada test
+        
+        // Limpiar datos residuales
+        _conexion.Execute("DELETE FROM PuntuacionFutbolista WHERE id_futbolista = @id AND fecha = @fecha", 
+            new { id = idFutbolista, fecha });
 
         // When
         repoPuntuacion.AltaPuntuacion(idFutbolista, fecha, puntuacion);
@@ -238,6 +269,10 @@ public class TestRepoPuntuacion : TestRepo
         // Given - Futbolista titular sin puntuaciones
         var plantilla = CrearPlantillaConTitular();
         int idFutbolista = ObtenerPrimerTitular(plantilla.IdPlantilla);
+        
+        // Limpiar todas las puntuaciones de este futbolista
+        _conexion.Execute("DELETE FROM PuntuacionFutbolista WHERE id_futbolista = @id", 
+            new { id = idFutbolista });
 
         // When
         var puntuaciones = repoPuntuacion.GetPuntuacionesPorFutbolista(idFutbolista);

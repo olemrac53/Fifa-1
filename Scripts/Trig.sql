@@ -110,7 +110,7 @@ BEGIN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Error: Presupuesto máximo de la plantilla excedido';
     END IF;
-END;
+END; $$ -- <-- ESTA LÍNEA FUE CORREGIDA
 
 
 CREATE TRIGGER TR_LimiteJugadores
@@ -129,9 +129,3 @@ BEGIN
         SET MESSAGE_TEXT = 'Error: La plantilla ya tiene el máximo de jugadores (20)';
     END IF;
 END; $$
-
-
-
-
-
-

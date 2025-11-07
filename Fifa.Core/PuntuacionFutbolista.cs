@@ -9,6 +9,8 @@ public class PuntuacionFutbolista
     public int Fecha { get; set; }
     public decimal Puntuacion { get; set; }
 
+    public int IdFutbolista { get; set; } 
+
     public Futbolista Futbolista { get; set; } = null!;
 
     public override bool Equals(object? obj)

@@ -91,6 +91,7 @@ public class RepoPuntuacion : Repo, IRepoPuntuacion
 
     public void AltaPuntuacion(int idFutbolista, int fecha, decimal puntuacion)
     {
+        // CORRECCIÓN: Remover el parámetro OUT que no existe en el SP
         var parametros = new
         {
             p_id_futbolista = idFutbolista,

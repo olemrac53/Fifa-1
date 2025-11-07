@@ -286,16 +286,23 @@ END $$
 
 
 -- === Puntuaciones ===
+
 DROP PROCEDURE IF EXISTS AltaPuntuacion $$
-CREATE PROCEDURE AltaPuntuacion(IN p_id_futbolista INT, IN p_fecha INT, IN p_puntuacion DECIMAL(3,1), OUT p_id_puntuacion INT)
+CREATE PROCEDURE AltaPuntuacion(
+    IN p_id_futbolista INT, 
+    IN p_fecha INT, 
+    IN p_puntuacion DECIMAL(10,2) -- Usar DECIMAL(10,2) o DECIMAL(4,1)
+)
 BEGIN
     INSERT INTO PuntuacionFutbolista (id_futbolista, fecha, puntuacion) 
     VALUES (p_id_futbolista, p_fecha, p_puntuacion);
-    SET p_id_puntuacion = LAST_INSERT_ID();
 END $$
 
 DROP PROCEDURE IF EXISTS ModificarPuntuacion $$
-CREATE PROCEDURE ModificarPuntuacion(IN p_id_puntuacion INT, IN p_puntuacion DECIMAL(3,1))
+CREATE PROCEDURE ModificarPuntuacion(
+    IN p_id_puntuacion INT, 
+    IN p_puntuacion DECIMAL(3,1)
+)
 BEGIN
     IF NOT EXISTS (SELECT 1 FROM PuntuacionFutbolista WHERE id_puntuacion = p_id_puntuacion) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La puntuación no existe.';
@@ -356,7 +363,7 @@ DELIMITER ;
 DELETE FROM PlantillaTitular WHERE id_plantilla IN (SELECT id_plantilla FROM Plantilla WHERE id_usuario IN (1, 2));
 DELETE FROM PlantillaSuplente WHERE id_plantilla IN (SELECT id_plantilla FROM Plantilla WHERE id_usuario IN (1, 2));
 DELETE FROM Plantilla WHERE id_usuario IN (1, 2);
-@@ -359,21 +7,15 @@ DELETE FROM Futbolista;
+DELETE FROM Futbolista;
 DELETE FROM Tipo;
 DELETE FROM Equipo WHERE id_equipo = 1;
 
@@ -373,4 +380,3 @@ INSERT IGNORE INTO Tipo (id_tipo, nombre) VALUES
 (4, 'Arquero');
 
 SELECT 'Base de datos lista para ejecutar tests' as Mensaje;
-
