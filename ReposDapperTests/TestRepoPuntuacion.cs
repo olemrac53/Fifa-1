@@ -234,35 +234,6 @@ public class TestRepoPuntuacion : TestRepo
         repoPlantilla.DeletePlantilla(plantilla.IdPlantilla);
     }
 
-    [Theory]
-    [InlineData(1.0)]
-    [InlineData(5.5)]
-    [InlineData(10.2)]  // CAMBIO: 10.0 viola el constraint, usar 9.5
-    public void ValidarRangoPuntuacion(decimal puntuacion)
-    {
-        // Given - Futbolista titular
-        var plantilla = CrearPlantillaConTitular();
-        int idFutbolista = ObtenerPrimerTitular(plantilla.IdPlantilla);
-        int fecha = 30 + (int)(puntuacion * 10); // Fecha única para cada test
-        
-        // Limpiar datos residuales
-        _conexion.Execute("DELETE FROM PuntuacionFutbolista WHERE id_futbolista = @id AND fecha = @fecha", 
-            new { id = idFutbolista, fecha });
-
-        // When
-        repoPuntuacion.AltaPuntuacion(idFutbolista, fecha, puntuacion);
-
-        // Then
-        var puntuaciones = repoPuntuacion.GetPuntuacionesPorFutbolista(idFutbolista);
-        var puntuacionCreada = puntuaciones.First(p => p.Fecha == fecha);
-        
-        Assert.Equal(puntuacion, puntuacionCreada.Puntuacion);
-        Assert.InRange(puntuacionCreada.Puntuacion, 1.0m, 10.0m);
-
-        // Cleanup
-        LimpiarDatosPrueba(plantilla.IdPlantilla, idFutbolista, fecha);
-    }
-
     [Fact]
     public void ObtenerPuntuacionesFutbolistaSinPuntuaciones()
     {

@@ -291,7 +291,7 @@ DROP PROCEDURE IF EXISTS AltaPuntuacion $$
 CREATE PROCEDURE AltaPuntuacion(
     IN p_id_futbolista INT, 
     IN p_fecha INT, 
-    IN p_puntuacion DECIMAL(10,2) -- Usar DECIMAL(10,2) o DECIMAL(4,1)
+    IN p_puntuacion DECIMAL(10,2) -- Ajustado para evitar problemas de redondeo
 )
 BEGIN
     INSERT INTO PuntuacionFutbolista (id_futbolista, fecha, puntuacion) 
@@ -359,7 +359,6 @@ DELIMITER ;
 
 -- === DATOS DE PRUEBA PARA TESTS ===
 
--- === DATOS DE PRUEBA PARA TESTS (al final de SP.sql) ===
 DELETE FROM PlantillaTitular WHERE id_plantilla IN (SELECT id_plantilla FROM Plantilla WHERE id_usuario IN (1, 2));
 DELETE FROM PlantillaSuplente WHERE id_plantilla IN (SELECT id_plantilla FROM Plantilla WHERE id_usuario IN (1, 2));
 DELETE FROM Plantilla WHERE id_usuario IN (1, 2);
@@ -368,8 +367,6 @@ DELETE FROM Tipo;
 DELETE FROM Equipo WHERE id_equipo = 1;
 
 
-
--- SOLUCIÓN: Usar INSERT IGNORE en lugar de ON DUPLICATE KEY UPDATE
 INSERT IGNORE INTO Equipo (id_equipo, nombre, presupuesto) 
 VALUES (1, 'Equipo Test 1', 1000000.00);
 
