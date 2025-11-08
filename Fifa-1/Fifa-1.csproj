@@ -18,7 +18,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Fifa.Core\Fifa.Core.csproj" />
     <ProjectReference Include="..\Fifa.Dapper\Fifa.Dapper.csproj" />
-    <ProjectReference Include="..\ReposDapperTests\ReposDapperTests.csproj" />
   </ItemGroup>
 
   <ItemGroup>

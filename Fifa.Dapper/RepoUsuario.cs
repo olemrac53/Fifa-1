@@ -1,4 +1,3 @@
-
 using System.Data;
 using Dapper;
 using MySqlConnector;
@@ -93,17 +92,18 @@ public class RepoUsuario : Repo, IRepoUsuario
     public void InsertUsuario(Usuario usuario, string password)
     {
         var parametros = new DynamicParameters();
-        parametros.Add("@p_idUsuario", usuario.IdUsuario, dbType: DbType.Int32, direction: ParameterDirection.Output);
-        parametros.Add("@p_nombre", usuario.Nombre);
-        parametros.Add("@p_apellido", usuario.Apellido);
-        parametros.Add("@p_email", usuario.Email);
-        parametros.Add("@p_fecha_nacimiento", usuario.FechaNacimiento);
-        parametros.Add("@p_contrasenia", password);
+        // Nombres sin @ para DynamicParameters
+        parametros.Add("p_nombre", usuario.Nombre);
+        parametros.Add("p_apellido", usuario.Apellido);
+        parametros.Add("p_email", usuario.Email);
+        parametros.Add("p_fecha_nacimiento", usuario.FechaNacimiento);
+        parametros.Add("p_contrasenia", password);
+        parametros.Add("p_id_usuario", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
         try
         {
             Conexion.Execute("AltaUsuario", parametros, commandType: CommandType.StoredProcedure);
-            usuario.IdUsuario = parametros.Get<int>("@p_idUsuario");  // ← TAMBIÉN CORRIGE ESTA LÍNEA
+            usuario.IdUsuario = parametros.Get<int>("p_id_usuario");
         }
         catch (MySqlException e)
         {
