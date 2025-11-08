@@ -12,7 +12,7 @@ CREATE ROLE rol_usuario;
 GRANT ALL PRIVILEGES ON 5to_GranET12.* TO rol_admin;
 
 -- CRÍTICO: Otorgar permisos al usuario de pruebas
-GRANT ALL PRIVILEGES ON 5to_GranET12.* TO '5to_agbd'@'localhost';
+GRANT ALL PRIVILEGES ON 5to_GranET12.* TO 'root'@'localhost';
 
 -- Privilegios para rol_usuario (CON BACKTICKS)
 GRANT SELECT ON 5to_GranET12.Equipo TO rol_usuario;

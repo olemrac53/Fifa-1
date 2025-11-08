@@ -153,7 +153,7 @@ public class TestRepoPuntuacion : TestRepo
     [Fact]
     public void AltaPuntuacionDuplicadaMismaFecha()
     {
-        // Given - Futbolista con puntuación ya asignada
+        // Futbolista con puntuación ya asignada
         var plantilla = CrearPlantillaConTitular();
         int idFutbolista = ObtenerPrimerTitular(plantilla.IdPlantilla);
         int fecha = 15;

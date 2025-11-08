@@ -91,7 +91,6 @@ public class RepoPuntuacion : Repo, IRepoPuntuacion
 
     public void AltaPuntuacion(int idFutbolista, int fecha, decimal puntuacion)
     {
-        // CORRECCIÓN: Remover el parámetro OUT que no existe en el SP
         var parametros = new
         {
             p_id_futbolista = idFutbolista,
@@ -105,14 +104,19 @@ public class RepoPuntuacion : Repo, IRepoPuntuacion
         }
         catch (MySqlException e)
         {
+            // Validar si el futbolista no es titular
             if (e.Message.Contains("no es titular"))
             {
                 throw new InvalidOperationException("El futbolista debe ser titular en alguna plantilla para asignarle puntaje.");
             }
-            if (e.Message.Contains("ya tiene una puntuación"))
+            
+            // CORRECCIÓN: El mensaje del trigger es "ya tiene una puntuación para esa fecha"
+            // No "ya tiene una puntuación asignada para esta fecha"
+            if (e.Message.Contains("ya tiene una puntuación") || e.Message.Contains("ya tiene una puntuaci"))
             {
                 throw new InvalidOperationException("El futbolista ya tiene una puntuación asignada para esta fecha.");
             }
+            
             throw;
         }
     }
