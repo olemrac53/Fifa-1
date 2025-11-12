@@ -2,15 +2,8 @@
 {
     partial class Registro
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,161 +15,185 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Registro));
-            label1 = new Label();
-            textBox1 = new TextBox();
-            label2 = new Label();
-            textBox2 = new TextBox();
-            label3 = new Label();
-            textBox3 = new TextBox();
-            label4 = new Label();
-            dateTimePicker1 = new DateTimePicker();
-            label5 = new Label();
-            textBox4 = new TextBox();
-            button1 = new Button();
-            SuspendLayout();
+            this.lblTitulo = new System.Windows.Forms.Label();
+            this.lblNombre = new System.Windows.Forms.Label();
+            this.txtNombre = new System.Windows.Forms.TextBox();
+            this.txtApellido = new System.Windows.Forms.TextBox();
+            this.lblApellido = new System.Windows.Forms.Label();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.lblEmail = new System.Windows.Forms.Label();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.lblPassword = new System.Windows.Forms.Label();
+            this.lblFechaNac = new System.Windows.Forms.Label();
+            this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
+            this.btnRegistrar = new System.Windows.Forms.Button();
+            this.llblVolverLogin = new System.Windows.Forms.LinkLabel();
+            this.SuspendLayout();
             // 
-            // label1
+            // lblTitulo
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(34, 42);
-            label1.Name = "label1";
-            label1.Size = new Size(81, 25);
-            label1.TabIndex = 0;
-            label1.Text = "Nombre";
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.Location = new System.Drawing.Point(145, 30);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(87, 24);
+            this.lblTitulo.TabIndex = 0;
+            this.lblTitulo.Text = "Registro";
             // 
-            // textBox1
+            // lblNombre
             // 
-            textBox1.Location = new Point(34, 89);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(170, 31);
-            textBox1.TabIndex = 1;
+            this.lblNombre.AutoSize = true;
+            this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombre.Location = new System.Drawing.Point(40, 80);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(60, 16);
+            this.lblNombre.TabIndex = 1;
+            this.lblNombre.Text = "Nombre:";
             // 
-            // label2
+            // txtNombre
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(302, 42);
-            label2.Name = "label2";
-            label2.Size = new Size(82, 25);
-            label2.TabIndex = 2;
-            label2.Text = "Apellido";
+            this.txtNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNombre.Location = new System.Drawing.Point(130, 77);
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(200, 22);
+            this.txtNombre.TabIndex = 1;
             // 
-            // textBox2
+            // txtApellido
             // 
-            textBox2.Location = new Point(302, 89);
-            textBox2.Multiline = true;
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(170, 31);
-            textBox2.TabIndex = 3;
+            this.txtApellido.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtApellido.Location = new System.Drawing.Point(130, 117);
+            this.txtApellido.Name = "txtApellido";
+            this.txtApellido.Size = new System.Drawing.Size(200, 22);
+            this.txtApellido.TabIndex = 2;
             // 
-            // label3
+            // lblApellido
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(561, 42);
-            label3.Name = "label3";
-            label3.Size = new Size(58, 25);
-            label3.TabIndex = 4;
-            label3.Text = "Email";
+            this.lblApellido.AutoSize = true;
+            this.lblApellido.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblApellido.Location = new System.Drawing.Point(40, 120);
+            this.lblApellido.Name = "lblApellido";
+            this.lblApellido.Size = new System.Drawing.Size(61, 16);
+            this.lblApellido.TabIndex = 3;
+            this.lblApellido.Text = "Apellido:";
             // 
-            // textBox3
+            // txtEmail
             // 
-            textBox3.Location = new Point(561, 89);
-            textBox3.Multiline = true;
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(170, 31);
-            textBox3.TabIndex = 5;
+            this.txtEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmail.Location = new System.Drawing.Point(130, 157);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(200, 22);
+            this.txtEmail.TabIndex = 3;
             // 
-            // label4
+            // lblEmail
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(34, 184);
-            label4.Name = "label4";
-            label4.Size = new Size(189, 25);
-            label4.TabIndex = 6;
-            label4.Text = "Fecha de Nacimiento";
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmail.Location = new System.Drawing.Point(40, 160);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(45, 16);
+            this.lblEmail.TabIndex = 5;
+            this.lblEmail.Text = "Email:";
             // 
-            // dateTimePicker1
+            // txtPassword
             // 
-            dateTimePicker1.Location = new Point(34, 228);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(200, 23);
-            dateTimePicker1.TabIndex = 8;
+            this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassword.Location = new System.Drawing.Point(130, 197);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
+            this.txtPassword.Size = new System.Drawing.Size(200, 22);
+            this.txtPassword.TabIndex = 4;
             // 
-            // label5
+            // lblPassword
             // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(561, 184);
-            label5.Name = "label5";
-            label5.Size = new Size(108, 25);
-            label5.TabIndex = 9;
-            label5.Text = "Contraseña";
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPassword.Location = new System.Drawing.Point(40, 200);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(80, 16);
+            this.lblPassword.TabIndex = 7;
+            this.lblPassword.Text = "Contraseña:";
             // 
-            // textBox4
+            // lblFechaNac
             // 
-            textBox4.Location = new Point(561, 228);
-            textBox4.Multiline = true;
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(170, 31);
-            textBox4.TabIndex = 10;
+            this.lblFechaNac.AutoSize = true;
+            this.lblFechaNac.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFechaNac.Location = new System.Drawing.Point(40, 240);
+            this.lblFechaNac.Name = "lblFechaNac";
+            this.lblFechaNac.Size = new System.Drawing.Size(83, 16);
+            this.lblFechaNac.TabIndex = 9;
+            this.lblFechaNac.Text = "Nacimiento:";
             // 
-            // button1
+            // dtpFechaNacimiento
             // 
-            button1.Location = new Point(344, 339);
-            button1.Name = "button1";
-            button1.Size = new Size(128, 35);
-            button1.TabIndex = 11;
-            button1.Text = "Guardar y Salir";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            this.dtpFechaNacimiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFechaNacimiento.Location = new System.Drawing.Point(130, 237);
+            this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
+            this.dtpFechaNacimiento.Size = new System.Drawing.Size(200, 22);
+            this.dtpFechaNacimiento.TabIndex = 5;
+            // 
+            // btnRegistrar
+            // 
+            this.btnRegistrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRegistrar.Location = new System.Drawing.Point(130, 280);
+            this.btnRegistrar.Name = "btnRegistrar";
+            this.btnRegistrar.Size = new System.Drawing.Size(100, 30);
+            this.btnRegistrar.TabIndex = 6;
+            this.btnRegistrar.Text = "Registrar";
+            this.btnRegistrar.UseVisualStyleBackColor = true;
+            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click); // Tu lógica ya está conectada a este evento
+            // 
+            // llblVolverLogin
+            // 
+            this.llblVolverLogin.AutoSize = true;
+            this.llblVolverLogin.Location = new System.Drawing.Point(127, 330);
+            this.llblVolverLogin.Name = "llblVolverLogin";
+            this.llblVolverLogin.Size = new System.Drawing.Size(124, 13);
+            this.llblVolverLogin.TabIndex = 7;
+            this.llblVolverLogin.TabStop = true;
+            this.llblVolverLogin.Text = "Ya tienes cuenta? Inicia Sesión";
+            this.llblVolverLogin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblVolverLogin_LinkClicked);
             // 
             // Registro
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(800, 450);
-            Controls.Add(button1);
-            Controls.Add(textBox4);
-            Controls.Add(label5);
-            Controls.Add(dateTimePicker1);
-            Controls.Add(label4);
-            Controls.Add(textBox3);
-            Controls.Add(label3);
-            Controls.Add(textBox2);
-            Controls.Add(label2);
-            Controls.Add(textBox1);
-            Controls.Add(label1);
-            Name = "Registro";
-            Text = "Registro";
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(384, 371);
+            this.Controls.Add(this.llblVolverLogin);
+            this.Controls.Add(this.btnRegistrar);
+            this.Controls.Add(this.dtpFechaNacimiento);
+            this.Controls.Add(this.lblFechaNac);
+            this.Controls.Add(this.txtPassword);
+            this.Controls.Add(this.lblPassword);
+            this.Controls.Add(this.txtEmail);
+            this.Controls.Add(this.lblEmail);
+            this.Controls.Add(this.txtApellido);
+            this.Controls.Add(this.lblApellido);
+            this.Controls.Add(this.txtNombre);
+            this.Controls.Add(this.lblNombre);
+            this.Controls.Add(this.lblTitulo);
+            this.Name = "Registro";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Registro";
+            this.ResumeLayout(false);
+            this.PerformLayout();
         }
 
         #endregion
 
-        private Label label1;
-        private TextBox textBox1;
-        private Label label2;
-        private TextBox textBox2;
-        private Label label3;
-        private TextBox textBox3;
-        private Label label4;
-        private DateTimePicker dateTimePicker1;
-        private Label label5;
-        private TextBox textBox4;
-        private Button button1;
+        private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.Label lblNombre;
+        private System.Windows.Forms.TextBox txtNombre;
+        private System.Windows.Forms.TextBox txtApellido;
+        private System.Windows.Forms.Label lblApellido;
+        private System.Windows.Forms.TextBox txtEmail;
+        private System.Windows.Forms.Label lblEmail;
+        private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.Label lblPassword;
+        private System.Windows.Forms.Label lblFechaNac;
+        private System.Windows.Forms.DateTimePicker dtpFechaNacimiento;
+        private System.Windows.Forms.Button btnRegistrar;
+        private System.Windows.Forms.LinkLabel llblVolverLogin;
     }
 }

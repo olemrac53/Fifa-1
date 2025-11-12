@@ -13,14 +13,13 @@ namespace Fifa_1
             InitializeComponent();
         }
 
-        // Asume que existe un botón llamado btnRegistrar y controles:
-        // txtNombre, txtApellido, txtEmail, txtPassword, dtpFechaNacimiento
+        // Tu lógica de registro (¡está perfecta!)
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
             string nombre = txtNombre.Text.Trim();
             string apellido = txtApellido.Text.Trim();
             string email = txtEmail.Text.Trim();
-            string password = txtPassword.Text; // Asegúrate de validar longitud/seguridad
+            string password = txtPassword.Text;
 
             if (string.IsNullOrWhiteSpace(nombre) ||
                 string.IsNullOrWhiteSpace(apellido) ||
@@ -61,6 +60,15 @@ namespace Fifa_1
             {
                 MessageBox.Show($"Error al registrar: {ex.Message}", "Registro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        // *** AÑADIR ESTE MÉTODO ***
+        // Para que funcione el link "Ya tienes cuenta? Inicia Sesión"
+        private void llblVolverLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var login = new Inicio_sesion();
+            login.Show();
+            this.Hide();
         }
     }
 }

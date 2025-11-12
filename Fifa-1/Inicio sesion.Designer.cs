@@ -2,15 +2,8 @@
 {
     partial class Inicio_sesion
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,135 +15,113 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Inicio_sesion));
-            label1 = new Label();
-            button1 = new Button();
-            label3 = new Label();
-            label2 = new Label();
-            label4 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            button2 = new Button();
-            SuspendLayout();
+            this.lblEmail = new System.Windows.Forms.Label();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.lblPassword = new System.Windows.Forms.Label();
+            this.btnLogin = new System.Windows.Forms.Button();
+            this.llblRegistro = new System.Windows.Forms.LinkLabel();
+            this.lblTitulo = new System.Windows.Forms.Label();
+            this.SuspendLayout();
             // 
-            // label1
+            // lblEmail
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Microsoft Sans Serif", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(262, 22);
-            label1.Name = "label1";
-            label1.Size = new Size(278, 37);
-            label1.TabIndex = 0;
-            label1.Text = "Login de Gran Dt";
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmail.Location = new System.Drawing.Point(40, 80);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(45, 16);
+            this.lblEmail.TabIndex = 0;
+            this.lblEmail.Text = "Email:";
             // 
-            // button1
+            // txtEmail
             // 
-            button1.Location = new Point(313, 355);
-            button1.Name = "button1";
-            button1.Size = new Size(146, 33);
-            button1.TabIndex = 2;
-            button1.Text = "Continuar";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            this.txtEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmail.Location = new System.Drawing.Point(130, 77);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(200, 22);
+            this.txtEmail.TabIndex = 1;
             // 
-            // label3
+            // txtPassword
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI Emoji", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = Color.Black;
-            label3.Location = new Point(262, 77);
-            label3.Name = "label3";
-            label3.Size = new Size(89, 26);
-            label3.TabIndex = 3;
-            label3.Text = "Usuario:";
+            this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassword.Location = new System.Drawing.Point(130, 117);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
+            this.txtPassword.Size = new System.Drawing.Size(200, 22);
+            this.txtPassword.TabIndex = 2;
             // 
-            // label2
+            // lblPassword
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI Emoji", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = Color.Black;
-            label2.Location = new Point(262, 253);
-            label2.Name = "label2";
-            label2.Size = new Size(123, 26);
-            label2.TabIndex = 4;
-            label2.Text = "Contraseña:";
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPassword.Location = new System.Drawing.Point(40, 120);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(80, 16);
+            this.lblPassword.TabIndex = 2;
+            this.lblPassword.Text = "Contraseña:";
             // 
-            // label4
+            // btnLogin
             // 
-            label4.AutoSize = true;
-            label4.BackColor = Color.Transparent;
-            label4.Font = new Font("Segoe UI", 11.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label4.ForeColor = Color.Cyan;
-            label4.ImageAlign = ContentAlignment.BottomCenter;
-            label4.Location = new Point(230, 410);
-            label4.Name = "label4";
-            label4.Size = new Size(333, 20);
-            label4.TabIndex = 6;
-            label4.Text = "¿No tenes una cuenta registrada? create una nueva";
-            label4.Click += label4_Click;
+            this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogin.Location = new System.Drawing.Point(130, 160);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(100, 30);
+            this.btnLogin.TabIndex = 3;
+            this.btnLogin.Text = "Ingresar";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.button2_Click); // Conecta al button2_Click de tu lógica
             // 
-            // textBox1
+            // llblRegistro
             // 
-            textBox1.Location = new Point(262, 120);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(197, 34);
-            textBox1.TabIndex = 7;
+            this.llblRegistro.AutoSize = true;
+            this.llblRegistro.Location = new System.Drawing.Point(127, 210);
+            this.llblRegistro.Name = "llblRegistro";
+            this.llblRegistro.Size = new System.Drawing.Size(125, 13);
+            this.llblRegistro.TabIndex = 4;
+            this.llblRegistro.TabStop = true;
+            this.llblRegistro.Text = "¿No tienes cuenta? ¡Regístrate!";
+            this.llblRegistro.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.label4_Click); // Conecta al label4_Click de tu lógica
             // 
-            // textBox2
+            // lblTitulo
             // 
-            textBox2.Location = new Point(262, 300);
-            textBox2.Multiline = true;
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(197, 34);
-            textBox2.TabIndex = 8;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(39, 351);
-            button2.Name = "button2";
-            button2.Size = new Size(134, 41);
-            button2.TabIndex = 9;
-            button2.Text = "Conectar BD";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.Location = new System.Drawing.Point(126, 30);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(130, 24);
+            this.lblTitulo.TabIndex = 5;
+            this.lblTitulo.Text = "Iniciar Sesión";
             // 
             // Inicio_sesion
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(800, 450);
-            Controls.Add(button2);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
-            Controls.Add(label4);
-            Controls.Add(label2);
-            Controls.Add(label3);
-            Controls.Add(button1);
-            Controls.Add(label1);
-            Name = "Inicio_sesion";
-            Text = "Inicio_sesion";
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(384, 261);
+            this.Controls.Add(this.lblTitulo);
+            this.Controls.Add(this.llblRegistro);
+            this.Controls.Add(this.btnLogin);
+            this.Controls.Add(this.lblPassword);
+            this.Controls.Add(this.txtPassword);
+            this.Controls.Add(this.txtEmail);
+            this.Controls.Add(this.lblEmail);
+            this.Name = "Inicio_sesion";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Inicio de Sesión";
+            this.ResumeLayout(false);
+            this.PerformLayout();
         }
 
         #endregion
 
-        private Label label1;
-        private Button button1;
-        private Label label3;
-        private Label label2;
-        private Label label4;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private Button button2;
+        private System.Windows.Forms.Label lblEmail;
+        private System.Windows.Forms.TextBox txtEmail;
+        private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.Label lblPassword;
+        private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.LinkLabel llblRegistro;
+        private System.Windows.Forms.Label lblTitulo;
     }
-}
+}                                               

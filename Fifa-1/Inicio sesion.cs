@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Fifa.Dapper;
+using Fifa.Core; // Necesario para la clase Usuario
 
 namespace Fifa_1
 {
@@ -11,13 +12,9 @@ namespace Fifa_1
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Menu Menu = new Menu();
-            Menu.Show();
-            this.Hide();
-        }
+        // Tu button1_Click era para saltar el login, lo quitamos para la lógica real.
 
+        // Esto es lo que se ejecuta al hacer clic en "¡Regístrate!"
         private void label4_Click(object sender, EventArgs e)
         {
             Registro registro = new Registro();
@@ -25,7 +22,7 @@ namespace Fifa_1
             this.Hide();
         }
 
-        // Asume controles txtEmail y txtPassword y botón btnLogin (aquí button2)
+        // Esto es lo que se ejecuta al hacer clic en "Ingresar"
         private void button2_Click(object sender, EventArgs e)
         {
             string email = txtEmail.Text.Trim();
@@ -50,8 +47,9 @@ namespace Fifa_1
                     return;
                 }
 
-                // Iniciar sesión: abrir menú principal o pantalla de usuario
-                var menu = new Menu();
+                // *** ¡CAMBIO IMPORTANTE! ***
+                // Pasamos el objeto 'usuario' al Menú
+                var menu = new Menu(usuario); // Asumimos que Menu.cs tiene un constructor que acepta un Usuario
                 menu.Show();
                 this.Hide();
             }

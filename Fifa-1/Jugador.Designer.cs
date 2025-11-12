@@ -2,15 +2,8 @@
 {
     partial class Jugador
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,140 +15,276 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Jugador));
-            dataGridView1 = new DataGridView();
-            Salir = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            Posicion = new DataGridViewTextBoxColumn();
-            POS = new DataGridViewTextBoxColumn();
-            Nombre = new DataGridViewTextBoxColumn();
-            Column1 = new DataGridViewTextBoxColumn();
-            Column2 = new DataGridViewTextBoxColumn();
-            rwsf = new DataGridViewTextBoxColumn();
-            button1 = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            SuspendLayout();
+            this.dgvFutbolistas = new System.Windows.Forms.DataGridView();
+            this.gbDetalle = new System.Windows.Forms.GroupBox();
+            this.btnGuardar = new System.Windows.Forms.Button();
+            this.cmbEquipo = new System.Windows.Forms.ComboBox();
+            this.lblEquipo = new System.Windows.Forms.Label();
+            this.cmbTipo = new System.Windows.Forms.ComboBox();
+            this.lblTipo = new System.Windows.Forms.Label();
+            this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
+            this.lblFechaNac = new System.Windows.Forms.Label();
+            this.txtCotizacion = new System.Windows.Forms.TextBox();
+            this.lblCotizacion = new System.Windows.Forms.Label();
+            this.txtNumCamisa = new System.Windows.Forms.TextBox();
+            this.lblNumCamisa = new System.Windows.Forms.Label();
+            this.txtApodo = new System.Windows.Forms.TextBox();
+            this.lblApodo = new System.Windows.Forms.Label();
+            this.txtApellido = new System.Windows.Forms.TextBox();
+            this.lblApellido = new System.Windows.Forms.Label();
+            this.txtNombre = new System.Windows.Forms.TextBox();
+            this.lblNombre = new System.Windows.Forms.Label();
+            this.btnNuevo = new System.Windows.Forms.Button();
+            this.btnEliminar = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFutbolistas)).BeginInit();
+            this.gbDetalle.SuspendLayout();
+            this.SuspendLayout();
             // 
-            // dataGridView1
+            // dgvFutbolistas
             // 
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.AllowUserToOrderColumns = true;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Posicion, POS, Nombre, Column1, Column2, rwsf });
-            dataGridView1.Location = new Point(88, 21);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(642, 150);
-            dataGridView1.TabIndex = 0;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            this.dgvFutbolistas.AllowUserToAddRows = false;
+            this.dgvFutbolistas.AllowUserToDeleteRows = false;
+            this.dgvFutbolistas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvFutbolistas.Location = new System.Drawing.Point(12, 12);
+            this.dgvFutbolistas.MultiSelect = false;
+            this.dgvFutbolistas.Name = "dgvFutbolistas";
+            this.dgvFutbolistas.ReadOnly = true;
+            this.dgvFutbolistas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvFutbolistas.Size = new System.Drawing.Size(776, 250);
+            this.dgvFutbolistas.TabIndex = 0;
+            this.dgvFutbolistas.SelectionChanged += new System.EventHandler(this.dgvFutbolistas_SelectionChanged);
             // 
-            // Salir
+            // gbDetalle
             // 
-            Salir.Location = new Point(32, 390);
-            Salir.Name = "Salir";
-            Salir.Size = new Size(75, 23);
-            Salir.TabIndex = 1;
-            Salir.Text = "Salir";
-            Salir.UseVisualStyleBackColor = true;
-            Salir.Click += Salir_Click;
+            this.gbDetalle.Controls.Add(this.btnGuardar);
+            this.gbDetalle.Controls.Add(this.cmbEquipo);
+            this.gbDetalle.Controls.Add(this.lblEquipo);
+            this.gbDetalle.Controls.Add(this.cmbTipo);
+            this.gbDetalle.Controls.Add(this.lblTipo);
+            this.gbDetalle.Controls.Add(this.dtpFechaNacimiento);
+            this.gbDetalle.Controls.Add(this.lblFechaNac);
+            this.gbDetalle.Controls.Add(this.txtCotizacion);
+            this.gbDetalle.Controls.Add(this.lblCotizacion);
+            this.gbDetalle.Controls.Add(this.txtNumCamisa);
+            this.gbDetalle.Controls.Add(this.lblNumCamisa);
+            this.gbDetalle.Controls.Add(this.txtApodo);
+            this.gbDetalle.Controls.Add(this.lblApodo);
+            this.gbDetalle.Controls.Add(this.txtApellido);
+            this.gbDetalle.Controls.Add(this.lblApellido);
+            this.gbDetalle.Controls.Add(this.txtNombre);
+            this.gbDetalle.Controls.Add(this.lblNombre);
+            this.gbDetalle.Location = new System.Drawing.Point(12, 310);
+            this.gbDetalle.Name = "gbDetalle";
+            this.gbDetalle.Size = new System.Drawing.Size(776, 180);
+            this.gbDetalle.TabIndex = 1;
+            this.gbDetalle.TabStop = false;
+            this.gbDetalle.Text = "Detalle de Futbolista";
             // 
-            // button2
+            // btnGuardar
             // 
-            button2.Location = new Point(146, 251);
-            button2.Name = "button2";
-            button2.Size = new Size(126, 23);
-            button2.TabIndex = 2;
-            button2.Text = "Agregar Jugador";
-            button2.UseVisualStyleBackColor = true;
+            this.btnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardar.Location = new System.Drawing.Point(660, 130);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(110, 40);
+            this.btnGuardar.TabIndex = 9;
+            this.btnGuardar.Text = "Guardar";
+            this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
-            // button3
+            // cmbEquipo
             // 
-            button3.Location = new Point(346, 251);
-            button3.Name = "button3";
-            button3.Size = new Size(127, 23);
-            button3.TabIndex = 3;
-            button3.Text = "Editar Jugador";
-            button3.UseVisualStyleBackColor = true;
+            this.cmbEquipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEquipo.FormattingEnabled = true;
+            this.cmbEquipo.Location = new System.Drawing.Point(400, 130);
+            this.cmbEquipo.Name = "cmbEquipo";
+            this.cmbEquipo.Size = new System.Drawing.Size(200, 21);
+            this.cmbEquipo.TabIndex = 8;
             // 
-            // Posicion
+            // lblEquipo
             // 
-            Posicion.HeaderText = "Posicion";
-            Posicion.Name = "Posicion";
-            Posicion.ReadOnly = true;
+            this.lblEquipo.AutoSize = true;
+            this.lblEquipo.Location = new System.Drawing.Point(340, 133);
+            this.lblEquipo.Name = "lblEquipo";
+            this.lblEquipo.Size = new System.Drawing.Size(43, 13);
+            this.lblEquipo.TabIndex = 14;
+            this.lblEquipo.Text = "Equipo:";
             // 
-            // POS
+            // cmbTipo
             // 
-            POS.HeaderText = "Nombre";
-            POS.Name = "POS";
-            POS.ReadOnly = true;
+            this.cmbTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTipo.FormattingEnabled = true;
+            this.cmbTipo.Location = new System.Drawing.Point(400, 90);
+            this.cmbTipo.Name = "cmbTipo";
+            this.cmbTipo.Size = new System.Drawing.Size(200, 21);
+            this.cmbTipo.TabIndex = 7;
             // 
-            // Nombre
+            // lblTipo
             // 
-            Nombre.HeaderText = "Apellido";
-            Nombre.Name = "Nombre";
-            Nombre.ReadOnly = true;
+            this.lblTipo.AutoSize = true;
+            this.lblTipo.Location = new System.Drawing.Point(340, 93);
+            this.lblTipo.Name = "lblTipo";
+            this.lblTipo.Size = new System.Drawing.Size(31, 13);
+            this.lblTipo.TabIndex = 12;
+            this.lblTipo.Text = "Tipo:";
             // 
-            // Column1
+            // dtpFechaNacimiento
             // 
-            Column1.HeaderText = "Apodo";
-            Column1.Name = "Column1";
+            this.dtpFechaNacimiento.Location = new System.Drawing.Point(400, 50);
+            this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
+            this.dtpFechaNacimiento.Size = new System.Drawing.Size(200, 20);
+            this.dtpFechaNacimiento.TabIndex = 6;
             // 
-            // Column2
+            // lblFechaNac
             // 
-            Column2.HeaderText = "Numero de Camiseta";
-            Column2.Name = "Column2";
+            this.lblFechaNac.AutoSize = true;
+            this.lblFechaNac.Location = new System.Drawing.Point(340, 53);
+            this.lblFechaNac.Name = "lblFechaNac";
+            this.lblFechaNac.Size = new System.Drawing.Size(63, 13);
+            this.lblFechaNac.TabIndex = 10;
+            this.lblFechaNac.Text = "Nacimiento:";
             // 
-            // rwsf
+            // txtCotizacion
             // 
-            rwsf.HeaderText = "Equipo";
-            rwsf.Name = "rwsf";
+            this.txtCotizacion.Location = new System.Drawing.Point(400, 20);
+            this.txtCotizacion.Name = "txtCotizacion";
+            this.txtCotizacion.Size = new System.Drawing.Size(100, 20);
+            this.txtCotizacion.TabIndex = 5;
             // 
-            // button1
+            // lblCotizacion
             // 
-            button1.Location = new Point(552, 251);
-            button1.Name = "button1";
-            button1.Size = new Size(134, 23);
-            button1.TabIndex = 4;
-            button1.Text = "Eliminar Jugador";
-            button1.UseVisualStyleBackColor = true;
+            this.lblCotizacion.AutoSize = true;
+            this.lblCotizacion.Location = new System.Drawing.Point(340, 23);
+            this.lblCotizacion.Name = "lblCotizacion";
+            this.lblCotizacion.Size = new System.Drawing.Size(59, 13);
+            this.lblCotizacion.TabIndex = 8;
+            this.lblCotizacion.Text = "Cotización:";
+            // 
+            // txtNumCamisa
+            // 
+            this.txtNumCamisa.Location = new System.Drawing.Point(80, 140);
+            this.txtNumCamisa.Name = "txtNumCamisa";
+            this.txtNumCamisa.Size = new System.Drawing.Size(100, 20);
+            this.txtNumCamisa.TabIndex = 4;
+            // 
+            // lblNumCamisa
+            // 
+            this.lblNumCamisa.AutoSize = true;
+            this.lblNumCamisa.Location = new System.Drawing.Point(20, 143);
+            this.lblNumCamisa.Name = "lblNumCamisa";
+            this.lblNumCamisa.Size = new System.Drawing.Size(46, 13);
+            this.lblNumCamisa.TabIndex = 6;
+            this.lblNumCamisa.Text = "Camisa:";
+            // 
+            // txtApodo
+            // 
+            this.txtApodo.Location = new System.Drawing.Point(80, 100);
+            this.txtApodo.Name = "txtApodo";
+            this.txtApodo.Size = new System.Drawing.Size(200, 20);
+            this.txtApodo.TabIndex = 3;
+            // 
+            // lblApodo
+            // 
+            this.lblApodo.AutoSize = true;
+            this.lblApodo.Location = new System.Drawing.Point(20, 103);
+            this.lblApodo.Name = "lblApodo";
+            this.lblApodo.Size = new System.Drawing.Size(41, 13);
+            this.lblApodo.TabIndex = 4;
+            this.lblApodo.Text = "Apodo:";
+            // 
+            // txtApellido
+            // 
+            this.txtApellido.Location = new System.Drawing.Point(80, 60);
+            this.txtApellido.Name = "txtApellido";
+            this.txtApellido.Size = new System.Drawing.Size(200, 20);
+            this.txtApellido.TabIndex = 2;
+            // 
+            // lblApellido
+            // 
+            this.lblApellido.AutoSize = true;
+            this.lblApellido.Location = new System.Drawing.Point(20, 63);
+            this.lblApellido.Name = "lblApellido";
+            this.lblApellido.Size = new System.Drawing.Size(47, 13);
+            this.lblApellido.TabIndex = 2;
+            this.lblApellido.Text = "Apellido:";
+            // 
+            // txtNombre
+            // 
+            this.txtNombre.Location = new System.Drawing.Point(80, 20);
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(200, 20);
+            this.txtNombre.TabIndex = 1;
+            // 
+            // lblNombre
+            // 
+            this.lblNombre.AutoSize = true;
+            this.lblNombre.Location = new System.Drawing.Point(20, 23);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(47, 13);
+            this.lblNombre.TabIndex = 0;
+            this.lblNombre.Text = "Nombre:";
+            // 
+            // btnNuevo
+            // 
+            this.btnNuevo.Location = new System.Drawing.Point(12, 270);
+            this.btnNuevo.Name = "btnNuevo";
+            this.btnNuevo.Size = new System.Drawing.Size(75, 23);
+            this.btnNuevo.TabIndex = 10;
+            this.btnNuevo.Text = "Nuevo";
+            this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Location = new System.Drawing.Point(93, 270);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(75, 23);
+            this.btnEliminar.TabIndex = 11;
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // Jugador
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(800, 450);
-            Controls.Add(button1);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(Salir);
-            Controls.Add(dataGridView1);
-            Name = "Jugador";
-            Text = "Jugador";
-            Load += Jugador_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 504);
+            this.Controls.Add(this.btnEliminar);
+            this.Controls.Add(this.btnNuevo);
+            this.Controls.Add(this.gbDetalle);
+            this.Controls.Add(this.dgvFutbolistas);
+            this.Name = "Jugador";
+            this.Text = "Gestión de Futbolistas (Admin)";
+            this.Load += new System.EventHandler(this.Jugador_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFutbolistas)).EndInit();
+            this.gbDetalle.ResumeLayout(false);
+            this.gbDetalle.PerformLayout();
+            this.ResumeLayout(false);
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
-        private Button Salir;
-        private Button button2;
-        private Button button3;
-        private DataGridViewTextBoxColumn Posicion;
-        private DataGridViewTextBoxColumn POS;
-        private DataGridViewTextBoxColumn Nombre;
-        private DataGridViewTextBoxColumn Column1;
-        private DataGridViewTextBoxColumn Column2;
-        private DataGridViewTextBoxColumn rwsf;
-        private Button button1;
+        private System.Windows.Forms.DataGridView dgvFutbolistas;
+        private System.Windows.Forms.GroupBox gbDetalle;
+        private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.ComboBox cmbEquipo;
+        private System.Windows.Forms.Label lblEquipo;
+        private System.Windows.Forms.ComboBox cmbTipo;
+        private System.Windows.Forms.Label lblTipo;
+        private System.Windows.Forms.DateTimePicker dtpFechaNacimiento;
+        private System.Windows.Forms.Label lblFechaNac;
+        private System.Windows.Forms.TextBox txtCotizacion;
+        private System.Windows.Forms.Label lblCotizacion;
+        private System.Windows.Forms.TextBox txtNumCamisa;
+        private System.Windows.Forms.Label lblNumCamisa;
+        private System.Windows.Forms.TextBox txtApodo;
+        private System.Windows.Forms.Label lblApodo;
+        private System.Windows.Forms.TextBox txtApellido;
+        private System.Windows.Forms.Label lblApellido;
+        private System.Windows.Forms.TextBox txtNombre;
+        private System.Windows.Forms.Label lblNombre;
+        private System.Windows.Forms.Button btnNuevo;
+        private System.Windows.Forms.Button btnEliminar;
     }
 }
