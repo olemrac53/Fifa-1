@@ -98,12 +98,15 @@ public class RepoUsuario : Repo, IRepoUsuario
         parametros.Add("p_email", usuario.Email);
         parametros.Add("p_fecha_nacimiento", usuario.FechaNacimiento);
         parametros.Add("p_contrasenia", password);
-        parametros.Add("p_id_usuario", dbType: DbType.Int32, direction: ParameterDirection.Output);
+        
+
+        parametros.Add("p_idUsuario", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
         try
         {
             Conexion.Execute("AltaUsuario", parametros, commandType: CommandType.StoredProcedure);
-            usuario.IdUsuario = parametros.Get<int>("p_id_usuario");
+            
+            usuario.IdUsuario = parametros.Get<int>("p_idUsuario");
         }
         catch (MySqlException e)
         {
