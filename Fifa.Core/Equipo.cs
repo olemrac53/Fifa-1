@@ -1,7 +1,15 @@
-﻿namespace Fifa.Core;
+﻿using System.Collections.Generic; // <-- Es para la lista, no lo borren porfa
 
-public class Equipo
+namespace Fifa.Core
 {
-    public required int idEquipo { get; set; }
-    public required string Nombre { get; set; }
+    public class Equipo
+    {
+        public int IdEquipo { get; set; } 
+
+        public string Nombre { get; set; }
+
+        public decimal Presupuesto { get; set; }
+
+        public List<Futbolista> Futbolistas { get; set; } = new List<Futbolista>();
+    }
 }

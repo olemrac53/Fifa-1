@@ -93,7 +93,7 @@ public class RepoFutbolista : Repo, IRepoFutbolista
         parametros.Add("p_fecha_nacimiento", futbolista.FechaNacimiento);
         parametros.Add("p_cotizacion", futbolista.Cotizacion);
         parametros.Add("p_id_tipo", futbolista.Tipo?.idTipo ?? 0);
-        parametros.Add("p_id_equipo", futbolista.Equipo?.idEquipo ?? 0);
+        parametros.Add("p_id_equipo", futbolista.Equipo?.IdEquipo ?? 0);
 
         // Parámetro OUT
         parametros.Add("p_id_futbolista", dbType: DbType.Int32, direction: ParameterDirection.Output);
@@ -126,7 +126,7 @@ public class RepoFutbolista : Repo, IRepoFutbolista
         parametros.Add("p_fecha_nacimiento", futbolista.FechaNacimiento);
         parametros.Add("p_cotizacion", futbolista.Cotizacion);
         parametros.Add("p_id_tipo", futbolista.Tipo?.idTipo ?? 0);
-        parametros.Add("p_id_equipo", futbolista.Equipo?.idEquipo ?? 0);
+        parametros.Add("p_id_equipo", futbolista.Equipo?.IdEquipo ?? 0);
 
         Conexion.Execute("ModificarFutbolista", parametros, commandType: CommandType.StoredProcedure);
     }

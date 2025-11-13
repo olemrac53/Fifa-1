@@ -86,7 +86,7 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             FechaNacimiento = new DateTime(1987, 6, 24),
             Cotizacion = 50000000,
             Tipo = new Tipo() { idTipo = tipoTestId, nombre = "Delantero" },
-            Equipo = new Equipo() { idEquipo = equipoTestId, Nombre = "Equipo Test" }
+            Equipo = new Equipo() { IdEquipo = equipoTestId, Nombre = "Equipo Test" }
         };
 
         repoFutbolista.InsertFutbolista(nuevoFutbolista);
@@ -114,7 +114,7 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             FechaNacimiento = new DateTime(1990, 1, 1),
             Cotizacion = 1000000,
             Tipo = new Tipo() { idTipo = tipoTestId, nombre = "Delantero" },
-            Equipo = new Equipo() { idEquipo = equipoTestId, Nombre = "Equipo Test" }
+            Equipo = new Equipo() { IdEquipo = equipoTestId, Nombre = "Equipo Test" }
         };
         repoFutbolista.InsertFutbolista(futbolista);
         futbolistasCreados.Add(futbolista.IdFutbolista);
@@ -142,7 +142,7 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             FechaNacimiento = new DateTime(1985, 2, 5),
             Cotizacion = 45000000,
             Tipo = new Tipo() { idTipo = tipoTestId, nombre = "Delantero" },
-            Equipo = new Equipo() { idEquipo = equipoTestId, Nombre = "Equipo Test" }
+            Equipo = new Equipo() { IdEquipo = equipoTestId, Nombre = "Equipo Test" }
         };
         repoFutbolista.InsertFutbolista(futbolista);
         futbolistasCreados.Add(futbolista.IdFutbolista);
@@ -169,7 +169,7 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             FechaNacimiento = new DateTime(1992, 2, 5),
             Cotizacion = 40000000,
             Tipo = new Tipo() { idTipo = tipoTestId, nombre = "Delantero" },
-            Equipo = new Equipo() { idEquipo = equipoTestId, Nombre = "Equipo Test" }
+            Equipo = new Equipo() { IdEquipo = equipoTestId, Nombre = "Equipo Test" }
         };
         repoFutbolista.InsertFutbolista(futbolista);
         futbolistasCreados.Add(futbolista.IdFutbolista);
@@ -196,7 +196,7 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             FechaNacimiento = new DateTime(1998, 12, 20),
             Cotizacion = 60000000,
             Tipo = new Tipo() { idTipo = tipoTestId, nombre = "Delantero" },
-            Equipo = new Equipo() { idEquipo = equipoTestId, Nombre = "Equipo Test" }
+            Equipo = new Equipo() { IdEquipo = equipoTestId, Nombre = "Equipo Test" }
         };
         repoFutbolista.InsertFutbolista(futbolista);
         int idFutbolista = futbolista.IdFutbolista;
@@ -219,7 +219,7 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             FechaNacimiento = new DateTime(1988, 6, 2),
             Cotizacion = 35000000,
             Tipo = new Tipo() { idTipo = tipoTestId, nombre = "Delantero" },
-            Equipo = new Equipo() { idEquipo = equipoTestId, Nombre = "Equipo Test" }
+            Equipo = new Equipo() { IdEquipo = equipoTestId, Nombre = "Equipo Test" }
         };
         repoFutbolista.InsertFutbolista(futbolista);
         futbolistasCreados.Add(futbolista.IdFutbolista);
@@ -229,7 +229,7 @@ public class TestRepoFutbolista : TestRepo, IDisposable
         Assert.NotNull(futbolistaConRelaciones);
         Assert.NotNull(futbolistaConRelaciones.Equipo);
         Assert.NotNull(futbolistaConRelaciones.Tipo);
-        Assert.True(futbolistaConRelaciones.Equipo.idEquipo > 0);
+        Assert.True(futbolistaConRelaciones.Equipo.IdEquipo > 0);
         Assert.True(futbolistaConRelaciones.Tipo.idTipo > 0);
         Assert.NotNull(futbolistaConRelaciones.Equipo.Nombre);
         Assert.NotEmpty(futbolistaConRelaciones.Tipo.nombre);
@@ -327,7 +327,7 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             FechaNacimiento = new DateTime(2005, 1, 1),
             Cotizacion = 0,
             Tipo = new Tipo() { idTipo = tipoTestId, nombre = "Delantero" },
-            Equipo = new Equipo() { idEquipo = equipoTestId, Nombre = "Equipo Test" }
+            Equipo = new Equipo() { IdEquipo = equipoTestId, Nombre = "Equipo Test" }
         };
 
         repoFutbolista.InsertFutbolista(futbolista);
