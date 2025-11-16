@@ -9,11 +9,11 @@ namespace Fifa_1
 {
     public partial class Jugador : Form
     {
-        private IRepoFutbolista _repoFutbolista;
-        private IRepoTipo _repoTipo;
-        private IRepoEquipo _repoEquipo;
+        private IRepoFutbolista? _repoFutbolista;
+        private IRepoTipo? _repoTipo;
+        private IRepoEquipo? _repoEquipo;
 
-        private Futbolista _futbolistaSeleccionado;
+        private Futbolista? _futbolistaSeleccionado;
 
         public Jugador()
         {
@@ -41,6 +41,11 @@ namespace Fifa_1
 
         private void CargarCombos()
         {
+            if (_repoTipo == null)
+                throw new InvalidOperationException("_repoTipo is not initialized.");
+            if (_repoEquipo == null)
+                throw new InvalidOperationException("_repoEquipo is not initialized.");
+
             // Cargar Tipos
             cmbTipo.DataSource = _repoTipo.GetTipos();
             cmbTipo.DisplayMember = "Nombre";
@@ -121,8 +126,8 @@ namespace Fifa_1
                     NumCamisa = txtNumCamisa.Text.Trim(),
                     Cotizacion = decimal.Parse(txtCotizacion.Text),
                     FechaNacimiento = dtpFechaNacimiento.Value.Date,
-                    Tipo = (Tipo)cmbTipo.SelectedItem,
-                    Equipo = (Equipo)cmbEquipo.SelectedItem
+                    Tipo = cmbTipo.SelectedItem as Tipo ?? throw new InvalidOperationException("Tipo seleccionado es nulo."),
+                    Equipo = cmbEquipo.SelectedItem as Equipo ?? throw new InvalidOperationException("Equipo seleccionado es nulo.")
                 };
 
                 if (_futbolistaSeleccionado == null) // Es Nuevo

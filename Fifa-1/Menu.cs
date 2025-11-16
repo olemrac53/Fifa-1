@@ -8,7 +8,7 @@ namespace Fifa_1
     public partial class Menu : Form
     {
         private readonly Usuario _usuarioLogueado;
-        private Usuario _usuarioConPlantillas; // Para guardar los datos completos
+        private Usuario? _usuarioConPlantillas; // Para guardar los datos completos
 
         // 1. Constructor que recibe el Usuario desde el Login
         public Menu(Usuario usuarioLogueado)
@@ -55,6 +55,20 @@ namespace Fifa_1
             }
         }
 
+        private int GetSelectedValue()
+        {
+            // Fix CS8605: Unboxing a posiblemente null value.
+            // Asegurarse de que SelectedValue no sea nulo antes de deserializar.
+            if (cmbPlantillas.SelectedValue is int value)
+            {
+                return value;
+            }
+            else
+            {
+                throw new InvalidOperationException("No se seleccionó ninguna plantilla o SelectedValue es nulo.");
+            }
+        }
+
         // 3. Al hacer clic en "Gestionar", abrimos el formulario 'plantilla'
         private void btnGestionarPlantilla_Click(object sender, EventArgs e)
         {
@@ -64,11 +78,9 @@ namespace Fifa_1
                 return;
             }
 
-            int idPlantillaSeleccionada = (int)cmbPlantillas.SelectedValue;
+            int idPlantillaSeleccionada = GetSelectedValue();
 
-            // Abrimos el formulario 'plantilla' pasándole el ID
-            // (Usando el código que te di en la respuesta anterior)
-            plantilla formPlantilla = new plantilla(idPlantillaSeleccionada);
+            Plantilla formPlantilla = new Plantilla(idPlantillaSeleccionada, _usuarioLogueado);
             formPlantilla.Show();
             this.Hide();
         }

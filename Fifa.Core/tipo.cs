@@ -2,7 +2,7 @@
 {
     public class Tipo
     {
-        public required int idTipo { get; set; }
+        public required int IdTipo { get; set; }
         public required string nombre { get; set; }
     }
 }

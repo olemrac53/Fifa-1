@@ -92,7 +92,7 @@ public class RepoFutbolista : Repo, IRepoFutbolista
         parametros.Add("p_num_camisa", futbolista.NumCamisa);
         parametros.Add("p_fecha_nacimiento", futbolista.FechaNacimiento);
         parametros.Add("p_cotizacion", futbolista.Cotizacion);
-        parametros.Add("p_id_tipo", futbolista.Tipo?.idTipo ?? 0);
+        parametros.Add("p_id_tipo", futbolista.Tipo?.IdTipo ?? 0);
         parametros.Add("p_id_equipo", futbolista.Equipo?.IdEquipo ?? 0);
 
         // Parámetro OUT
@@ -125,7 +125,7 @@ public class RepoFutbolista : Repo, IRepoFutbolista
         parametros.Add("p_num_camisa", futbolista.NumCamisa);
         parametros.Add("p_fecha_nacimiento", futbolista.FechaNacimiento);
         parametros.Add("p_cotizacion", futbolista.Cotizacion);
-        parametros.Add("p_id_tipo", futbolista.Tipo?.idTipo ?? 0);
+        parametros.Add("p_id_tipo", futbolista.Tipo?.IdTipo ?? 0);
         parametros.Add("p_id_equipo", futbolista.Equipo?.IdEquipo ?? 0);
 
         Conexion.Execute("ModificarFutbolista", parametros, commandType: CommandType.StoredProcedure);
@@ -160,7 +160,7 @@ public class RepoFutbolista : Repo, IRepoFutbolista
         try
         {
             Conexion.Execute("AltaTipo", parametros, commandType: CommandType.StoredProcedure);
-            tipo.idTipo = parametros.Get<int>("p_id_tipo");
+            tipo.IdTipo = parametros.Get<int>("p_id_tipo");
         }
         catch (MySqlException e)
         {
