@@ -31,28 +31,62 @@ namespace Fifa_1
                 using var con = ConexionDB.CrearConexion();
                 con.Open();
                 var repoUsuario = new RepoUsuario(con);
-                
-                // Usamos tu método para traer el usuario CON sus plantillas
+
                 _usuarioConPlantillas = repoUsuario.GetUsuarioConPlantillas(_usuarioLogueado.IdUsuario);
 
                 if (_usuarioConPlantillas?.Plantillas == null || _usuarioConPlantillas.Plantillas.Count == 0)
                 {
-                    // (Lógica opcional) Si no tiene plantillas, podríamos crear una
-                    MessageBox.Show("No tienes plantillas. (Aquí iría la lógica para crear una).");
+                    var crear = MessageBox.Show(
+                        "No tienes plantillas. ¿Deseas crear una ahora?", 
+                        "Plantillas", 
+                        MessageBoxButtons.YesNo, 
+                        MessageBoxIcon.Question);
+
                     btnGestionarPlantilla.Enabled = false;
+
+                    if (crear == DialogResult.Yes)
+                    {
+                        CrearPlantillaInteractiva();
+                    }
                 }
                 else
                 {
-                    // Llenamos el ComboBox
                     cmbPlantillas.DataSource = _usuarioConPlantillas.Plantillas;
-                    cmbPlantillas.DisplayMember = "IdPlantilla"; // Muestra el ID (puedes cambiar esto si Plantilla tuviera un 'Nombre')
+                    cmbPlantillas.DisplayMember = "IdPlantilla";
                     cmbPlantillas.ValueMember = "IdPlantilla";
+                    btnGestionarPlantilla.Enabled = true;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al cargar plantillas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        // Método para crear la plantilla pidiendo datos al usuario
+        private void CrearPlantillaInteractiva()
+        {
+            // Aquí puedes usar un formulario modal para pedir datos, o usar valores fijos:
+            decimal presupuestoMax = 5000000;
+            int cantMaxFutbolistas = 25;
+
+            using var con = Fifa.Dapper.ConexionDB.CrearConexion();
+            con.Open();
+            var repoPlantilla = new RepoPlantilla(con);
+
+            var nuevaPlantilla = new Fifa.Core.Plantilla
+            {
+                Usuario = _usuarioLogueado,
+                PresupuestoMax = presupuestoMax,
+                CantMaxFutbolistas = cantMaxFutbolistas
+            };
+
+            repoPlantilla.InsertPlantilla(nuevaPlantilla);
+
+            MessageBox.Show($"Plantilla #{nuevaPlantilla.IdPlantilla} creada correctamente.", "Plantilla", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Actualiza la lista de plantillas del usuario
+            CargarPlantillas();
         }
 
         private int GetSelectedValue()
@@ -91,6 +125,33 @@ namespace Fifa_1
             Inicio_sesion login = new Inicio_sesion();
             login.Show();
             this.Hide();
+        }
+
+        private void btnCrearPlantilla_Click(object sender, EventArgs e)
+        {
+            // Puedes pedir estos datos al usuario con un formulario modal, aquí ejemplo fijo:
+            decimal presupuestoMax = 5000000;
+            int cantMaxFutbolistas = 25;
+
+            // Si quieres pedir al usuario, usa un formulario modal personalizado aquí
+
+            using var con = Fifa.Dapper.ConexionDB.CrearConexion();
+            con.Open();
+            var repoPlantilla = new RepoPlantilla(con);
+
+            var nuevaPlantilla = new Fifa.Core.Plantilla
+            {
+                Usuario = _usuarioLogueado,
+                PresupuestoMax = presupuestoMax,
+                CantMaxFutbolistas = cantMaxFutbolistas
+            };
+
+            repoPlantilla.InsertPlantilla(nuevaPlantilla);
+
+            MessageBox.Show($"Plantilla #{nuevaPlantilla.IdPlantilla} creada correctamente.", "Plantilla", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Actualiza la lista de plantillas del usuario
+            CargarPlantillas();
         }
     }
 }

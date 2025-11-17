@@ -30,6 +30,7 @@ namespace animacion_fifa
         private void pictureBox2_Click_1(object sender, EventArgs e)
         {
 
+
             Inicio_sesion Inicio_sesion = new Inicio_sesion();
             Inicio_sesion.Show();
             this.Hide();
