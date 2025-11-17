@@ -22,6 +22,9 @@
             this.cmbPlantillas = new System.Windows.Forms.ComboBox();
             this.btnGestionarPlantilla = new System.Windows.Forms.Button();
             this.btnCerrarSesion = new System.Windows.Forms.Button();
+            this.btnCrearPlantilla = new System.Windows.Forms.Button();
+            this.btnEliminarPlantilla = new System.Windows.Forms.Button();
+            this.btnAdminJugadores = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblBienvenida
@@ -59,9 +62,9 @@
             this.btnGestionarPlantilla.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGestionarPlantilla.Location = new System.Drawing.Point(33, 140);
             this.btnGestionarPlantilla.Name = "btnGestionarPlantilla";
-            this.btnGestionarPlantilla.Size = new System.Drawing.Size(160, 40);
+            this.btnGestionarPlantilla.Size = new System.Drawing.Size(100, 40);
             this.btnGestionarPlantilla.TabIndex = 3;
-            this.btnGestionarPlantilla.Text = "Gestionar Plantilla";
+            this.btnGestionarPlantilla.Text = "Gestionar";
             this.btnGestionarPlantilla.UseVisualStyleBackColor = true;
             this.btnGestionarPlantilla.Click += new System.EventHandler(this.btnGestionarPlantilla_Click);
             // 
@@ -75,11 +78,46 @@
             this.btnCerrarSesion.UseVisualStyleBackColor = true;
             this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
             // 
+            // btnCrearPlantilla
+            // 
+            this.btnCrearPlantilla.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCrearPlantilla.Location = new System.Drawing.Point(139, 140);
+            this.btnCrearPlantilla.Name = "btnCrearPlantilla";
+            this.btnCrearPlantilla.Size = new System.Drawing.Size(100, 40);
+            this.btnCrearPlantilla.TabIndex = 5;
+            this.btnCrearPlantilla.Text = "Crear";
+            this.btnCrearPlantilla.UseVisualStyleBackColor = true;
+            this.btnCrearPlantilla.Click += new System.EventHandler(this.btnCrearPlantilla_Click);
+            // 
+            // btnEliminarPlantilla
+            // 
+            this.btnEliminarPlantilla.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminarPlantilla.Location = new System.Drawing.Point(245, 140);
+            this.btnEliminarPlantilla.Name = "btnEliminarPlantilla";
+            this.btnEliminarPlantilla.Size = new System.Drawing.Size(108, 40);
+            this.btnEliminarPlantilla.TabIndex = 6;
+            this.btnEliminarPlantilla.Text = "Eliminar";
+            this.btnEliminarPlantilla.UseVisualStyleBackColor = true;
+            this.btnEliminarPlantilla.Click += new System.EventHandler(this.btnEliminarPlantilla_Click);
+            // 
+            // btnAdminJugadores
+            // 
+            this.btnAdminJugadores.Location = new System.Drawing.Point(33, 210);
+            this.btnAdminJugadores.Name = "btnAdminJugadores";
+            this.btnAdminJugadores.Size = new System.Drawing.Size(130, 23);
+            this.btnAdminJugadores.TabIndex = 7;
+            this.btnAdminJugadores.Text = "Admin. Jugadores";
+            this.btnAdminJugadores.UseVisualStyleBackColor = true;
+            this.btnAdminJugadores.Click += new System.EventHandler(this.btnAdminJugadores_Click);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 261);
+            this.Controls.Add(this.btnAdminJugadores);
+            this.Controls.Add(this.btnEliminarPlantilla);
+            this.Controls.Add(this.btnCrearPlantilla);
             this.Controls.Add(this.btnCerrarSesion);
             this.Controls.Add(this.btnGestionarPlantilla);
             this.Controls.Add(this.cmbPlantillas);
@@ -91,6 +129,7 @@
             this.Load += new System.EventHandler(this.Menu_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
@@ -100,5 +139,8 @@
         private System.Windows.Forms.ComboBox cmbPlantillas;
         private System.Windows.Forms.Button btnGestionarPlantilla;
         private System.Windows.Forms.Button btnCerrarSesion;
+        private System.Windows.Forms.Button btnCrearPlantilla;
+        private System.Windows.Forms.Button btnEliminarPlantilla;
+        private System.Windows.Forms.Button btnAdminJugadores;
     }
 }
