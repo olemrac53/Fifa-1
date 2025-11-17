@@ -9,11 +9,13 @@ namespace Fifa_1
 {
     public partial class Jugador : Form
     {
-        private IRepoFutbolista? _repoFutbolista;
-        private IRepoTipo? _repoTipo;
-        private IRepoEquipo? _repoEquipo;
+        // --- CORRECCIÓN 1: Eliminar los campos de repositorio ---
+        // private IRepoFutbolista _repoFutbolista;  <-- ELIMINADO
+        // private IRepoTipo _repoTipo;            <-- ELIMINADO
+        // private IRepoEquipo _repoEquipo;          <-- ELIMINADO
 
-        private Futbolista? _futbolistaSeleccionado;
+        // SÍ podemos guardar el futbolista seleccionado (es solo un objeto de datos)
+        private Futbolista _futbolistaSeleccionado;
 
         public Jugador()
         {
@@ -24,14 +26,15 @@ namespace Fifa_1
         {
             try
             {
-                using var con = ConexionDB.CrearConexion();
-                con.Open();
-                _repoFutbolista = new RepoFutbolista(con);
-                _repoTipo = new RepoTipo(con);
-                _repoEquipo = new RepoEquipo(con);
-
-                CargarCombos();
-                CargarGrilla();
+                // --- CORRECCIÓN 2: Crear conexión y repos SOLO para cargar ---
+                using (var con = ConexionDB.CrearConexion())
+                {
+                    con.Open();
+                    // Pasamos los repos a los métodos
+                    CargarCombos(new RepoTipo(con), new RepoEquipo(con));
+                    CargarGrilla(new RepoFutbolista(con));
+                }
+                // --- La conexión se cierra aquí ---
             }
             catch (Exception ex)
             {
@@ -39,28 +42,23 @@ namespace Fifa_1
             }
         }
 
-        private void CargarCombos()
+        private void CargarCombos(IRepoTipo repoTipo, IRepoEquipo repoEquipo)
         {
-            if (_repoTipo == null)
-                throw new InvalidOperationException("_repoTipo is not initialized.");
-            if (_repoEquipo == null)
-                throw new InvalidOperationException("_repoEquipo is not initialized.");
-
             // Cargar Tipos
-            cmbTipo.DataSource = _repoTipo.GetTipos();
+            cmbTipo.DataSource = repoTipo.GetTipos();
             cmbTipo.DisplayMember = "Nombre";
             cmbTipo.ValueMember = "IdTipo";
 
             // Cargar Equipos
-            cmbEquipo.DataSource = _repoEquipo.GetEquipos();
+            cmbEquipo.DataSource = repoEquipo.GetEquipos();
             cmbEquipo.DisplayMember = "Nombre";
             cmbEquipo.ValueMember = "IdEquipo";
         }
 
-        private void CargarGrilla()
+        private void CargarGrilla(IRepoFutbolista repoFutbolista)
         {
             dgvFutbolistas.DataSource = null;
-            var lista = _repoFutbolista.GetFutbolistas();
+            var lista = repoFutbolista.GetFutbolistas();
             dgvFutbolistas.DataSource = lista;
 
             // Configurar grilla
@@ -73,8 +71,12 @@ namespace Fifa_1
 
         private void dgvFutbolistas_SelectionChanged(object sender, EventArgs e)
         {
+            // Este método no usa la BD, así que no necesita cambios.
             if (dgvFutbolistas.CurrentRow == null || dgvFutbolistas.CurrentRow.DataBoundItem == null)
+            {
+                LimpiarFormulario();
                 return;
+            }
 
             _futbolistaSeleccionado = (Futbolista)dgvFutbolistas.CurrentRow.DataBoundItem;
             PoblarFormulario(_futbolistaSeleccionado);
@@ -101,8 +103,8 @@ namespace Fifa_1
             txtNumCamisa.Clear();
             txtCotizacion.Clear();
             dtpFechaNacimiento.Value = DateTime.Now;
-            cmbTipo.SelectedIndex = 0;
-            cmbEquipo.SelectedIndex = 0;
+            if (cmbTipo.Items.Count > 0) cmbTipo.SelectedIndex = 0;
+            if (cmbEquipo.Items.Count > 0) cmbEquipo.SelectedIndex = 0;
             dgvFutbolistas.ClearSelection();
         }
 
@@ -111,6 +113,7 @@ namespace Fifa_1
             LimpiarFormulario();
         }
 
+        // --- CORRECCIÓN 3: 'btnGuardar' debe crear su propia conexión ---
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             if (!ValidarCampos()) return;
@@ -126,23 +129,33 @@ namespace Fifa_1
                     NumCamisa = txtNumCamisa.Text.Trim(),
                     Cotizacion = decimal.Parse(txtCotizacion.Text),
                     FechaNacimiento = dtpFechaNacimiento.Value.Date,
-                    Tipo = cmbTipo.SelectedItem as Tipo ?? throw new InvalidOperationException("Tipo seleccionado es nulo."),
-                    Equipo = cmbEquipo.SelectedItem as Equipo ?? throw new InvalidOperationException("Equipo seleccionado es nulo.")
+                    Tipo = (Tipo)cmbTipo.SelectedItem,
+                    Equipo = (Equipo)cmbEquipo.SelectedItem
                 };
 
-                if (_futbolistaSeleccionado == null) // Es Nuevo
+                // Abrir una NUEVA conexión solo para esta operación
+                using (var con = ConexionDB.CrearConexion())
                 {
-                    _repoFutbolista.InsertFutbolista(futbolista);
-                    MessageBox.Show("Futbolista creado exitosamente.", "Nuevo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else // Es Modificación
-                {
-                    futbolista.IdFutbolista = _futbolistaSeleccionado.IdFutbolista;
-                    _repoFutbolista.UpdateFutbolista(futbolista);
-                    MessageBox.Show("Futbolista modificado exitosamente.", "Modificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                    con.Open();
+                    IRepoFutbolista repoFutbolista = new RepoFutbolista(con);
 
-                CargarGrilla();
+                    if (_futbolistaSeleccionado == null) // Es Nuevo
+                    {
+                        repoFutbolista.InsertFutbolista(futbolista);
+                        MessageBox.Show("Futbolista creado exitosamente.", "Nuevo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else // Es Modificación
+                    {
+                        futbolista.IdFutbolista = _futbolistaSeleccionado.IdFutbolista;
+                        repoFutbolista.UpdateFutbolista(futbolista);
+                        MessageBox.Show("Futbolista modificado exitosamente.", "Modificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                    // Recargamos la grilla (reutilizando el repo y la conexión)
+                    CargarGrilla(repoFutbolista);
+                }
+                // --- La conexión se cierra aquí ---
+
                 LimpiarFormulario();
             }
             catch (Exception ex)
@@ -151,6 +164,7 @@ namespace Fifa_1
             }
         }
 
+        // --- CORRECCIÓN 4: 'btnEliminar' debe crear su propia conexión ---
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (_futbolistaSeleccionado == null)
@@ -165,9 +179,20 @@ namespace Fifa_1
             {
                 try
                 {
-                    _repoFutbolista.DeleteFutbolista(_futbolistaSeleccionado.IdFutbolista);
-                    MessageBox.Show("Futbolista eliminado.", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CargarGrilla();
+                    // Abrir una NUEVA conexión solo para esta operación
+                    using (var con = ConexionDB.CrearConexion())
+                    {
+                        con.Open();
+                        IRepoFutbolista repoFutbolista = new RepoFutbolista(con);
+
+                        repoFutbolista.DeleteFutbolista(_futbolistaSeleccionado.IdFutbolista);
+                        MessageBox.Show("Futbolista eliminado.", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Recargamos la grilla (reutilizando el repo y la conexión)
+                        CargarGrilla(repoFutbolista);
+                    }
+                    // --- La conexión se cierra aquí ---
+
                     LimpiarFormulario();
                 }
                 catch (Exception ex)
