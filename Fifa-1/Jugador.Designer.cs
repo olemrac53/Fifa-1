@@ -38,8 +38,13 @@
             this.lblNombre = new System.Windows.Forms.Label();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
+            this.gbNuevoEquipo = new System.Windows.Forms.GroupBox();
+            this.btnCrearEquipo = new System.Windows.Forms.Button();
+            this.txtNuevoEquipoNombre = new System.Windows.Forms.TextBox();
+            this.lblNuevoEquipo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFutbolistas)).BeginInit();
             this.gbDetalle.SuspendLayout();
+            this.gbNuevoEquipo.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvFutbolistas
@@ -245,11 +250,50 @@
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
+            // gbNuevoEquipo
+            // 
+            this.gbNuevoEquipo.Controls.Add(this.btnCrearEquipo);
+            this.gbNuevoEquipo.Controls.Add(this.txtNuevoEquipoNombre);
+            this.gbNuevoEquipo.Controls.Add(this.lblNuevoEquipo);
+            this.gbNuevoEquipo.Location = new System.Drawing.Point(12, 496);
+            this.gbNuevoEquipo.Name = "gbNuevoEquipo";
+            this.gbNuevoEquipo.Size = new System.Drawing.Size(776, 55);
+            this.gbNuevoEquipo.TabIndex = 12;
+            this.gbNuevoEquipo.TabStop = false;
+            this.gbNuevoEquipo.Text = "Crear Nuevo Equipo";
+            // 
+            // btnCrearEquipo
+            // 
+            this.btnCrearEquipo.Location = new System.Drawing.Point(343, 17);
+            this.btnCrearEquipo.Name = "btnCrearEquipo";
+            this.btnCrearEquipo.Size = new System.Drawing.Size(100, 23);
+            this.btnCrearEquipo.TabIndex = 2;
+            this.btnCrearEquipo.Text = "Crear Equipo";
+            this.btnCrearEquipo.UseVisualStyleBackColor = true;
+            this.btnCrearEquipo.Click += new System.EventHandler(this.btnCrearEquipo_Click);
+            // 
+            // txtNuevoEquipoNombre
+            // 
+            this.txtNuevoEquipoNombre.Location = new System.Drawing.Point(120, 19);
+            this.txtNuevoEquipoNombre.Name = "txtNuevoEquipoNombre";
+            this.txtNuevoEquipoNombre.Size = new System.Drawing.Size(200, 20);
+            this.txtNuevoEquipoNombre.TabIndex = 1;
+            // 
+            // lblNuevoEquipo
+            // 
+            this.lblNuevoEquipo.AutoSize = true;
+            this.lblNuevoEquipo.Location = new System.Drawing.Point(20, 22);
+            this.lblNuevoEquipo.Name = "lblNuevoEquipo";
+            this.lblNuevoEquipo.Size = new System.Drawing.Size(94, 13);
+            this.lblNuevoEquipo.TabIndex = 0;
+            this.lblNuevoEquipo.Text = "Nombre de Equipo:";
+            // 
             // Jugador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 504);
+            this.ClientSize = new System.Drawing.Size(800, 563);
+            this.Controls.Add(this.gbNuevoEquipo);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnNuevo);
             this.Controls.Add(this.gbDetalle);
@@ -260,6 +304,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvFutbolistas)).EndInit();
             this.gbDetalle.ResumeLayout(false);
             this.gbDetalle.PerformLayout();
+            this.gbNuevoEquipo.ResumeLayout(false);
+            this.gbNuevoEquipo.PerformLayout();
             this.ResumeLayout(false);
         }
 
@@ -286,5 +332,9 @@
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.Button btnEliminar;
+        private System.Windows.Forms.GroupBox gbNuevoEquipo;
+        private System.Windows.Forms.Button btnCrearEquipo;
+        private System.Windows.Forms.TextBox txtNuevoEquipoNombre;
+        private System.Windows.Forms.Label lblNuevoEquipo;
     }
 }

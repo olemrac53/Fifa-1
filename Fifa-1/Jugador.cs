@@ -9,13 +9,8 @@ namespace Fifa_1
 {
     public partial class Jugador : Form
     {
-        // --- CORRECCIÓN 1: Eliminar los campos de repositorio ---
-        // private IRepoFutbolista _repoFutbolista;  <-- ELIMINADO
-        // private IRepoTipo _repoTipo;            <-- ELIMINADO
-        // private IRepoEquipo _repoEquipo;          <-- ELIMINADO
-
         // SÍ podemos guardar el futbolista seleccionado (es solo un objeto de datos)
-        private Futbolista _futbolistaSeleccionado;
+        private Futbolista? _futbolistaSeleccionado;
 
         public Jugador()
         {
@@ -26,15 +21,9 @@ namespace Fifa_1
         {
             try
             {
-                // --- CORRECCIÓN 2: Crear conexión y repos SOLO para cargar ---
-                using (var con = ConexionDB.CrearConexion())
-                {
-                    con.Open();
-                    // Pasamos los repos a los métodos
-                    CargarCombos(new RepoTipo(con), new RepoEquipo(con));
-                    CargarGrilla(new RepoFutbolista(con));
-                }
-                // --- La conexión se cierra aquí ---
+                // Cargamos todo al iniciar
+                CargarCombos();
+                CargarGrilla();
             }
             catch (Exception ex)
             {
@@ -42,36 +31,61 @@ namespace Fifa_1
             }
         }
 
-        private void CargarCombos(IRepoTipo repoTipo, IRepoEquipo repoEquipo)
+        // --- REFACTORIZADO ---
+        // Ahora CargarCombos abre su propia conexión.
+        private void CargarCombos()
         {
-            // Cargar Tipos
-            cmbTipo.DataSource = repoTipo.GetTipos();
-            cmbTipo.DisplayMember = "Nombre";
-            cmbTipo.ValueMember = "IdTipo";
+            using (var con = ConexionDB.CrearConexion())
+            {
+                con.Open();
+                IRepoTipo repoTipo = new RepoTipo(con);
+                IRepoEquipo repoEquipo = new RepoEquipo(con);
 
-            // Cargar Equipos
-            cmbEquipo.DataSource = repoEquipo.GetEquipos();
-            cmbEquipo.DisplayMember = "Nombre";
-            cmbEquipo.ValueMember = "IdEquipo";
+                // Guardamos la selección actual del ComboBox de Equipos
+                var equipoSeleccionado = cmbEquipo.SelectedValue;
+
+                // Cargar Tipos
+                cmbTipo.DataSource = repoTipo.GetTipos();
+                cmbTipo.DisplayMember = "Nombre";
+                cmbTipo.ValueMember = "IdTipo";
+
+                // Cargar Equipos
+                cmbEquipo.DataSource = repoEquipo.GetEquipos();
+                cmbEquipo.DisplayMember = "Nombre";
+                cmbEquipo.ValueMember = "IdEquipo";
+
+                // Intentamos restaurar la selección anterior (útil después de crear uno nuevo)
+                if (equipoSeleccionado != null)
+                {
+                    cmbEquipo.SelectedValue = equipoSeleccionado;
+                }
+            }
         }
 
-        private void CargarGrilla(IRepoFutbolista repoFutbolista)
+        // --- REFACTORIZADO ---
+        // Ahora CargarGrilla abre su propia conexión.
+        private void CargarGrilla()
         {
-            dgvFutbolistas.DataSource = null;
-            var lista = repoFutbolista.GetFutbolistas();
-            dgvFutbolistas.DataSource = lista;
+            using (var con = ConexionDB.CrearConexion())
+            {
+                con.Open();
+                IRepoFutbolista repoFutbolista = new RepoFutbolista(con);
 
-            // Configurar grilla
-            dgvFutbolistas.Columns["IdFutbolista"].Visible = false;
-            dgvFutbolistas.Columns["FechaNacimiento"].Visible = false;
-            dgvFutbolistas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            if (dgvFutbolistas.Columns.Contains("Cotizacion"))
-                dgvFutbolistas.Columns["Cotizacion"].DefaultCellStyle.Format = "C2";
+                dgvFutbolistas.DataSource = null;
+                var lista = repoFutbolista.GetFutbolistas();
+                dgvFutbolistas.DataSource = lista;
+
+                // Configurar grilla
+                dgvFutbolistas.Columns["IdFutbolista"].Visible = false;
+                dgvFutbolistas.Columns["FechaNacimiento"].Visible = false;
+                dgvFutbolistas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                if (dgvFutbolistas.Columns.Contains("Cotizacion"))
+                    dgvFutbolistas.Columns["Cotizacion"].DefaultCellStyle.Format = "C2";
+            }
         }
 
         private void dgvFutbolistas_SelectionChanged(object sender, EventArgs e)
         {
-            // Este método no usa la BD, así que no necesita cambios.
             if (dgvFutbolistas.CurrentRow == null || dgvFutbolistas.CurrentRow.DataBoundItem == null)
             {
                 LimpiarFormulario();
@@ -113,14 +127,12 @@ namespace Fifa_1
             LimpiarFormulario();
         }
 
-        // --- CORRECCIÓN 3: 'btnGuardar' debe crear su propia conexión ---
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             if (!ValidarCampos()) return;
 
             try
             {
-                // Crear el objeto Futbolista desde el formulario
                 var futbolista = new Futbolista
                 {
                     Nombre = txtNombre.Text.Trim(),
@@ -130,32 +142,28 @@ namespace Fifa_1
                     Cotizacion = decimal.Parse(txtCotizacion.Text),
                     FechaNacimiento = dtpFechaNacimiento.Value.Date,
                     Tipo = (Tipo)cmbTipo.SelectedItem,
-                    Equipo = (Equipo)cmbEquipo.SelectedItem
+                    Equipo = cmbEquipo.SelectedItem as Equipo ?? throw new InvalidOperationException("Debe seleccionar un Equipo.")
                 };
 
-                // Abrir una NUEVA conexión solo para esta operación
                 using (var con = ConexionDB.CrearConexion())
                 {
                     con.Open();
                     IRepoFutbolista repoFutbolista = new RepoFutbolista(con);
 
-                    if (_futbolistaSeleccionado == null) // Es Nuevo
+                    if (_futbolistaSeleccionado == null) // Nuevo
                     {
                         repoFutbolista.InsertFutbolista(futbolista);
                         MessageBox.Show("Futbolista creado exitosamente.", "Nuevo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    else // Es Modificación
+                    else // Modificación
                     {
                         futbolista.IdFutbolista = _futbolistaSeleccionado.IdFutbolista;
                         repoFutbolista.UpdateFutbolista(futbolista);
                         MessageBox.Show("Futbolista modificado exitosamente.", "Modificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-
-                    // Recargamos la grilla (reutilizando el repo y la conexión)
-                    CargarGrilla(repoFutbolista);
                 }
-                // --- La conexión se cierra aquí ---
 
+                CargarGrilla(); // Recargamos la grilla
                 LimpiarFormulario();
             }
             catch (Exception ex)
@@ -164,7 +172,6 @@ namespace Fifa_1
             }
         }
 
-        // --- CORRECCIÓN 4: 'btnEliminar' debe crear su propia conexión ---
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (_futbolistaSeleccionado == null)
@@ -179,20 +186,15 @@ namespace Fifa_1
             {
                 try
                 {
-                    // Abrir una NUEVA conexión solo para esta operación
                     using (var con = ConexionDB.CrearConexion())
                     {
                         con.Open();
                         IRepoFutbolista repoFutbolista = new RepoFutbolista(con);
-
                         repoFutbolista.DeleteFutbolista(_futbolistaSeleccionado.IdFutbolista);
                         MessageBox.Show("Futbolista eliminado.", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        // Recargamos la grilla (reutilizando el repo y la conexión)
-                        CargarGrilla(repoFutbolista);
                     }
-                    // --- La conexión se cierra aquí ---
 
+                    CargarGrilla();
                     LimpiarFormulario();
                 }
                 catch (Exception ex)
@@ -201,6 +203,49 @@ namespace Fifa_1
                 }
             }
         }
+
+        // --- ¡NUEVO MÉTODO! ---
+        // Evento click para el botón "Crear Equipo"
+        private void btnCrearEquipo_Click(object sender, EventArgs e)
+        {
+            string nombreEquipo = txtNuevoEquipoNombre.Text.Trim();
+            if (string.IsNullOrWhiteSpace(nombreEquipo))
+            {
+                MessageBox.Show("Por favor, ingrese un nombre para el nuevo equipo.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                var nuevoEquipo = new Equipo
+                {
+                    Nombre = nombreEquipo,
+                    Presupuesto = 0 // El SP AltaEquipo solo pide el nombre
+                };
+
+                using (var con = ConexionDB.CrearConexion())
+                {
+                    con.Open();
+                    IRepoEquipo repoEquipo = new RepoEquipo(con);
+                    repoEquipo.InsertEquipo(nuevoEquipo); // Llama al SP AltaEquipo
+                }
+
+                MessageBox.Show($"Equipo '{nombreEquipo}' creado con ID: {nuevoEquipo.IdEquipo}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // --- Recargamos el ComboBox ---
+                CargarCombos();
+
+                // Opcional: seleccionamos el equipo recién creado
+                cmbEquipo.SelectedValue = nuevoEquipo.IdEquipo;
+
+                txtNuevoEquipoNombre.Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al crear el equipo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
 
         private bool ValidarCampos()
         {
@@ -221,8 +266,5 @@ namespace Fifa_1
             }
             return true;
         }
-
-        // Tus botones originales (button1_Click y button2_Click) no
-        // tenían lógica, así que los he omitido por los nuevos botones del CRUD.
     }
 }

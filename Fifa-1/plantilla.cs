@@ -16,7 +16,7 @@ namespace Fifa_1
         // private IRepoPlantilla _repoPlantilla;  <-- ELIMINADO
         // private IRepoFutbolista _repoFutbolista; <-- ELIMINADO
 
-        private Plantilla _plantillaActual; // El objeto de datos SÍ se puede guardar
+        private Plantilla? _plantillaActual; // The object of datos SÍ se puede guardar
 
         public plantilla(int idPlantilla)
         {
@@ -117,6 +117,12 @@ namespace Fifa_1
                 !int.TryParse(txtCantJugadores.Text, out int nuevaCantidad))
             {
                 MessageBox.Show("Por favor, ingrese valores numéricos válidos.", "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (_plantillaActual == null)
+            {
+                MessageBox.Show("No se ha cargado la plantilla actual.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
