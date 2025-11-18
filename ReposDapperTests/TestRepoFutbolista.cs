@@ -22,7 +22,7 @@ public class TestRepoFutbolista : TestRepo, IDisposable
 
     private void SetupTestData()
     {
-        // CORREGIDO: Usar 'Equipo' con mayúscula (case-sensitive en Linux)
+        // Configuración de datos de prueba en la BD
         var sql = @"INSERT INTO Equipo (nombre) 
                    VALUES (@nombre);
                    SELECT LAST_INSERT_ID();";
@@ -32,7 +32,6 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             nombre = $"Equipo Test {Guid.NewGuid().ToString().Substring(0, 8)}"
         });
 
-        // CORREGIDO: Usar 'Tipo' con mayúscula
         var tipoSql = @"INSERT INTO Tipo (nombre) 
                        VALUES (@nombre);
                        SELECT LAST_INSERT_ID();";
@@ -65,7 +64,6 @@ public class TestRepoFutbolista : TestRepo, IDisposable
 
         try
         {
-            // CORREGIDO: Usar nombres con mayúscula
             _conexion.Execute("DELETE FROM Equipo WHERE id_equipo = @id", new { id = equipoTestId });
             _conexion.Execute("DELETE FROM Tipo WHERE id_tipo = @id", new { id = tipoTestId });
         }
@@ -85,7 +83,8 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             NumCamisa = "10",
             FechaNacimiento = new DateTime(1987, 6, 24),
             Cotizacion = 50000000,
-            Tipo = new Tipo() { IdTipo = tipoTestId, nombre = "Delantero" },
+            // CORREGIDO: Nombre con mayúscula
+            Tipo = new Tipo() { IdTipo = tipoTestId, Nombre = "Delantero" },
             Equipo = new Equipo() { IdEquipo = equipoTestId, Nombre = "Equipo Test" }
         };
 
@@ -113,7 +112,8 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             NumCamisa = "99",
             FechaNacimiento = new DateTime(1990, 1, 1),
             Cotizacion = 1000000,
-            Tipo = new Tipo() { IdTipo = tipoTestId, nombre = "Delantero" },
+            // CORREGIDO: Nombre con mayúscula
+            Tipo = new Tipo() { IdTipo = tipoTestId, Nombre = "Delantero" },
             Equipo = new Equipo() { IdEquipo = equipoTestId, Nombre = "Equipo Test" }
         };
         repoFutbolista.InsertFutbolista(futbolista);
@@ -141,7 +141,8 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             NumCamisa = "7",
             FechaNacimiento = new DateTime(1985, 2, 5),
             Cotizacion = 45000000,
-            Tipo = new Tipo() { IdTipo = tipoTestId, nombre = "Delantero" },
+            // CORREGIDO: Nombre con mayúscula
+            Tipo = new Tipo() { IdTipo = tipoTestId, Nombre = "Delantero" },
             Equipo = new Equipo() { IdEquipo = equipoTestId, Nombre = "Equipo Test" }
         };
         repoFutbolista.InsertFutbolista(futbolista);
@@ -168,7 +169,8 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             NumCamisa = "11",
             FechaNacimiento = new DateTime(1992, 2, 5),
             Cotizacion = 40000000,
-            Tipo = new Tipo() { IdTipo = tipoTestId, nombre = "Delantero" },
+            // CORREGIDO: Nombre con mayúscula
+            Tipo = new Tipo() { IdTipo = tipoTestId, Nombre = "Delantero" },
             Equipo = new Equipo() { IdEquipo = equipoTestId, Nombre = "Equipo Test" }
         };
         repoFutbolista.InsertFutbolista(futbolista);
@@ -195,7 +197,8 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             NumCamisa = "7",
             FechaNacimiento = new DateTime(1998, 12, 20),
             Cotizacion = 60000000,
-            Tipo = new Tipo() { IdTipo = tipoTestId, nombre = "Delantero" },
+            // CORREGIDO: Nombre con mayúscula
+            Tipo = new Tipo() { IdTipo = tipoTestId, Nombre = "Delantero" },
             Equipo = new Equipo() { IdEquipo = equipoTestId, Nombre = "Equipo Test" }
         };
         repoFutbolista.InsertFutbolista(futbolista);
@@ -218,7 +221,8 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             NumCamisa = "9",
             FechaNacimiento = new DateTime(1988, 6, 2),
             Cotizacion = 35000000,
-            Tipo = new Tipo() { IdTipo = tipoTestId, nombre = "Delantero" },
+            // CORREGIDO: Nombre con mayúscula
+            Tipo = new Tipo() { IdTipo = tipoTestId, Nombre = "Delantero" },
             Equipo = new Equipo() { IdEquipo = equipoTestId, Nombre = "Equipo Test" }
         };
         repoFutbolista.InsertFutbolista(futbolista);
@@ -232,7 +236,8 @@ public class TestRepoFutbolista : TestRepo, IDisposable
         Assert.True(futbolistaConRelaciones.Equipo.IdEquipo > 0);
         Assert.True(futbolistaConRelaciones.Tipo.IdTipo > 0);
         Assert.NotNull(futbolistaConRelaciones.Equipo.Nombre);
-        Assert.NotEmpty(futbolistaConRelaciones.Tipo.nombre);
+        // CORREGIDO: Nombre con mayúscula
+        Assert.NotEmpty(futbolistaConRelaciones.Tipo.Nombre);
     }
 
     #endregion
@@ -246,7 +251,8 @@ public class TestRepoFutbolista : TestRepo, IDisposable
         var nuevoTipo = new Tipo()
         {
             IdTipo = 0,
-            nombre = nombreUnico
+            // CORREGIDO: Nombre con mayúscula
+            Nombre = nombreUnico
         };
 
         repoFutbolista.InsertTipo(nuevoTipo);
@@ -256,7 +262,8 @@ public class TestRepoFutbolista : TestRepo, IDisposable
         
         var tipoGuardado = repoFutbolista.GetTipo(nuevoTipo.IdTipo);
         Assert.NotNull(tipoGuardado);
-        Assert.Equal(nombreUnico, tipoGuardado.nombre);
+        // CORREGIDO: Nombre con mayúscula
+        Assert.Equal(nombreUnico, tipoGuardado.Nombre);
     }
 
     [Fact]
@@ -272,7 +279,8 @@ public class TestRepoFutbolista : TestRepo, IDisposable
     public void TraerTipoPorId()
     {
         var nombreUnico = $"Portero Test {Guid.NewGuid().ToString().Substring(0, 8)}";
-        var tipo = new Tipo() { IdTipo = 0, nombre = nombreUnico };
+        // CORREGIDO: Nombre con mayúscula
+        var tipo = new Tipo() { IdTipo = 0, Nombre = nombreUnico };
         repoFutbolista.InsertTipo(tipo);
         tiposCreados.Add(tipo.IdTipo);
 
@@ -280,14 +288,16 @@ public class TestRepoFutbolista : TestRepo, IDisposable
 
         Assert.NotNull(tipoObtenido);
         Assert.Equal(tipo.IdTipo, tipoObtenido.IdTipo);
-        Assert.Equal(nombreUnico, tipoObtenido.nombre);
+        // CORREGIDO: Nombre con mayúscula
+        Assert.Equal(nombreUnico, tipoObtenido.Nombre);
     }
 
     [Fact]
     public void EliminarTipo()
     {
         var nombreUnico = $"Tipo Temporal {Guid.NewGuid().ToString().Substring(0, 8)}";
-        var tipo = new Tipo() { IdTipo = 0, nombre = nombreUnico };
+        // CORREGIDO: Nombre con mayúscula
+        var tipo = new Tipo() { IdTipo = 0, Nombre = nombreUnico };
         repoFutbolista.InsertTipo(tipo);
         int idTipo = tipo.IdTipo;
 
@@ -301,11 +311,13 @@ public class TestRepoFutbolista : TestRepo, IDisposable
     public void TipoDuplicadoLanzaExcepcion()
     {
         var nombreUnico = $"Mediocampista Test {Guid.NewGuid().ToString().Substring(0, 8)}";
-        var tipo = new Tipo() { IdTipo = 0, nombre = nombreUnico };
+        // CORREGIDO: Nombre con mayúscula
+        var tipo = new Tipo() { IdTipo = 0, Nombre = nombreUnico };
         repoFutbolista.InsertTipo(tipo);
         tiposCreados.Add(tipo.IdTipo);
 
-        var tipoDuplicado = new Tipo() { IdTipo = 0, nombre = nombreUnico };
+        // CORREGIDO: Nombre con mayúscula
+        var tipoDuplicado = new Tipo() { IdTipo = 0, Nombre = nombreUnico };
         Assert.Throws<System.Data.ConstraintException>(() => 
             repoFutbolista.InsertTipo(tipoDuplicado)
         );
@@ -326,7 +338,8 @@ public class TestRepoFutbolista : TestRepo, IDisposable
             NumCamisa = "99",
             FechaNacimiento = new DateTime(2005, 1, 1),
             Cotizacion = 0,
-            Tipo = new Tipo() { IdTipo = tipoTestId, nombre = "Delantero" },
+            // CORREGIDO: Nombre con mayúscula
+            Tipo = new Tipo() { IdTipo = tipoTestId, Nombre = "Delantero" },
             Equipo = new Equipo() { IdEquipo = equipoTestId, Nombre = "Equipo Test" }
         };
 
