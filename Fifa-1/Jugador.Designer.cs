@@ -42,6 +42,7 @@
             this.btnCrearEquipo = new System.Windows.Forms.Button();
             this.txtNuevoEquipoNombre = new System.Windows.Forms.TextBox();
             this.lblNuevoEquipo = new System.Windows.Forms.Label();
+            this.btnVolverMenu = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFutbolistas)).BeginInit();
             this.gbDetalle.SuspendLayout();
             this.gbNuevoEquipo.SuspendLayout();
@@ -288,11 +289,22 @@
             this.lblNuevoEquipo.TabIndex = 0;
             this.lblNuevoEquipo.Text = "Nombre de Equipo:";
             // 
+            // btnVolverMenu
+            // 
+            this.btnVolverMenu.Location = new System.Drawing.Point(678, 270);
+            this.btnVolverMenu.Name = "btnVolverMenu";
+            this.btnVolverMenu.Size = new System.Drawing.Size(110, 23);
+            this.btnVolverMenu.TabIndex = 13;
+            this.btnVolverMenu.Text = "Volver al Menú";
+            this.btnVolverMenu.UseVisualStyleBackColor = true;
+            this.btnVolverMenu.Click += new System.EventHandler(this.btnVolverMenu_Click);
+            // 
             // Jugador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 563);
+            this.Controls.Add(this.btnVolverMenu);
             this.Controls.Add(this.gbNuevoEquipo);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnNuevo);
@@ -307,6 +319,7 @@
             this.gbNuevoEquipo.ResumeLayout(false);
             this.gbNuevoEquipo.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         #endregion
@@ -336,5 +349,6 @@
         private System.Windows.Forms.Button btnCrearEquipo;
         private System.Windows.Forms.TextBox txtNuevoEquipoNombre;
         private System.Windows.Forms.Label lblNuevoEquipo;
+        private System.Windows.Forms.Button btnVolverMenu;
     }
 }

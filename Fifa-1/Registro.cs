@@ -13,13 +13,22 @@ namespace Fifa_1
             InitializeComponent();
         }
 
-        // Tu lógica de registro (¡está perfecta!)
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
             string nombre = txtNombre.Text.Trim();
             string apellido = txtApellido.Text.Trim();
             string email = txtEmail.Text.Trim();
             string password = txtPassword.Text;
+
+            // --- INICIO DE LA CORRECCIÓN ---
+            string confirmPassword = txtConfirmPassword.Text;
+
+            if (password != confirmPassword)
+            {
+                MessageBox.Show("Las contraseñas no coinciden. Por favor, inténtelo de nuevo.", "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Detiene la ejecución
+            }
+            // --- FIN DE LA CORRECCIÓN ---
 
             if (string.IsNullOrWhiteSpace(nombre) ||
                 string.IsNullOrWhiteSpace(apellido) ||
@@ -47,7 +56,6 @@ namespace Fifa_1
 
                 MessageBox.Show("Registro exitoso.", "Registro", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Después de registrar, volver al login
                 var login = new Inicio_sesion();
                 login.Show();
                 this.Hide();
@@ -62,8 +70,6 @@ namespace Fifa_1
             }
         }
 
-        // *** AÑADIR ESTE MÉTODO ***
-        // Para que funcione el link "Ya tienes cuenta? Inicia Sesión"
         private void llblVolverLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             var login = new Inicio_sesion();

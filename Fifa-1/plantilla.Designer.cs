@@ -36,6 +36,7 @@
             this.lblCantJugadores = new System.Windows.Forms.Label();
             this.txtPresupuesto = new System.Windows.Forms.TextBox();
             this.lblPresupuestoMax = new System.Windows.Forms.Label();
+            this.lblFormacionValida = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMercado)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTitulares)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSuplentes)).BeginInit();
@@ -240,11 +241,23 @@
             this.lblPresupuestoMax.TabIndex = 0;
             this.lblPresupuestoMax.Text = "Presupuesto Máximo:";
             // 
+            // lblFormacionValida
+            // 
+            this.lblFormacionValida.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFormacionValida.Location = new System.Drawing.Point(530, 491);
+            this.lblFormacionValida.Name = "lblFormacionValida";
+            this.lblFormacionValida.Size = new System.Drawing.Size(430, 23);
+            this.lblFormacionValida.TabIndex = 14;
+            this.lblFormacionValida.Text = "Formación: INVÁLIDA";
+            this.lblFormacionValida.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblFormacionValida.ForeColor = System.Drawing.Color.Red;
+            // 
             // plantilla
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1054, 577);
+            this.Controls.Add(this.lblFormacionValida);
             this.Controls.Add(this.gbConfig);
             this.Controls.Add(this.lblPuntaje);
             this.Controls.Add(this.lblSuplentes);
@@ -269,6 +282,7 @@
             this.gbConfig.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
@@ -292,5 +306,6 @@
         private System.Windows.Forms.Label lblCantJugadores;
         private System.Windows.Forms.TextBox txtPresupuesto;
         private System.Windows.Forms.Label lblPresupuestoMax;
+        private System.Windows.Forms.Label lblFormacionValida;
     }
 }

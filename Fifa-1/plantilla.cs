@@ -11,12 +11,7 @@ namespace Fifa_1
     public partial class plantilla : Form
     {
         private readonly int _idPlantilla;
-
-        // --- CORRECCIÓN 1: Eliminar los campos de repositorio ---
-        // private IRepoPlantilla _repoPlantilla;  <-- ELIMINADO
-        // private IRepoFutbolista _repoFutbolista; <-- ELIMINADO
-
-        private Plantilla? _plantillaActual; // The object of datos SÍ se puede guardar
+        private Plantilla _plantillaActual;
 
         public plantilla(int idPlantilla)
         {
@@ -26,12 +21,10 @@ namespace Fifa_1
 
         private void plantilla_Load(object sender, EventArgs e)
         {
-            // Deshabilitar botones al inicio
             btnFicharTitular.Enabled = false;
             btnFicharSuplente.Enabled = false;
             btnQuitarTitular.Enabled = false;
             btnQuitarSuplente.Enabled = false;
-
             CargarDatos();
         }
 
@@ -39,21 +32,19 @@ namespace Fifa_1
         {
             try
             {
-                // --- CORRECCIÓN 2: Los repos se crean y se usan solo localmente ---
                 using (var con = ConexionDB.CrearConexion())
                 {
                     con.Open();
                     IRepoPlantilla repoPlantilla = new RepoPlantilla(con);
                     IRepoFutbolista repoFutbolista = new RepoFutbolista(con);
 
-                    // Cargamos el mercado
+                    // Cargar Mercado
                     dgvMercado.DataSource = null;
+                    ConfigurarGrilla(dgvMercado); // Configurar ANTES de cargar datos
                     dgvMercado.DataSource = repoFutbolista.GetFutbolistas();
-                    ConfigurarGrilla(dgvMercado);
 
-                    // Cargamos la plantilla actual
+                    // Cargar Plantilla
                     _plantillaActual = repoPlantilla.GetPlantillaCompleta(_idPlantilla);
-
                     if (_plantillaActual == null)
                     {
                         MessageBox.Show("No se pudo cargar la plantilla.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -61,24 +52,24 @@ namespace Fifa_1
                         return;
                     }
 
-                    // Enlazar datos a las grillas
+                    // Cargar Titulares
                     dgvTitulares.DataSource = null;
-                    dgvTitulares.DataSource = _plantillaActual.Titulares;
                     ConfigurarGrilla(dgvTitulares);
+                    dgvTitulares.DataSource = _plantillaActual.Titulares;
 
+                    // Cargar Suplentes
                     dgvSuplentes.DataSource = null;
-                    dgvSuplentes.DataSource = _plantillaActual.Suplentes;
                     ConfigurarGrilla(dgvSuplentes);
+                    dgvSuplentes.DataSource = _plantillaActual.Suplentes;
 
-                    // Cargar datos en el GroupBox de Configuración
+                    // Cargar Configuración
                     txtPresupuesto.Text = _plantillaActual.PresupuestoMax.ToString();
                     txtCantJugadores.Text = _plantillaActual.CantMaxFutbolistas.ToString();
 
-                    // Actualizar Labels (con la conexión aún abierta)
+                    // Actualizar Labels
                     ActualizarPresupuestoLabel(repoPlantilla);
-                    ActualizarPuntajeLabel(repoPlantilla);
+                    ActualizarLabelsInformativos(repoPlantilla);
                 }
-                // --- La conexión y los repos se desechan aquí. ¡Eso está bien! ---
             }
             catch (Exception ex)
             {
@@ -86,7 +77,6 @@ namespace Fifa_1
             }
         }
 
-        // --- CORRECCIÓN 3: Los métodos ahora crean su propia conexión/repo ---
         private void ActualizarPresupuestoLabel(IRepoPlantilla repoPlantilla)
         {
             if (_plantillaActual == null) return;
@@ -94,22 +84,49 @@ namespace Fifa_1
             lblPresupuestoActual.Text = $"Presupuesto: {presupuestoUsado:C} / {_plantillaActual.PresupuestoMax:C}";
         }
 
-        private void ActualizarPuntajeLabel(IRepoPlantilla repoPlantilla)
+        private void ActualizarLabelsInformativos(IRepoPlantilla repoPlantilla)
         {
             if (_plantillaActual == null) return;
+
+            // 1. Lógica de Puntaje
             int fechaActual = 1;
             decimal puntaje = repoPlantilla.CalcularPuntajePlantillaFecha(_idPlantilla, fechaActual);
             lblPuntaje.Text = $"Puntaje Fecha {fechaActual}: {puntaje}";
+
+            // 2. LÓGICA DE VALIDACIÓN DE FORMACIÓN AÑADIDA
+            bool esValida = repoPlantilla.PlantillaEsValida(_idPlantilla);
+
+            if (esValida)
+            {
+                lblFormacionValida.Text = "Formación: 1-4-4-2 VÁLIDA";
+                lblFormacionValida.ForeColor = System.Drawing.Color.Green;
+            }
+            else
+            {
+                lblFormacionValida.Text = "Formación: INVÁLIDA (Requiere 1-4-4-2)";
+                lblFormacionValida.ForeColor = System.Drawing.Color.Red;
+            }
         }
 
-        // ... (ConfigurarGrilla no necesita conexión, está bien como está)
         private void ConfigurarGrilla(DataGridView dgv)
         {
-            // ... (código sin cambios)
+            dgv.Columns.Clear();
+            dgv.AutoGenerateColumns = false;
+
+            dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Nombre", HeaderText = "Nombre", DataPropertyName = "Nombre" });
+            dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Apellido", HeaderText = "Apellido", DataPropertyName = "Apellido" });
+            dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Tipo", HeaderText = "Posición", DataPropertyName = "Tipo.Nombre" });
+            dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Equipo", HeaderText = "Equipo", DataPropertyName = "Equipo.Nombre" });
+            dgv.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Cotizacion",
+                HeaderText = "Cotización",
+                DataPropertyName = "Cotizacion",
+                DefaultCellStyle = { Format = "C2" }
+            });
+
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
-
-
-        // --- CORRECCIÓN 4: Añadir 'using' a TODOS los métodos de Clic ---
 
         private void btnGuardarConfig_Click(object sender, EventArgs e)
         {
@@ -120,34 +137,23 @@ namespace Fifa_1
                 return;
             }
 
-            if (_plantillaActual == null)
-            {
-                MessageBox.Show("No se ha cargado la plantilla actual.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
             _plantillaActual.PresupuestoMax = nuevoPresupuesto;
             _plantillaActual.CantMaxFutbolistas = nuevaCantidad;
 
             try
             {
-                // Creamos una NUEVA conexión y repo solo para esta operación
                 using (var con = ConexionDB.CrearConexion())
                 {
                     con.Open();
                     IRepoPlantilla repoPlantilla = new RepoPlantilla(con);
                     repoPlantilla.UpdatePlantilla(_plantillaActual);
-
-                    // Actualizamos el label de presupuesto (reutilizando el repo)
                     ActualizarPresupuestoLabel(repoPlantilla);
                 }
-
                 MessageBox.Show("Configuración de la plantilla actualizada.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al guardar la configuración: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                // Revertir cambios
                 txtPresupuesto.Text = _plantillaActual.PresupuestoMax.ToString();
                 txtCantJugadores.Text = _plantillaActual.CantMaxFutbolistas.ToString();
             }
@@ -160,19 +166,15 @@ namespace Fifa_1
 
             try
             {
-                // Creamos una NUEVA conexión y repo solo para esta operación
                 using (var con = ConexionDB.CrearConexion())
                 {
                     con.Open();
                     IRepoPlantilla repoPlantilla = new RepoPlantilla(con);
-
                     if (esTitular)
                         repoPlantilla.AgregarTitular(_idPlantilla, futbolista.IdFutbolista);
                     else
                         repoPlantilla.AgregarSuplente(_idPlantilla, futbolista.IdFutbolista);
                 }
-
-                // Recargamos TODO (esto creará sus propias conexiones nuevas)
                 CargarDatos();
             }
             catch (MySqlException mex)
@@ -189,19 +191,16 @@ namespace Fifa_1
         {
             try
             {
-                // Creamos una NUEVA conexión y repo solo para esta operación
                 using (var con = ConexionDB.CrearConexion())
                 {
                     con.Open();
                     IRepoPlantilla repoPlantilla = new RepoPlantilla(con);
-
                     if (esTitular)
                         repoPlantilla.EliminarTitular(_idPlantilla, futbolista.IdFutbolista);
                     else
                         repoPlantilla.EliminarSuplente(_idPlantilla, futbolista.IdFutbolista);
                 }
-
-                CargarDatos(); // Recargamos
+                CargarDatos();
             }
             catch (Exception ex)
             {
@@ -209,16 +208,8 @@ namespace Fifa_1
             }
         }
 
-        // --- (El resto de los métodos de clic no necesitan cambios) ---
-        private void btnFicharTitular_Click(object sender, EventArgs e)
-        {
-            FicharJugador(esTitular: true);
-        }
-
-        private void btnFicharSuplente_Click(object sender, EventArgs e)
-        {
-            FicharJugador(esTitular: false);
-        }
+        private void btnFicharTitular_Click(object sender, EventArgs e) { FicharJugador(esTitular: true); }
+        private void btnFicharSuplente_Click(object sender, EventArgs e) { FicharJugador(esTitular: false); }
 
         private void btnQuitarTitular_Click(object sender, EventArgs e)
         {
@@ -234,21 +225,9 @@ namespace Fifa_1
             QuitarJugador(futbolista, esTitular: false);
         }
 
-        private void dgvMercado_SelectionChanged(object sender, EventArgs e)
-        {
-            btnFicharTitular.Enabled = dgvMercado.CurrentRow != null;
-            btnFicharSuplente.Enabled = dgvMercado.CurrentRow != null;
-        }
-
-        private void dgvTitulares_SelectionChanged(object sender, EventArgs e)
-        {
-            btnQuitarTitular.Enabled = dgvTitulares.CurrentRow != null;
-        }
-
-        private void dgvSuplentes_SelectionChanged(object sender, EventArgs e)
-        {
-            btnQuitarSuplente.Enabled = dgvSuplentes.CurrentRow != null;
-        }
+        private void dgvMercado_SelectionChanged(object sender, EventArgs e) { btnFicharTitular.Enabled = dgvMercado.CurrentRow != null; btnFicharSuplente.Enabled = dgvMercado.CurrentRow != null; }
+        private void dgvTitulares_SelectionChanged(object sender, EventArgs e) { btnQuitarTitular.Enabled = dgvTitulares.CurrentRow != null; }
+        private void dgvSuplentes_SelectionChanged(object sender, EventArgs e) { btnQuitarSuplente.Enabled = dgvSuplentes.CurrentRow != null; }
 
         private void btnVolverMenu_Click(object sender, EventArgs e)
         {

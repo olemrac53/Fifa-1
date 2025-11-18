@@ -30,6 +30,8 @@
             this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
             this.btnRegistrar = new System.Windows.Forms.Button();
             this.llblVolverLogin = new System.Windows.Forms.LinkLabel();
+            this.lblConfirmPassword = new System.Windows.Forms.Label();
+            this.txtConfirmPassword = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lblTitulo
@@ -119,7 +121,7 @@
             // 
             this.lblFechaNac.AutoSize = true;
             this.lblFechaNac.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFechaNac.Location = new System.Drawing.Point(40, 240);
+            this.lblFechaNac.Location = new System.Drawing.Point(40, 280);
             this.lblFechaNac.Name = "lblFechaNac";
             this.lblFechaNac.Size = new System.Drawing.Size(83, 16);
             this.lblFechaNac.TabIndex = 9;
@@ -128,38 +130,59 @@
             // dtpFechaNacimiento
             // 
             this.dtpFechaNacimiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpFechaNacimiento.Location = new System.Drawing.Point(130, 237);
+            this.dtpFechaNacimiento.Location = new System.Drawing.Point(130, 277);
             this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
             this.dtpFechaNacimiento.Size = new System.Drawing.Size(200, 22);
-            this.dtpFechaNacimiento.TabIndex = 5;
+            this.dtpFechaNacimiento.TabIndex = 6;
             // 
             // btnRegistrar
             // 
             this.btnRegistrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRegistrar.Location = new System.Drawing.Point(130, 280);
+            this.btnRegistrar.Location = new System.Drawing.Point(130, 320);
             this.btnRegistrar.Name = "btnRegistrar";
             this.btnRegistrar.Size = new System.Drawing.Size(100, 30);
-            this.btnRegistrar.TabIndex = 6;
+            this.btnRegistrar.TabIndex = 7;
             this.btnRegistrar.Text = "Registrar";
             this.btnRegistrar.UseVisualStyleBackColor = true;
-            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click); // Tu lógica ya está conectada a este evento
+            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
             // 
             // llblVolverLogin
             // 
             this.llblVolverLogin.AutoSize = true;
-            this.llblVolverLogin.Location = new System.Drawing.Point(127, 330);
+            this.llblVolverLogin.Location = new System.Drawing.Point(127, 370);
             this.llblVolverLogin.Name = "llblVolverLogin";
             this.llblVolverLogin.Size = new System.Drawing.Size(124, 13);
-            this.llblVolverLogin.TabIndex = 7;
+            this.llblVolverLogin.TabIndex = 8;
             this.llblVolverLogin.TabStop = true;
             this.llblVolverLogin.Text = "Ya tienes cuenta? Inicia Sesión";
             this.llblVolverLogin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblVolverLogin_LinkClicked);
+            // 
+            // lblConfirmPassword
+            // 
+            this.lblConfirmPassword.AutoSize = true;
+            this.lblConfirmPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblConfirmPassword.Location = new System.Drawing.Point(40, 240);
+            this.lblConfirmPassword.Name = "lblConfirmPassword";
+            this.lblConfirmPassword.Size = new System.Drawing.Size(80, 16);
+            this.lblConfirmPassword.TabIndex = 10;
+            this.lblConfirmPassword.Text = "Confirmar:";
+            // 
+            // txtConfirmPassword
+            // 
+            this.txtConfirmPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConfirmPassword.Location = new System.Drawing.Point(130, 237);
+            this.txtConfirmPassword.Name = "txtConfirmPassword";
+            this.txtConfirmPassword.PasswordChar = '*';
+            this.txtConfirmPassword.Size = new System.Drawing.Size(200, 22);
+            this.txtConfirmPassword.TabIndex = 5;
             // 
             // Registro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 371);
+            this.ClientSize = new System.Drawing.Size(384, 401);
+            this.Controls.Add(this.txtConfirmPassword);
+            this.Controls.Add(this.lblConfirmPassword);
             this.Controls.Add(this.llblVolverLogin);
             this.Controls.Add(this.btnRegistrar);
             this.Controls.Add(this.dtpFechaNacimiento);
@@ -178,6 +201,7 @@
             this.Text = "Registro";
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
@@ -195,5 +219,7 @@
         private System.Windows.Forms.DateTimePicker dtpFechaNacimiento;
         private System.Windows.Forms.Button btnRegistrar;
         private System.Windows.Forms.LinkLabel llblVolverLogin;
+        private System.Windows.Forms.Label lblConfirmPassword;
+        private System.Windows.Forms.TextBox txtConfirmPassword;
     }
 }

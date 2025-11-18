@@ -2,7 +2,7 @@ using System;
 using System.Windows.Forms;
 using Fifa.Core;
 using Fifa.Dapper;
-using Fifa.Core.Repos; // Necesario para IRepoPlantilla
+using Fifa.Core.Repos;
 using Microsoft.VisualBasic; // Necesario para el InputBox
 
 namespace Fifa_1
@@ -17,7 +17,10 @@ namespace Fifa_1
             InitializeComponent();
             _usuarioLogueado = usuarioLogueado;
             // (Opcional) Ocultar botón de admin si el usuario no es admin
-            // btnAdminJugadores.Visible = (usuarioLogueado.Rol == "admin");
+            // (Asumimos que un usuario normal no debería ver estos botones)
+            // bool esAdmin = ... (necesitarías un login de admin);
+            // btnAdminJugadores.Visible = esAdmin;
+            // btnAdminPuntajes.Visible = esAdmin;
         }
 
         private void Menu_Load(object sender, EventArgs e)
@@ -48,7 +51,7 @@ namespace Fifa_1
                 else
                 {
                     cmbPlantillas.DataSource = _usuarioConPlantillas.Plantillas;
-                    cmbPlantillas.DisplayMember = "IdPlantilla"; // Puedes cambiar esto si agregas un 'Nombre' a la Plantilla
+                    cmbPlantillas.DisplayMember = "IdPlantilla";
                     cmbPlantillas.ValueMember = "IdPlantilla";
                     btnGestionarPlantilla.Enabled = true;
                     btnEliminarPlantilla.Enabled = true;
@@ -75,10 +78,8 @@ namespace Fifa_1
             this.Hide();
         }
 
-        // --- LÓGICA "CREATE" AÑADIDA ---
         private void btnCrearPlantilla_Click(object sender, EventArgs e)
         {
-            // Pedimos un nombre para la nueva plantilla
             string nombrePlantilla = Interaction.InputBox("Introduce un nombre para tu nueva plantilla:", "Crear Plantilla", "Mi Plantilla");
 
             if (string.IsNullOrWhiteSpace(nombrePlantilla))
@@ -89,24 +90,24 @@ namespace Fifa_1
 
             try
             {
-                // Creamos el objeto plantilla
                 var nuevaPlantilla = new Plantilla
                 {
                     Usuario = _usuarioLogueado,
-                    PresupuestoMax = 1000000, // Valor por defecto, se puede cambiar en la otra pantalla
+                    PresupuestoMax = 100000000, // Valor por defecto
                     CantMaxFutbolistas = 20 // Valor por defecto
+                    // Nota: Tu SP 'CrearPlantilla' espera estos 3 parámetros.
                 };
 
                 using (var con = ConexionDB.CrearConexion())
                 {
                     con.Open();
                     IRepoPlantilla repo = new RepoPlantilla(con);
-                    repo.InsertPlantilla(nuevaPlantilla); // El repo actualiza el ID en el objeto
+                    // Usamos el SP 'CrearPlantilla'
+                    repo.InsertPlantilla(nuevaPlantilla);
                 }
 
-                MessageBox.Show($"¡Plantilla '{nombrePlantilla}' (ID: {nuevaPlantilla.IdPlantilla}) creada con éxito!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"¡Plantilla (ID: {nuevaPlantilla.IdPlantilla}) creada con éxito!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Recargamos el ComboBox para que aparezca la nueva plantilla
                 CargarPlantillas();
             }
             catch (Exception ex)
@@ -115,7 +116,6 @@ namespace Fifa_1
             }
         }
 
-        // --- LÓGICA "DELETE" AÑADIDA ---
         private void btnEliminarPlantilla_Click(object sender, EventArgs e)
         {
             if (cmbPlantillas.SelectedItem == null || !(cmbPlantillas.SelectedItem is Plantilla plantillaSeleccionada))
@@ -124,7 +124,6 @@ namespace Fifa_1
                 return;
             }
 
-            // Pedimos confirmación
             var confirmacion = MessageBox.Show(
                 $"¿Estás seguro de que quieres eliminar la plantilla ID: {plantillaSeleccionada.IdPlantilla}?\nEsta acción no se puede deshacer.",
                 "Confirmar Eliminación",
@@ -146,7 +145,6 @@ namespace Fifa_1
 
                 MessageBox.Show("Plantilla eliminada correctamente.", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Recargamos el ComboBox
                 CargarPlantillas();
             }
             catch (Exception ex)
@@ -162,12 +160,18 @@ namespace Fifa_1
             this.Hide();
         }
 
-        // Botón para abrir el CRUD de Jugadores (Admin)
         private void btnAdminJugadores_Click(object sender, EventArgs e)
         {
             Jugador formJugador = new Jugador();
             formJugador.Show();
-            // (Opcional) this.Hide(); si quieres ocultar el menú
+        }
+
+        // --- MÉTODO AÑADIDO ---
+        private void btnAdminPuntajes_Click(object sender, EventArgs e)
+        {
+            // Creamos y mostramos el nuevo formulario de Puntuaciones
+            Puntuaciones formPuntajes = new Puntuaciones();
+            formPuntajes.Show();
         }
     }
 }

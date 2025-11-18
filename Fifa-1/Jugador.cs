@@ -9,8 +9,7 @@ namespace Fifa_1
 {
     public partial class Jugador : Form
     {
-        // SÍ podemos guardar el futbolista seleccionado (es solo un objeto de datos)
-        private Futbolista? _futbolistaSeleccionado;
+        private Futbolista _futbolistaSeleccionado;
 
         public Jugador()
         {
@@ -21,7 +20,6 @@ namespace Fifa_1
         {
             try
             {
-                // Cargamos todo al iniciar
                 CargarCombos();
                 CargarGrilla();
             }
@@ -31,8 +29,6 @@ namespace Fifa_1
             }
         }
 
-        // --- REFACTORIZADO ---
-        // Ahora CargarCombos abre su propia conexión.
         private void CargarCombos()
         {
             using (var con = ConexionDB.CrearConexion())
@@ -41,7 +37,6 @@ namespace Fifa_1
                 IRepoTipo repoTipo = new RepoTipo(con);
                 IRepoEquipo repoEquipo = new RepoEquipo(con);
 
-                // Guardamos la selección actual del ComboBox de Equipos
                 var equipoSeleccionado = cmbEquipo.SelectedValue;
 
                 // Cargar Tipos
@@ -54,7 +49,6 @@ namespace Fifa_1
                 cmbEquipo.DisplayMember = "Nombre";
                 cmbEquipo.ValueMember = "IdEquipo";
 
-                // Intentamos restaurar la selección anterior (útil después de crear uno nuevo)
                 if (equipoSeleccionado != null)
                 {
                     cmbEquipo.SelectedValue = equipoSeleccionado;
@@ -62,8 +56,7 @@ namespace Fifa_1
             }
         }
 
-        // --- REFACTORIZADO ---
-        // Ahora CargarGrilla abre su propia conexión.
+        // --- CORRECCIÓN DEL BUG DEL DATAGRIDVIEW ---
         private void CargarGrilla()
         {
             using (var con = ConexionDB.CrearConexion())
@@ -72,17 +65,48 @@ namespace Fifa_1
                 IRepoFutbolista repoFutbolista = new RepoFutbolista(con);
 
                 dgvFutbolistas.DataSource = null;
+                dgvFutbolistas.Columns.Clear();
+                dgvFutbolistas.AutoGenerateColumns = false; // ¡Importante!
+
+                // Columnas manuales
+                dgvFutbolistas.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "Nombre",
+                    HeaderText = "Nombre",
+                    DataPropertyName = "Nombre"
+                });
+                dgvFutbolistas.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "Apellido",
+                    HeaderText = "Apellido",
+                    DataPropertyName = "Apellido"
+                });
+                dgvFutbolistas.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "Tipo",
+                    HeaderText = "Posición",
+                    DataPropertyName = "Tipo.Nombre" // ¡Arreglado!
+                });
+                dgvFutbolistas.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "Equipo",
+                    HeaderText = "Equipo",
+                    DataPropertyName = "Equipo.Nombre" // ¡Arreglado!
+                });
+                dgvFutbolistas.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "Cotizacion",
+                    HeaderText = "Cotización",
+                    DataPropertyName = "Cotizacion",
+                    DefaultCellStyle = { Format = "C2" }
+                });
+
                 var lista = repoFutbolista.GetFutbolistas();
                 dgvFutbolistas.DataSource = lista;
-
-                // Configurar grilla
-                dgvFutbolistas.Columns["IdFutbolista"].Visible = false;
-                dgvFutbolistas.Columns["FechaNacimiento"].Visible = false;
                 dgvFutbolistas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                if (dgvFutbolistas.Columns.Contains("Cotizacion"))
-                    dgvFutbolistas.Columns["Cotizacion"].DefaultCellStyle.Format = "C2";
             }
         }
+        // --- FIN DE LA CORRECCIÓN ---
 
         private void dgvFutbolistas_SelectionChanged(object sender, EventArgs e)
         {
@@ -91,7 +115,6 @@ namespace Fifa_1
                 LimpiarFormulario();
                 return;
             }
-
             _futbolistaSeleccionado = (Futbolista)dgvFutbolistas.CurrentRow.DataBoundItem;
             PoblarFormulario(_futbolistaSeleccionado);
         }
@@ -130,7 +153,6 @@ namespace Fifa_1
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             if (!ValidarCampos()) return;
-
             try
             {
                 var futbolista = new Futbolista
@@ -141,7 +163,7 @@ namespace Fifa_1
                     NumCamisa = txtNumCamisa.Text.Trim(),
                     Cotizacion = decimal.Parse(txtCotizacion.Text),
                     FechaNacimiento = dtpFechaNacimiento.Value.Date,
-                    Tipo = (Tipo)cmbTipo.SelectedItem,
+                    Tipo = cmbTipo.SelectedItem as Tipo ?? throw new InvalidOperationException("Debe seleccionar un Tipo."),
                     Equipo = cmbEquipo.SelectedItem as Equipo ?? throw new InvalidOperationException("Debe seleccionar un Equipo.")
                 };
 
@@ -149,21 +171,19 @@ namespace Fifa_1
                 {
                     con.Open();
                     IRepoFutbolista repoFutbolista = new RepoFutbolista(con);
-
-                    if (_futbolistaSeleccionado == null) // Nuevo
+                    if (_futbolistaSeleccionado == null)
                     {
                         repoFutbolista.InsertFutbolista(futbolista);
                         MessageBox.Show("Futbolista creado exitosamente.", "Nuevo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    else // Modificación
+                    else
                     {
                         futbolista.IdFutbolista = _futbolistaSeleccionado.IdFutbolista;
                         repoFutbolista.UpdateFutbolista(futbolista);
                         MessageBox.Show("Futbolista modificado exitosamente.", "Modificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
-
-                CargarGrilla(); // Recargamos la grilla
+                CargarGrilla();
                 LimpiarFormulario();
             }
             catch (Exception ex)
@@ -179,9 +199,7 @@ namespace Fifa_1
                 MessageBox.Show("Seleccione un futbolista de la lista.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
             var confirmacion = MessageBox.Show($"¿Está seguro de que desea eliminar a {_futbolistaSeleccionado.Nombre} {_futbolistaSeleccionado.Apellido}?", "Confirmar Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
             if (confirmacion == DialogResult.Yes)
             {
                 try
@@ -193,7 +211,6 @@ namespace Fifa_1
                         repoFutbolista.DeleteFutbolista(_futbolistaSeleccionado.IdFutbolista);
                         MessageBox.Show("Futbolista eliminado.", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-
                     CargarGrilla();
                     LimpiarFormulario();
                 }
@@ -204,8 +221,6 @@ namespace Fifa_1
             }
         }
 
-        // --- ¡NUEVO MÉTODO! ---
-        // Evento click para el botón "Crear Equipo"
         private void btnCrearEquipo_Click(object sender, EventArgs e)
         {
             string nombreEquipo = txtNuevoEquipoNombre.Text.Trim();
@@ -214,30 +229,22 @@ namespace Fifa_1
                 MessageBox.Show("Por favor, ingrese un nombre para el nuevo equipo.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
             try
             {
                 var nuevoEquipo = new Equipo
                 {
                     Nombre = nombreEquipo,
-                    Presupuesto = 0 // El SP AltaEquipo solo pide el nombre
+                    Presupuesto = 0
                 };
-
                 using (var con = ConexionDB.CrearConexion())
                 {
                     con.Open();
                     IRepoEquipo repoEquipo = new RepoEquipo(con);
-                    repoEquipo.InsertEquipo(nuevoEquipo); // Llama al SP AltaEquipo
+                    repoEquipo.InsertEquipo(nuevoEquipo);
                 }
-
                 MessageBox.Show($"Equipo '{nombreEquipo}' creado con ID: {nuevoEquipo.IdEquipo}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // --- Recargamos el ComboBox ---
                 CargarCombos();
-
-                // Opcional: seleccionamos el equipo recién creado
                 cmbEquipo.SelectedValue = nuevoEquipo.IdEquipo;
-
                 txtNuevoEquipoNombre.Clear();
             }
             catch (Exception ex)
@@ -245,7 +252,6 @@ namespace Fifa_1
                 MessageBox.Show($"Error al crear el equipo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private bool ValidarCampos()
         {
@@ -265,6 +271,12 @@ namespace Fifa_1
                 return false;
             }
             return true;
+        }
+
+        // --- BOTÓN VOLVER AÑADIDO ---
+        private void btnVolverMenu_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

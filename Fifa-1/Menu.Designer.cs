@@ -25,6 +25,7 @@
             this.btnCrearPlantilla = new System.Windows.Forms.Button();
             this.btnEliminarPlantilla = new System.Windows.Forms.Button();
             this.btnAdminJugadores = new System.Windows.Forms.Button();
+            this.btnAdminPuntajes = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblBienvenida
@@ -102,7 +103,7 @@
             // 
             // btnAdminJugadores
             // 
-            this.btnAdminJugadores.Location = new System.Drawing.Point(33, 210);
+            this.btnAdminJugadores.Location = new System.Drawing.Point(33, 186);
             this.btnAdminJugadores.Name = "btnAdminJugadores";
             this.btnAdminJugadores.Size = new System.Drawing.Size(130, 23);
             this.btnAdminJugadores.TabIndex = 7;
@@ -110,11 +111,22 @@
             this.btnAdminJugadores.UseVisualStyleBackColor = true;
             this.btnAdminJugadores.Click += new System.EventHandler(this.btnAdminJugadores_Click);
             // 
+            // btnAdminPuntajes
+            // 
+            this.btnAdminPuntajes.Location = new System.Drawing.Point(33, 215);
+            this.btnAdminPuntajes.Name = "btnAdminPuntajes";
+            this.btnAdminPuntajes.Size = new System.Drawing.Size(130, 23);
+            this.btnAdminPuntajes.TabIndex = 8;
+            this.btnAdminPuntajes.Text = "Admin. Puntuaciones";
+            this.btnAdminPuntajes.UseVisualStyleBackColor = true;
+            this.btnAdminPuntajes.Click += new System.EventHandler(this.btnAdminPuntajes_Click);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 261);
+            this.Controls.Add(this.btnAdminPuntajes);
             this.Controls.Add(this.btnAdminJugadores);
             this.Controls.Add(this.btnEliminarPlantilla);
             this.Controls.Add(this.btnCrearPlantilla);
@@ -142,5 +154,6 @@
         private System.Windows.Forms.Button btnCrearPlantilla;
         private System.Windows.Forms.Button btnEliminarPlantilla;
         private System.Windows.Forms.Button btnAdminJugadores;
+        private System.Windows.Forms.Button btnAdminPuntajes;
     }
 }
