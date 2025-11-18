@@ -9,8 +9,13 @@ namespace Fifa_1
 {
     public partial class Jugador : Form
     {
+        // --- CORRECCIÓN 1: Eliminar los campos de repositorio ---
+        // private IRepoFutbolista _repoFutbolista;  <-- ELIMINADO
+        // private IRepoTipo _repoTipo;            <-- ELIMINADO
+        // private IRepoEquipo _repoEquipo;          <-- ELIMINADO
+
         // SÍ podemos guardar el futbolista seleccionado (es solo un objeto de datos)
-        private Futbolista? _futbolistaSeleccionado;
+        private Futbolista _futbolistaSeleccionado;
 
         public Jugador()
         {
@@ -21,9 +26,15 @@ namespace Fifa_1
         {
             try
             {
-                // Cargamos todo al iniciar
-                CargarCombos();
-                CargarGrilla();
+                // --- CORRECCIÓN 2: Crear conexión y repos SOLO para cargar ---
+                using (var con = ConexionDB.CrearConexion())
+                {
+                    con.Open();
+                    // Pasamos los repos a los métodos
+                    CargarCombos(new RepoTipo(con), new RepoEquipo(con));
+                    CargarGrilla(new RepoFutbolista(con));
+                }
+                // --- La conexión se cierra aquí ---
             }
             catch (Exception ex)
             {
@@ -31,61 +42,77 @@ namespace Fifa_1
             }
         }
 
-        // --- REFACTORIZADO ---
-        // Ahora CargarCombos abre su propia conexión.
-        private void CargarCombos()
+        private void CargarCombos(IRepoTipo repoTipo, IRepoEquipo repoEquipo)
         {
-            using (var con = ConexionDB.CrearConexion())
-            {
-                con.Open();
-                IRepoTipo repoTipo = new RepoTipo(con);
-                IRepoEquipo repoEquipo = new RepoEquipo(con);
+            // Cargar Tipos
+            cmbTipo.DataSource = repoTipo.GetTipos();
+            cmbTipo.DisplayMember = "Nombre";
+            cmbTipo.ValueMember = "IdTipo";
 
-                // Guardamos la selección actual del ComboBox de Equipos
-                var equipoSeleccionado = cmbEquipo.SelectedValue;
-
-                // Cargar Tipos
-                cmbTipo.DataSource = repoTipo.GetTipos();
-                cmbTipo.DisplayMember = "Nombre";
-                cmbTipo.ValueMember = "IdTipo";
-
-                // Cargar Equipos
-                cmbEquipo.DataSource = repoEquipo.GetEquipos();
-                cmbEquipo.DisplayMember = "Nombre";
-                cmbEquipo.ValueMember = "IdEquipo";
-
-                // Intentamos restaurar la selección anterior (útil después de crear uno nuevo)
-                if (equipoSeleccionado != null)
-                {
-                    cmbEquipo.SelectedValue = equipoSeleccionado;
-                }
-            }
+            // Cargar Equipos
+            cmbEquipo.DataSource = repoEquipo.GetEquipos();
+            cmbEquipo.DisplayMember = "Nombre";
+            cmbEquipo.ValueMember = "IdEquipo";
         }
-
-        // --- REFACTORIZADO ---
-        // Ahora CargarGrilla abre su propia conexión.
-        private void CargarGrilla()
+        private void CargarGrilla(IRepoFutbolista repoFutbolista)
         {
-            using (var con = ConexionDB.CrearConexion())
+            // --- INICIO DE LA CORRECCIÓN ---
+            dgvFutbolistas.DataSource = null;
+            dgvFutbolistas.Columns.Clear(); // Limpiamos columnas viejas
+            dgvFutbolistas.AutoGenerateColumns = false; // ¡Deshabilitamos la auto-generación!
+
+            // Añadimos las columnas que SÍ queremos ver
+            dgvFutbolistas.Columns.Add(new DataGridViewTextBoxColumn
             {
-                con.Open();
-                IRepoFutbolista repoFutbolista = new RepoFutbolista(con);
+                Name = "Nombre",
+                HeaderText = "Nombre",
+                DataPropertyName = "Nombre" // Enlaza a Futbolista.Nombre
+            });
 
-                dgvFutbolistas.DataSource = null;
-                var lista = repoFutbolista.GetFutbolistas();
-                dgvFutbolistas.DataSource = lista;
+            dgvFutbolistas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Apellido",
+                HeaderText = "Apellido",
+                DataPropertyName = "Apellido" // Enlaza a Futbolista.Apellido
+            });
 
-                // Configurar grilla
-                dgvFutbolistas.Columns["IdFutbolista"].Visible = false;
-                dgvFutbolistas.Columns["FechaNacimiento"].Visible = false;
-                dgvFutbolistas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                if (dgvFutbolistas.Columns.Contains("Cotizacion"))
-                    dgvFutbolistas.Columns["Cotizacion"].DefaultCellStyle.Format = "C2";
-            }
+            // ¡Esta es la corrección clave!
+            // Le decimos al DGV que busque la propiedad 'Nombre' DENTRO de la propiedad 'Tipo'.
+            dgvFutbolistas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Tipo",
+                HeaderText = "Posición",
+                DataPropertyName = "Tipo.Nombre" // Enlaza a Futbolista.Tipo.Nombre
+            });
+
+            // Hacemos lo mismo para el Equipo
+            dgvFutbolistas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Equipo",
+                HeaderText = "Equipo",
+                DataPropertyName = "Equipo.Nombre" // Enlaza a Futbolista.Equipo.Nombre
+            });
+
+            dgvFutbolistas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Cotizacion",
+                HeaderText = "Cotización",
+                DataPropertyName = "Cotizacion",
+                DefaultCellStyle = { Format = "C2" } // Formato de moneda
+            });
+
+            // --- FIN DE LA CORRECCIÓN ---
+
+            var lista = repoFutbolista.GetFutbolistas();
+            dgvFutbolistas.DataSource = lista;
+
+            // La configuración de visibilidad y orden ya no es necesaria aquí
+            dgvFutbolistas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void dgvFutbolistas_SelectionChanged(object sender, EventArgs e)
         {
+            // Este método no usa la BD, así que no necesita cambios.
             if (dgvFutbolistas.CurrentRow == null || dgvFutbolistas.CurrentRow.DataBoundItem == null)
             {
                 LimpiarFormulario();
@@ -127,12 +154,14 @@ namespace Fifa_1
             LimpiarFormulario();
         }
 
+        // --- CORRECCIÓN 3: 'btnGuardar' debe crear su propia conexión ---
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             if (!ValidarCampos()) return;
 
             try
             {
+                // Crear el objeto Futbolista desde el formulario
                 var futbolista = new Futbolista
                 {
                     Nombre = txtNombre.Text.Trim(),
@@ -142,28 +171,32 @@ namespace Fifa_1
                     Cotizacion = decimal.Parse(txtCotizacion.Text),
                     FechaNacimiento = dtpFechaNacimiento.Value.Date,
                     Tipo = (Tipo)cmbTipo.SelectedItem,
-                    Equipo = cmbEquipo.SelectedItem as Equipo ?? throw new InvalidOperationException("Debe seleccionar un Equipo.")
+                    Equipo = (Equipo)cmbEquipo.SelectedItem
                 };
 
+                // Abrir una NUEVA conexión solo para esta operación
                 using (var con = ConexionDB.CrearConexion())
                 {
                     con.Open();
                     IRepoFutbolista repoFutbolista = new RepoFutbolista(con);
 
-                    if (_futbolistaSeleccionado == null) // Nuevo
+                    if (_futbolistaSeleccionado == null) // Es Nuevo
                     {
                         repoFutbolista.InsertFutbolista(futbolista);
                         MessageBox.Show("Futbolista creado exitosamente.", "Nuevo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    else // Modificación
+                    else // Es Modificación
                     {
                         futbolista.IdFutbolista = _futbolistaSeleccionado.IdFutbolista;
                         repoFutbolista.UpdateFutbolista(futbolista);
                         MessageBox.Show("Futbolista modificado exitosamente.", "Modificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                }
 
-                CargarGrilla(); // Recargamos la grilla
+                    // Recargamos la grilla (reutilizando el repo y la conexión)
+                    CargarGrilla(repoFutbolista);
+                }
+                // --- La conexión se cierra aquí ---
+
                 LimpiarFormulario();
             }
             catch (Exception ex)
@@ -172,6 +205,7 @@ namespace Fifa_1
             }
         }
 
+        // --- CORRECCIÓN 4: 'btnEliminar' debe crear su propia conexión ---
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (_futbolistaSeleccionado == null)
@@ -186,15 +220,20 @@ namespace Fifa_1
             {
                 try
                 {
+                    // Abrir una NUEVA conexión solo para esta operación
                     using (var con = ConexionDB.CrearConexion())
                     {
                         con.Open();
                         IRepoFutbolista repoFutbolista = new RepoFutbolista(con);
+
                         repoFutbolista.DeleteFutbolista(_futbolistaSeleccionado.IdFutbolista);
                         MessageBox.Show("Futbolista eliminado.", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
 
-                    CargarGrilla();
+                        // Recargamos la grilla (reutilizando el repo y la conexión)
+                        CargarGrilla(repoFutbolista);
+                    }
+                    // --- La conexión se cierra aquí ---
+
                     LimpiarFormulario();
                 }
                 catch (Exception ex)
@@ -203,49 +242,6 @@ namespace Fifa_1
                 }
             }
         }
-
-        // --- ¡NUEVO MÉTODO! ---
-        // Evento click para el botón "Crear Equipo"
-        private void btnCrearEquipo_Click(object sender, EventArgs e)
-        {
-            string nombreEquipo = txtNuevoEquipoNombre.Text.Trim();
-            if (string.IsNullOrWhiteSpace(nombreEquipo))
-            {
-                MessageBox.Show("Por favor, ingrese un nombre para el nuevo equipo.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            try
-            {
-                var nuevoEquipo = new Equipo
-                {
-                    Nombre = nombreEquipo,
-                    Presupuesto = 0 // El SP AltaEquipo solo pide el nombre
-                };
-
-                using (var con = ConexionDB.CrearConexion())
-                {
-                    con.Open();
-                    IRepoEquipo repoEquipo = new RepoEquipo(con);
-                    repoEquipo.InsertEquipo(nuevoEquipo); // Llama al SP AltaEquipo
-                }
-
-                MessageBox.Show($"Equipo '{nombreEquipo}' creado con ID: {nuevoEquipo.IdEquipo}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // --- Recargamos el ComboBox ---
-                CargarCombos();
-
-                // Opcional: seleccionamos el equipo recién creado
-                cmbEquipo.SelectedValue = nuevoEquipo.IdEquipo;
-
-                txtNuevoEquipoNombre.Clear();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al crear el equipo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
 
         private bool ValidarCampos()
         {
@@ -265,6 +261,16 @@ namespace Fifa_1
                 return false;
             }
             return true;
+        }
+
+        // Tus botones originales (button1_Click y button2_Click) no
+        // tenían lógica, así que los he omitido por los nuevos botones del CRUD.
+
+        private void btnVolverMenu_Click(object sender, EventArgs e)
+        {
+            // Como este formulario se abre desde el Menú,
+            // simplemente lo cerramos para "volver".
+            this.Close();
         }
     }
 }

@@ -21,6 +21,16 @@ namespace Fifa_1
             string email = txtEmail.Text.Trim();
             string password = txtPassword.Text;
 
+            // --- INICIO DE LA CORRECCIÓN ---
+            string confirmPassword = txtConfirmPassword.Text;
+
+            if (password != confirmPassword)
+            {
+                MessageBox.Show("Las contraseñas no coinciden. Por favor, inténtelo de nuevo.", "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Detiene la ejecución
+            }
+            // --- FIN DE LA CORRECCIÓN ---
+
             if (string.IsNullOrWhiteSpace(nombre) ||
                 string.IsNullOrWhiteSpace(apellido) ||
                 string.IsNullOrWhiteSpace(email) ||
@@ -69,6 +79,16 @@ namespace Fifa_1
             var login = new Inicio_sesion();
             login.Show();
             this.Hide();
+        }
+
+        private void Registro_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtNombre_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
