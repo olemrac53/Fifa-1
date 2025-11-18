@@ -38,25 +38,42 @@ namespace Fifa_1
             {
                 using var conexion = ConexionDB.CrearConexion();
                 conexion.Open();
-                var repo = new RepoUsuario(conexion);
-                var usuario = repo.UsuarioPorEmailYPass(email, password);
 
-                if (usuario is null)
+                // 1. Intentar como Usuario
+                var repoUsuario = new RepoUsuario(conexion);
+                var usuario = repoUsuario.UsuarioPorEmailYPass(email, password);
+
+                if (usuario != null)
                 {
-                    MessageBox.Show("Email o contraseña incorrectos.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    // Éxito como Usuario
+                    // Pasamos el usuario y 'null' como admin
+                    var menu = new Menu(usuario, adminLogueado: null);
+                    menu.Show();
+                    this.Hide();
+                    return; // Importante salir del método
                 }
 
-                // *** ¡CAMBIO IMPORTANTE! ***
-                // Pasamos el objeto 'usuario' al Menú
-                var menu = new Menu(usuario); // Asumimos que Menu.cs tiene un constructor que acepta un Usuario
-                menu.Show();
-                this.Hide();
+                // 2. Si falló, intentar como Administrador
+                var repoAdmin = new RepoAdministrador(conexion);
+                var admin = repoAdmin.AdministradorPorEmailYPass(email, password);
+
+                if (admin != null)
+                {
+                    // Éxito como Administrador
+                    // Pasamos 'null' como usuario y el admin
+                    var menu = new Menu(null, admin);
+                    menu.Show();
+                    this.Hide();
+                    return; // Importante salir del método
+                }
+
+                // 3. Si ambos fallan
+                MessageBox.Show("Email o contraseña incorrectos.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al autenticar: {ex.Message}", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
+        }   
     }
-}
+}   

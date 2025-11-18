@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Forms;
 using Fifa.Core;
-using Fifa.Dapper;
+using Fifa.Dapper; // Asegúrate de tener la conexión a la BD aquí
 using Fifa.Core.Repos;
 using Microsoft.VisualBasic; // Necesario para el InputBox
 
@@ -9,29 +9,67 @@ namespace Fifa_1
 {
     public partial class Menu : Form
     {
+        // Guardamos ambos, uno será null
         private readonly Usuario _usuarioLogueado;
+        private readonly Administrador _adminLogueado;
+
         private Usuario _usuarioConPlantillas;
 
-        public Menu(Usuario usuarioLogueado)
+        // --- CORRECCIÓN 1: Modificar el Constructor ---
+        public Menu(Usuario usuarioLogueado, Administrador adminLogueado)
         {
             InitializeComponent();
             _usuarioLogueado = usuarioLogueado;
-
-            // (Opcional) Ocultar botones de admin si el usuario no es admin
-            // (Asumimos que un usuario normal no debería ver estos botones)
-            // bool esAdmin = ... (necesitarías un login de admin);
-            // btnAdminJugadores.Visible = esAdmin;
-            // btnAdminPuntajes.Visible = esAdmin;
+            _adminLogueado = adminLogueado;
         }
 
+        // --- CORRECCIÓN 2: Modificar el Menu_Load ---
         private void Menu_Load(object sender, EventArgs e)
         {
-            lblBienvenida.Text = $"Hola, {_usuarioLogueado.Nombre}!";
-            CargarPlantillas();
+            if (_adminLogueado != null)
+            {
+                // Es Administrador
+                lblBienvenida.Text = $"Hola, Admin: {_adminLogueado.Nombre}!";
+
+                // Mostrar botones de Admin
+                btnAdminJugadores.Visible = true;
+                btnAdminPuntajes.Visible = true;
+
+                // Ocultar controles de Usuario (Plantillas)
+                cmbPlantillas.Visible = false;
+                btnGestionarPlantilla.Visible = false;
+                btnCrearPlantilla.Visible = false;
+                btnEliminarPlantilla.Visible = false;
+                // (Puedes ajustar la posición de los botones si quedan huecos)
+            }
+            else if (_usuarioLogueado != null)
+            {
+                // Es Usuario
+                lblBienvenida.Text = $"Hola, {_usuarioLogueado.Nombre}!";
+
+                // Ocultar botones de Admin
+                btnAdminJugadores.Visible = false;
+                btnAdminPuntajes.Visible = false;
+
+                // Mostrar controles de Usuario y cargar sus plantillas
+                cmbPlantillas.Visible = true;
+                btnGestionarPlantilla.Visible = true;
+                btnCrearPlantilla.Visible = true;
+                btnEliminarPlantilla.Visible = true;
+                CargarPlantillas();
+            }
+            else
+            {
+                // Caso inesperado, volver al Login
+                MessageBox.Show("Error de sesión. Intente de nuevo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                btnCerrarSesion_Click(sender, e);
+            }
         }
 
         public void CargarPlantillas()
         {
+            // Esta función usa _usuarioLogueado, lo cual es correcto
+            // porque solo la llamamos si _usuarioLogueado no es null.
             try
             {
                 using var con = ConexionDB.CrearConexion();
@@ -52,7 +90,7 @@ namespace Fifa_1
                 else
                 {
                     cmbPlantillas.DataSource = _usuarioConPlantillas.Plantillas;
-                    cmbPlantillas.DisplayMember = "IdPlantilla";
+                    cmbPlantillas.DisplayMember = "IdPlantilla"; // <- Asegúrate que 'Plantilla' tenga esta propiedad
                     cmbPlantillas.ValueMember = "IdPlantilla";
                     btnGestionarPlantilla.Enabled = true;
                     btnEliminarPlantilla.Enabled = true;
@@ -95,12 +133,8 @@ namespace Fifa_1
                 {
                     Usuario = _usuarioLogueado,
 
-                    // --- INICIO DE LA CORRECCIÓN ---
                     // El valor debe ser '99999999.99m' (con 'm' de decimal)
-                    // para que entre en la columna DECIMAL(10, 2).
                     PresupuestoMax = 99999999.99m,
-                    // --- FIN DE LA CORRECCIÓN ---
-
                     CantMaxFutbolistas = 20 // Valor por defecto
                 };
 
