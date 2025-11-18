@@ -17,288 +17,258 @@
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(plantilla));
-            dgvMercado = new DataGridView();
-            dgvTitulares = new DataGridView();
-            dgvSuplentes = new DataGridView();
-            btnFicharTitular = new Button();
-            btnFicharSuplente = new Button();
-            btnQuitarTitular = new Button();
-            btnQuitarSuplente = new Button();
-            btnVolverMenu = new Button();
-            lblPresupuestoActual = new Label();
-            lblMercado = new Label();
-            lblTitulares = new Label();
-            lblSuplentes = new Label();
-            lblPuntaje = new Label();
-            gbConfig = new GroupBox();
-            btnGuardarConfig = new Button();
-            txtCantJugadores = new TextBox();
-            lblCantJugadores = new Label();
-            txtPresupuesto = new TextBox();
-            lblPresupuestoMax = new Label();
-            ((System.ComponentModel.ISupportInitialize)dgvMercado).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dgvTitulares).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dgvSuplentes).BeginInit();
-            gbConfig.SuspendLayout();
-            SuspendLayout();
+            this.dgvMercado = new System.Windows.Forms.DataGridView();
+            this.dgvTitulares = new System.Windows.Forms.DataGridView();
+            this.dgvSuplentes = new System.Windows.Forms.DataGridView();
+            this.btnFicharTitular = new System.Windows.Forms.Button();
+            this.btnFicharSuplente = new System.Windows.Forms.Button();
+            this.btnQuitarTitular = new System.Windows.Forms.Button();
+            this.btnQuitarSuplente = new System.Windows.Forms.Button();
+            this.btnVolverMenu = new System.Windows.Forms.Button();
+            this.lblPresupuestoActual = new System.Windows.Forms.Label();
+            this.lblMercado = new System.Windows.Forms.Label();
+            this.lblTitulares = new System.Windows.Forms.Label();
+            this.lblSuplentes = new System.Windows.Forms.Label();
+            this.lblPuntaje = new System.Windows.Forms.Label();
+            this.gbConfig = new System.Windows.Forms.GroupBox();
+            this.btnGuardarConfig = new System.Windows.Forms.Button();
+            this.txtCantJugadores = new System.Windows.Forms.TextBox();
+            this.lblCantJugadores = new System.Windows.Forms.Label();
+            this.txtPresupuesto = new System.Windows.Forms.TextBox();
+            this.lblPresupuestoMax = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMercado)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTitulares)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSuplentes)).BeginInit();
+            this.gbConfig.SuspendLayout();
+            this.SuspendLayout();
             // 
             // dgvMercado
             // 
-            dgvMercado.AllowUserToAddRows = false;
-            dgvMercado.AllowUserToDeleteRows = false;
-            dgvMercado.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvMercado.Location = new Point(14, 44);
-            dgvMercado.Margin = new Padding(4, 3, 4, 3);
-            dgvMercado.MultiSelect = false;
-            dgvMercado.Name = "dgvMercado";
-            dgvMercado.ReadOnly = true;
-            dgvMercado.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvMercado.Size = new Size(448, 179);
-            dgvMercado.TabIndex = 0;
-            dgvMercado.SelectionChanged += dgvMercado_SelectionChanged;
+            this.dgvMercado.AllowUserToAddRows = false;
+            this.dgvMercado.AllowUserToDeleteRows = false;
+            this.dgvMercado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMercado.Location = new System.Drawing.Point(12, 38);
+            this.dgvMercado.MultiSelect = false;
+            this.dgvMercado.Name = "dgvMercado";
+            this.dgvMercado.ReadOnly = true;
+            this.dgvMercado.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvMercado.Size = new System.Drawing.Size(430, 200);
+            this.dgvMercado.TabIndex = 0;
+            this.dgvMercado.SelectionChanged += new System.EventHandler(this.dgvMercado_SelectionChanged);
             // 
             // dgvTitulares
             // 
-            dgvTitulares.AllowUserToAddRows = false;
-            dgvTitulares.AllowUserToDeleteRows = false;
-            dgvTitulares.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTitulares.Location = new Point(618, 44);
-            dgvTitulares.Margin = new Padding(4, 3, 4, 3);
-            dgvTitulares.MultiSelect = false;
-            dgvTitulares.Name = "dgvTitulares";
-            dgvTitulares.ReadOnly = true;
-            dgvTitulares.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvTitulares.Size = new Size(502, 179);
-            dgvTitulares.TabIndex = 1;
-            dgvTitulares.SelectionChanged += dgvTitulares_SelectionChanged;
+            this.dgvTitulares.AllowUserToAddRows = false;
+            this.dgvTitulares.AllowUserToDeleteRows = false;
+            this.dgvTitulares.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTitulares.Location = new System.Drawing.Point(530, 38);
+            this.dgvTitulares.MultiSelect = false;
+            this.dgvTitulares.Name = "dgvTitulares";
+            this.dgvTitulares.ReadOnly = true;
+            this.dgvTitulares.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvTitulares.Size = new System.Drawing.Size(430, 200);
+            this.dgvTitulares.TabIndex = 1;
+            this.dgvTitulares.SelectionChanged += new System.EventHandler(this.dgvTitulares_SelectionChanged);
             // 
             // dgvSuplentes
             // 
-            dgvSuplentes.AllowUserToAddRows = false;
-            dgvSuplentes.AllowUserToDeleteRows = false;
-            dgvSuplentes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSuplentes.Location = new Point(618, 324);
-            dgvSuplentes.Margin = new Padding(4, 3, 4, 3);
-            dgvSuplentes.MultiSelect = false;
-            dgvSuplentes.Name = "dgvSuplentes";
-            dgvSuplentes.ReadOnly = true;
-            dgvSuplentes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvSuplentes.Size = new Size(502, 173);
-            dgvSuplentes.TabIndex = 2;
-            dgvSuplentes.SelectionChanged += dgvSuplentes_SelectionChanged;
+            this.dgvSuplentes.AllowUserToAddRows = false;
+            this.dgvSuplentes.AllowUserToDeleteRows = false;
+            this.dgvSuplentes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSuplentes.Location = new System.Drawing.Point(530, 281);
+            this.dgvSuplentes.MultiSelect = false;
+            this.dgvSuplentes.Name = "dgvSuplentes";
+            this.dgvSuplentes.ReadOnly = true;
+            this.dgvSuplentes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvSuplentes.Size = new System.Drawing.Size(430, 150);
+            this.dgvSuplentes.TabIndex = 2;
+            this.dgvSuplentes.SelectionChanged += new System.EventHandler(this.dgvSuplentes_SelectionChanged);
             // 
             // btnFicharTitular
             // 
-            btnFicharTitular.Location = new Point(523, 92);
-            btnFicharTitular.Margin = new Padding(4, 3, 4, 3);
-            btnFicharTitular.Name = "btnFicharTitular";
-            btnFicharTitular.Size = new Size(88, 46);
-            btnFicharTitular.TabIndex = 3;
-            btnFicharTitular.Text = "Fichar >> (Titular)";
-            btnFicharTitular.UseVisualStyleBackColor = true;
-            btnFicharTitular.Click += btnFicharTitular_Click;
+            this.btnFicharTitular.Location = new System.Drawing.Point(448, 80);
+            this.btnFicharTitular.Name = "btnFicharTitular";
+            this.btnFicharTitular.Size = new System.Drawing.Size(75, 40);
+            this.btnFicharTitular.TabIndex = 3;
+            this.btnFicharTitular.Text = "Fichar >> (Titular)";
+            this.btnFicharTitular.UseVisualStyleBackColor = true;
+            this.btnFicharTitular.Click += new System.EventHandler(this.btnFicharTitular_Click);
             // 
             // btnFicharSuplente
             // 
-            btnFicharSuplente.Location = new Point(523, 145);
-            btnFicharSuplente.Margin = new Padding(4, 3, 4, 3);
-            btnFicharSuplente.Name = "btnFicharSuplente";
-            btnFicharSuplente.Size = new Size(88, 46);
-            btnFicharSuplente.TabIndex = 4;
-            btnFicharSuplente.Text = "Fichar > (Suplente)";
-            btnFicharSuplente.UseVisualStyleBackColor = true;
-            btnFicharSuplente.Click += btnFicharSuplente_Click;
+            this.btnFicharSuplente.Location = new System.Drawing.Point(448, 126);
+            this.btnFicharSuplente.Name = "btnFicharSuplente";
+            this.btnFicharSuplente.Size = new System.Drawing.Size(75, 40);
+            this.btnFicharSuplente.TabIndex = 4;
+            this.btnFicharSuplente.Text = "Fichar > (Suplente)";
+            this.btnFicharSuplente.UseVisualStyleBackColor = true;
+            this.btnFicharSuplente.Click += new System.EventHandler(this.btnFicharSuplente_Click);
             // 
             // btnQuitarTitular
             // 
-            btnQuitarTitular.Location = new Point(1127, 92);
-            btnQuitarTitular.Margin = new Padding(4, 3, 4, 3);
-            btnQuitarTitular.Name = "btnQuitarTitular";
-            btnQuitarTitular.Size = new Size(88, 46);
-            btnQuitarTitular.TabIndex = 5;
-            btnQuitarTitular.Text = "Quitar <<";
-            btnQuitarTitular.UseVisualStyleBackColor = true;
-            btnQuitarTitular.Click += btnQuitarTitular_Click;
+            this.btnQuitarTitular.Location = new System.Drawing.Point(966, 80);
+            this.btnQuitarTitular.Name = "btnQuitarTitular";
+            this.btnQuitarTitular.Size = new System.Drawing.Size(75, 40);
+            this.btnQuitarTitular.TabIndex = 5;
+            this.btnQuitarTitular.Text = "Quitar <<";
+            this.btnQuitarTitular.UseVisualStyleBackColor = true;
+            this.btnQuitarTitular.Click += new System.EventHandler(this.btnQuitarTitular_Click);
             // 
             // btnQuitarSuplente
             // 
-            btnQuitarSuplente.Location = new Point(1127, 370);
-            btnQuitarSuplente.Margin = new Padding(4, 3, 4, 3);
-            btnQuitarSuplente.Name = "btnQuitarSuplente";
-            btnQuitarSuplente.Size = new Size(88, 46);
-            btnQuitarSuplente.TabIndex = 6;
-            btnQuitarSuplente.Text = "Quitar <<";
-            btnQuitarSuplente.UseVisualStyleBackColor = true;
-            btnQuitarSuplente.Click += btnQuitarSuplente_Click;
+            this.btnQuitarSuplente.Location = new System.Drawing.Point(966, 321);
+            this.btnQuitarSuplente.Name = "btnQuitarSuplente";
+            this.btnQuitarSuplente.Size = new System.Drawing.Size(75, 40);
+            this.btnQuitarSuplente.TabIndex = 6;
+            this.btnQuitarSuplente.Text = "Quitar <<";
+            this.btnQuitarSuplente.UseVisualStyleBackColor = true;
+            this.btnQuitarSuplente.Click += new System.EventHandler(this.btnQuitarSuplente_Click);
             // 
             // btnVolverMenu
             // 
-            btnVolverMenu.Location = new Point(14, 614);
-            btnVolverMenu.Margin = new Padding(4, 3, 4, 3);
-            btnVolverMenu.Name = "btnVolverMenu";
-            btnVolverMenu.Size = new Size(131, 38);
-            btnVolverMenu.TabIndex = 7;
-            btnVolverMenu.Text = "Volver al Menú";
-            btnVolverMenu.UseVisualStyleBackColor = true;
-            btnVolverMenu.Click += btnVolverMenu_Click;
+            this.btnVolverMenu.Location = new System.Drawing.Point(12, 532);
+            this.btnVolverMenu.Name = "btnVolverMenu";
+            this.btnVolverMenu.Size = new System.Drawing.Size(112, 33);
+            this.btnVolverMenu.TabIndex = 7;
+            this.btnVolverMenu.Text = "Volver al Menú";
+            this.btnVolverMenu.UseVisualStyleBackColor = true;
+            this.btnVolverMenu.Click += new System.EventHandler(this.btnVolverMenu_Click);
             // 
             // lblPresupuestoActual
             // 
-            lblPresupuestoActual.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblPresupuestoActual.Location = new Point(618, 510);
-            lblPresupuestoActual.Margin = new Padding(4, 0, 4, 0);
-            lblPresupuestoActual.Name = "lblPresupuestoActual";
-            lblPresupuestoActual.Size = new Size(502, 27);
-            lblPresupuestoActual.TabIndex = 8;
-            lblPresupuestoActual.Text = "Presupuesto: $0 / $100,000,000";
-            lblPresupuestoActual.TextAlign = ContentAlignment.MiddleRight;
+            this.lblPresupuestoActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPresupuestoActual.Location = new System.Drawing.Point(530, 442);
+            this.lblPresupuestoActual.Name = "lblPresupuestoActual";
+            this.lblPresupuestoActual.Size = new System.Drawing.Size(430, 23);
+            this.lblPresupuestoActual.TabIndex = 8;
+            this.lblPresupuestoActual.Text = "Presupuesto: $0 / $100,000,000";
+            this.lblPresupuestoActual.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblMercado
             // 
-            lblMercado.AutoSize = true;
-            lblMercado.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblMercado.Location = new Point(14, 17);
-            lblMercado.Margin = new Padding(4, 0, 4, 0);
-            lblMercado.Name = "lblMercado";
-            lblMercado.Size = new Size(78, 20);
-            lblMercado.TabIndex = 9;
-            lblMercado.Text = "Mercado";
+            this.lblMercado.AutoSize = true;
+            this.lblMercado.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMercado.Location = new System.Drawing.Point(12, 15);
+            this.lblMercado.Name = "lblMercado";
+            this.lblMercado.Size = new System.Drawing.Size(77, 20);
+            this.lblMercado.TabIndex = 9;
+            this.lblMercado.Text = "Mercado";
             // 
             // lblTitulares
             // 
-            lblTitulares.AutoSize = true;
-            lblTitulares.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTitulares.Location = new Point(614, 17);
-            lblTitulares.Margin = new Padding(4, 0, 4, 0);
-            lblTitulares.Name = "lblTitulares";
-            lblTitulares.Size = new Size(78, 20);
-            lblTitulares.TabIndex = 10;
-            lblTitulares.Text = "Titulares";
+            this.lblTitulares.AutoSize = true;
+            this.lblTitulares.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulares.Location = new System.Drawing.Point(526, 15);
+            this.lblTitulares.Name = "lblTitulares";
+            this.lblTitulares.Size = new System.Drawing.Size(78, 20);
+            this.lblTitulares.TabIndex = 10;
+            this.lblTitulares.Text = "Titulares";
             // 
             // lblSuplentes
             // 
-            lblSuplentes.AutoSize = true;
-            lblSuplentes.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblSuplentes.Location = new Point(614, 298);
-            lblSuplentes.Margin = new Padding(4, 0, 4, 0);
-            lblSuplentes.Name = "lblSuplentes";
-            lblSuplentes.Size = new Size(90, 20);
-            lblSuplentes.TabIndex = 11;
-            lblSuplentes.Text = "Suplentes";
+            this.lblSuplentes.AutoSize = true;
+            this.lblSuplentes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSuplentes.Location = new System.Drawing.Point(526, 258);
+            this.lblSuplentes.Name = "lblSuplentes";
+            this.lblSuplentes.Size = new System.Drawing.Size(90, 20);
+            this.lblSuplentes.TabIndex = 11;
+            this.lblSuplentes.Text = "Suplentes";
             // 
             // lblPuntaje
             // 
-            lblPuntaje.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblPuntaje.Location = new Point(618, 537);
-            lblPuntaje.Margin = new Padding(4, 0, 4, 0);
-            lblPuntaje.Name = "lblPuntaje";
-            lblPuntaje.Size = new Size(502, 27);
-            lblPuntaje.TabIndex = 12;
-            lblPuntaje.Text = "Puntaje Fecha: 0";
-            lblPuntaje.TextAlign = ContentAlignment.MiddleRight;
+            this.lblPuntaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPuntaje.Location = new System.Drawing.Point(530, 465);
+            this.lblPuntaje.Name = "lblPuntaje";
+            this.lblPuntaje.Size = new System.Drawing.Size(430, 23);
+            this.lblPuntaje.TabIndex = 12;
+            this.lblPuntaje.Text = "Puntaje Fecha: 0";
+            this.lblPuntaje.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // gbConfig
             // 
-            gbConfig.BackColor = Color.Transparent;
-            gbConfig.BackgroundImageLayout = ImageLayout.None;
-            gbConfig.Controls.Add(btnGuardarConfig);
-            gbConfig.Controls.Add(txtCantJugadores);
-            gbConfig.Controls.Add(lblCantJugadores);
-            gbConfig.Controls.Add(txtPresupuesto);
-            gbConfig.Controls.Add(lblPresupuestoMax);
-            gbConfig.ForeColor = Color.FromArgb(128, 255, 255);
-            gbConfig.Location = new Point(14, 504);
-            gbConfig.Margin = new Padding(4, 3, 4, 3);
-            gbConfig.Name = "gbConfig";
-            gbConfig.Padding = new Padding(4, 3, 4, 3);
-            gbConfig.Size = new Size(502, 103);
-            gbConfig.TabIndex = 13;
-            gbConfig.TabStop = false;
-            gbConfig.Text = "Configuración de Plantilla";
+            this.gbConfig.Controls.Add(this.btnGuardarConfig);
+            this.gbConfig.Controls.Add(this.txtCantJugadores);
+            this.gbConfig.Controls.Add(this.lblCantJugadores);
+            this.gbConfig.Controls.Add(this.txtPresupuesto);
+            this.gbConfig.Controls.Add(this.lblPresupuestoMax);
+            this.gbConfig.Location = new System.Drawing.Point(12, 437);
+            this.gbConfig.Name = "gbConfig";
+            this.gbConfig.Size = new System.Drawing.Size(430, 89);
+            this.gbConfig.TabIndex = 13;
+            this.gbConfig.TabStop = false;
+            this.gbConfig.Text = "Configuración de Plantilla";
             // 
             // btnGuardarConfig
             // 
-            btnGuardarConfig.ForeColor = Color.Black;
-            btnGuardarConfig.Location = new Point(350, 40);
-            btnGuardarConfig.Margin = new Padding(4, 3, 4, 3);
-            btnGuardarConfig.Name = "btnGuardarConfig";
-            btnGuardarConfig.Size = new Size(128, 42);
-            btnGuardarConfig.TabIndex = 4;
-            btnGuardarConfig.Text = "Guardar Cambios";
-            btnGuardarConfig.UseVisualStyleBackColor = true;
-            btnGuardarConfig.Click += btnGuardarConfig_Click;
+            this.btnGuardarConfig.Location = new System.Drawing.Point(300, 35);
+            this.btnGuardarConfig.Name = "btnGuardarConfig";
+            this.btnGuardarConfig.Size = new System.Drawing.Size(110, 36);
+            this.btnGuardarConfig.TabIndex = 4;
+            this.btnGuardarConfig.Text = "Guardar Cambios";
+            this.btnGuardarConfig.UseVisualStyleBackColor = true;
+            this.btnGuardarConfig.Click += new System.EventHandler(this.btnGuardarConfig_Click);
             // 
             // txtCantJugadores
             // 
-            txtCantJugadores.Location = new Point(175, 59);
-            txtCantJugadores.Margin = new Padding(4, 3, 4, 3);
-            txtCantJugadores.Name = "txtCantJugadores";
-            txtCantJugadores.Size = new Size(139, 23);
-            txtCantJugadores.TabIndex = 3;
+            this.txtCantJugadores.Location = new System.Drawing.Point(150, 51);
+            this.txtCantJugadores.Name = "txtCantJugadores";
+            this.txtCantJugadores.Size = new System.Drawing.Size(120, 20);
+            this.txtCantJugadores.TabIndex = 3;
             // 
             // lblCantJugadores
             // 
-            lblCantJugadores.AutoSize = true;
-            lblCantJugadores.ForeColor = Color.FromArgb(128, 255, 255);
-            lblCantJugadores.Location = new Point(12, 62);
-            lblCantJugadores.Margin = new Padding(4, 0, 4, 0);
-            lblCantJugadores.Name = "lblCantJugadores";
-            lblCantJugadores.Size = new Size(127, 15);
-            lblCantJugadores.TabIndex = 2;
-            lblCantJugadores.Text = "Max. Cant. Futbolistas:";
+            this.lblCantJugadores.AutoSize = true;
+            this.lblCantJugadores.Location = new System.Drawing.Point(10, 54);
+            this.lblCantJugadores.Name = "lblCantJugadores";
+            this.lblCantJugadores.Size = new System.Drawing.Size(126, 13);
+            this.lblCantJugadores.TabIndex = 2;
+            this.lblCantJugadores.Text = "Max. Cant. Futbolistas:";
             // 
             // txtPresupuesto
             // 
-            txtPresupuesto.Location = new Point(175, 29);
-            txtPresupuesto.Margin = new Padding(4, 3, 4, 3);
-            txtPresupuesto.Name = "txtPresupuesto";
-            txtPresupuesto.Size = new Size(139, 23);
-            txtPresupuesto.TabIndex = 1;
+            this.txtPresupuesto.Location = new System.Drawing.Point(150, 25);
+            this.txtPresupuesto.Name = "txtPresupuesto";
+            this.txtPresupuesto.Size = new System.Drawing.Size(120, 20);
+            this.txtPresupuesto.TabIndex = 1;
             // 
             // lblPresupuestoMax
             // 
-            lblPresupuestoMax.AutoSize = true;
-            lblPresupuestoMax.ForeColor = Color.Cyan;
-            lblPresupuestoMax.Location = new Point(12, 32);
-            lblPresupuestoMax.Margin = new Padding(4, 0, 4, 0);
-            lblPresupuestoMax.Name = "lblPresupuestoMax";
-            lblPresupuestoMax.Size = new Size(122, 15);
-            lblPresupuestoMax.TabIndex = 0;
-            lblPresupuestoMax.Text = "Presupuesto Máximo:";
+            this.lblPresupuestoMax.AutoSize = true;
+            this.lblPresupuestoMax.Location = new System.Drawing.Point(10, 28);
+            this.lblPresupuestoMax.Name = "lblPresupuestoMax";
+            this.lblPresupuestoMax.Size = new System.Drawing.Size(111, 13);
+            this.lblPresupuestoMax.TabIndex = 0;
+            this.lblPresupuestoMax.Text = "Presupuesto Máximo:";
             // 
             // plantilla
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(1256, 679);
-            Controls.Add(gbConfig);
-            Controls.Add(lblPuntaje);
-            Controls.Add(lblSuplentes);
-            Controls.Add(lblTitulares);
-            Controls.Add(lblMercado);
-            Controls.Add(lblPresupuestoActual);
-            Controls.Add(btnVolverMenu);
-            Controls.Add(btnQuitarSuplente);
-            Controls.Add(btnQuitarTitular);
-            Controls.Add(btnFicharSuplente);
-            Controls.Add(btnFicharTitular);
-            Controls.Add(dgvSuplentes);
-            Controls.Add(dgvTitulares);
-            Controls.Add(dgvMercado);
-            Margin = new Padding(4, 3, 4, 3);
-            Name = "plantilla";
-            Text = "Gestión de Plantilla";
-            Load += plantilla_Load;
-            ((System.ComponentModel.ISupportInitialize)dgvMercado).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dgvTitulares).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dgvSuplentes).EndInit();
-            gbConfig.ResumeLayout(false);
-            gbConfig.PerformLayout();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1054, 577);
+            this.Controls.Add(this.gbConfig);
+            this.Controls.Add(this.lblPuntaje);
+            this.Controls.Add(this.lblSuplentes);
+            this.Controls.Add(this.lblTitulares);
+            this.Controls.Add(this.lblMercado);
+            this.Controls.Add(this.lblPresupuestoActual);
+            this.Controls.Add(this.btnVolverMenu);
+            this.Controls.Add(this.btnQuitarSuplente);
+            this.Controls.Add(this.btnQuitarTitular);
+            this.Controls.Add(this.btnFicharSuplente);
+            this.Controls.Add(this.btnFicharTitular);
+            this.Controls.Add(this.dgvSuplentes);
+            this.Controls.Add(this.dgvTitulares);
+            this.Controls.Add(this.dgvMercado);
+            this.Name = "plantilla";
+            this.Text = "Gestión de Plantilla";
+            this.Load += new System.EventHandler(this.plantilla_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMercado)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTitulares)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSuplentes)).EndInit();
+            this.gbConfig.ResumeLayout(false);
+            this.gbConfig.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
         }
 
         #endregion
