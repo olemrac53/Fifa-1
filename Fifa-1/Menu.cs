@@ -16,7 +16,8 @@ namespace Fifa_1
         {
             InitializeComponent();
             _usuarioLogueado = usuarioLogueado;
-            // (Opcional) Ocultar botón de admin si el usuario no es admin
+
+            // (Opcional) Ocultar botones de admin si el usuario no es admin
             // (Asumimos que un usuario normal no debería ver estos botones)
             // bool esAdmin = ... (necesitarías un login de admin);
             // btnAdminJugadores.Visible = esAdmin;
@@ -93,9 +94,14 @@ namespace Fifa_1
                 var nuevaPlantilla = new Plantilla
                 {
                     Usuario = _usuarioLogueado,
-                    PresupuestoMax = 100000000, // Valor por defecto
+
+                    // --- INICIO DE LA CORRECCIÓN ---
+                    // El valor debe ser '99999999.99m' (con 'm' de decimal)
+                    // para que entre en la columna DECIMAL(10, 2).
+                    PresupuestoMax = 99999999.99m,
+                    // --- FIN DE LA CORRECCIÓN ---
+
                     CantMaxFutbolistas = 20 // Valor por defecto
-                    // Nota: Tu SP 'CrearPlantilla' espera estos 3 parámetros.
                 };
 
                 using (var con = ConexionDB.CrearConexion())
@@ -166,10 +172,8 @@ namespace Fifa_1
             formJugador.Show();
         }
 
-        // --- MÉTODO AÑADIDO ---
         private void btnAdminPuntajes_Click(object sender, EventArgs e)
         {
-            // Creamos y mostramos el nuevo formulario de Puntuaciones
             Puntuaciones formPuntajes = new Puntuaciones();
             formPuntajes.Show();
         }

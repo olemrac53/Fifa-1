@@ -57,7 +57,7 @@ public class RepoFutbolista : Repo, IRepoFutbolista
             (f, e, t) =>
             {
                 e.Nombre = e.Nombre ?? string.Empty;
-                t.nombre = t.nombre ?? string.Empty;
+                t.Nombre = t.Nombre ?? string.Empty;
                 f.Equipo = e;
                 f.Tipo = t;
                 return f;
@@ -154,7 +154,7 @@ public class RepoFutbolista : Repo, IRepoFutbolista
     public void InsertTipo(Tipo tipo)
     {
         var parametros = new DynamicParameters();
-        parametros.Add("p_nombre", tipo.nombre);
+        parametros.Add("p_nombre", tipo.Nombre);
         parametros.Add("p_id_tipo", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
         try
@@ -166,7 +166,7 @@ public class RepoFutbolista : Repo, IRepoFutbolista
         {
             if (e.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
             {
-                throw new ConstraintException($"El tipo {tipo.nombre} ya existe.");
+                throw new ConstraintException($"El tipo {tipo.Nombre} ya existe.");
             }
             throw;
         }
