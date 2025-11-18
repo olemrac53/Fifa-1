@@ -17,6 +17,7 @@
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Registro));
             lblTitulo = new Label();
             lblNombre = new Label();
             txtNombre = new TextBox();
@@ -62,7 +63,6 @@
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(233, 22);
             txtNombre.TabIndex = 1;
-            txtNombre.TextChanged += txtNombre_TextChanged;
             // 
             // txtApellido
             // 
@@ -173,6 +173,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(448, 428);
             Controls.Add(llblVolverLogin);
             Controls.Add(btnRegistrar);
@@ -191,38 +193,6 @@
             Name = "Registro";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Registro";
-            Load += Registro_Load;
-
-            this.lblConfirmPassword = new System.Windows.Forms.Label();
-            this.txtConfirmPassword = new System.Windows.Forms.TextBox();
-
-            // 
-            // lblConfirmPassword
-            // 
-            this.lblConfirmPassword.AutoSize = true;
-            this.lblConfirmPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblConfirmPassword.Location = new System.Drawing.Point(40, 240); // Ajusta esta posición Y
-            this.lblConfirmPassword.Name = "lblConfirmPassword";
-            this.lblConfirmPassword.Size = new System.Drawing.Size(80, 16);
-            this.lblConfirmPassword.TabIndex = 13;
-            this.lblConfirmPassword.Text = "Confirmar:";
-            // 
-            // txtConfirmPassword
-            // 
-            this.txtConfirmPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtConfirmPassword.Location = new System.Drawing.Point(130, 237); // Ajusta esta posición Y
-            this.txtConfirmPassword.Name = "txtConfirmPassword";
-            this.txtConfirmPassword.PasswordChar = '*';
-            this.txtConfirmPassword.Size = new System.Drawing.Size(200, 22);
-            this.txtConfirmPassword.TabIndex = 5; // Este será el nuevo TabIndex 5
-
-            // --- DEBES AJUSTAR LA POSICIÓN Y/O TABINDEX DE LOS CONTROLES DE ABAJO ---
-            // Mueve 'lblFechaNac' y 'dtpFechaNacimiento' más abajo (ej. Y = 280)
-            // Mueve 'btnRegistrar' y 'llblVolverLogin' más abajo (ej. Y = 320 y 370)
-
-            this.Controls.Add(this.lblConfirmPassword);
-            this.Controls.Add(this.txtConfirmPassword);
-
             ResumeLayout(false);
             PerformLayout();
         }
@@ -243,4 +213,4 @@
         private System.Windows.Forms.Button btnRegistrar;
         private System.Windows.Forms.LinkLabel llblVolverLogin;
     }
-}   
+}
