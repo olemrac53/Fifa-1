@@ -16,7 +16,7 @@ namespace Fifa_1
         // private IRepoPlantilla _repoPlantilla;  <-- ELIMINADO
         // private IRepoFutbolista _repoFutbolista; <-- ELIMINADO
 
-        private Plantilla _plantillaActual; // El objeto de datos SÍ se puede guardar
+        private Plantilla? _plantillaActual; // The object of datos SÍ se puede guardar
 
         public plantilla(int idPlantilla)
         {
@@ -94,56 +94,12 @@ namespace Fifa_1
             lblPresupuestoActual.Text = $"Presupuesto: {presupuestoUsado:C} / {_plantillaActual.PresupuestoMax:C}";
         }
 
-        private void ActualizarLabelsInformativos(IRepoPlantilla repoPlantilla)
+        private void ActualizarPuntajeLabel(IRepoPlantilla repoPlantilla)
         {
             if (_plantillaActual == null) return;
-
-            // --- 1. Lógica de Puntaje ---
-            int fechaActual = 1; // Necesitarías una forma de obtener la fecha/jornada
+            int fechaActual = 1;
             decimal puntaje = repoPlantilla.CalcularPuntajePlantillaFecha(_idPlantilla, fechaActual);
             lblPuntaje.Text = $"Puntaje Fecha {fechaActual}: {puntaje}";
-
-            // --- 2. LÓGICA DE VALIDACIÓN DE FORMACIÓN AÑADIDA ---
-            bool esValida = repoPlantilla.PlantillaEsValida(_idPlantilla);
-
-            if (esValida)
-            {
-                lblFormacionValida.Text = "Formación: 1-4-4-2 VÁLIDA";
-                lblFormacionValida.ForeColor = System.Drawing.Color.Green;
-            }
-            else
-            {
-                lblFormacionValida.Text = "Formación: INVÁLIDA (Requiere 1-4-4-2)";
-                lblFormacionValida.ForeColor = System.Drawing.Color.Red;
-            }
-        }
-
-        // --- Modificamos este método para que llame al nuevo ---
-        private void CargarDatos()
-        {
-            try
-            {
-                using (var con = ConexionDB.CrearConexion())
-                {
-                    con.Open();
-                    IRepoPlantilla repoPlantilla = new RepoPlantilla(con);
-                    IRepoFutbolista repoFutbolista = new RepoFutbolista(con);
-
-                    // ... (código de carga de grillas...)
-
-                    // Cargar datos en el GroupBox de Configuración
-                    txtPresupuesto.Text = _plantillaActual.PresupuestoMax.ToString();
-                    txtCantJugadores.Text = _plantillaActual.CantMaxFutbolistas.ToString();
-
-                    // Actualizar Labels (con la conexión aún abierta)
-                    ActualizarPresupuestoLabel(repoPlantilla);
-                    ActualizarLabelsInformativos(repoPlantilla); // <-- CAMBIO AQUÍ
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         // ... (ConfigurarGrilla no necesita conexión, está bien como está)
@@ -161,6 +117,12 @@ namespace Fifa_1
                 !int.TryParse(txtCantJugadores.Text, out int nuevaCantidad))
             {
                 MessageBox.Show("Por favor, ingrese valores numéricos válidos.", "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (_plantillaActual == null)
+            {
+                MessageBox.Show("No se ha cargado la plantilla actual.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

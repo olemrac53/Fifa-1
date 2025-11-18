@@ -20,10 +20,6 @@ namespace Fifa_1
             // btnAdminJugadores.Visible = (usuarioLogueado.Rol == "admin");
         }
 
-        public Menu()
-        {
-        }
-
         private void Menu_Load(object sender, EventArgs e)
         {
             lblBienvenida.Text = $"Hola, {_usuarioLogueado.Nombre}!";
@@ -171,7 +167,7 @@ namespace Fifa_1
         {
             Jugador formJugador = new Jugador();
             formJugador.Show();
-            this.Hide(); 
+            // (Opcional) this.Hide(); si quieres ocultar el menú
         }
     }
 }
