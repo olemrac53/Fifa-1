@@ -122,7 +122,7 @@ BEGIN
 END $$
 
 
--- === Alta Usuario con SHA2 ===
+-- === Alta Usuario con SHA2 (encriptacion) ===
 DROP PROCEDURE IF EXISTS AltaUsuario $$
 CREATE PROCEDURE AltaUsuario(
     OUT p_idUsuario INT,
@@ -263,11 +263,14 @@ BEGIN
     INSERT INTO PlantillaTitular (id_plantilla, id_futbolista) VALUES (p_id_plantilla, p_id_futbolista);
 END $$
 
+
 DROP PROCEDURE IF EXISTS EliminarTitular $$
 CREATE PROCEDURE EliminarTitular(IN p_id_plantilla INT, IN p_id_futbolista INT)
 BEGIN
     DELETE FROM PlantillaTitular WHERE id_plantilla = p_id_plantilla AND id_futbolista = p_id_futbolista;
 END $$
+
+
 
 DROP PROCEDURE IF EXISTS AltaSuplente $$
 CREATE PROCEDURE AltaSuplente(IN p_id_plantilla INT, IN p_id_futbolista INT)
@@ -321,6 +324,7 @@ END $$
 
 
 -- === LOGIN / AUTENTICACIÓN ===
+
 DROP PROCEDURE IF EXISTS LoginUsuario $$
 CREATE PROCEDURE LoginUsuario(
     IN p_email VARCHAR(150),

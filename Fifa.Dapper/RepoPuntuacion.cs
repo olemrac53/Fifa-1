@@ -106,15 +106,15 @@ public class RepoPuntuacion : Repo, IRepoPuntuacion
         }
         catch (MySqlException e)
         {
-            // Validar si el futbolista no es titular
+            // Validar si el futbolista no es titular (Trigger)
             if (e.Message.Contains("no es titular"))
             {
                 throw new InvalidOperationException("El futbolista debe ser titular en alguna plantilla para asignarle puntaje.");
             }
             
-            // CORRECCIÓN: El mensaje del trigger es "ya tiene una puntuación para esa fecha"
-            // No "ya tiene una puntuación asignada para esta fecha"
-            if (e.Message.Contains("ya tiene una puntuación") || e.Message.Contains("ya tiene una puntuaci"))
+            // CORRECCIÓN: Capturar tanto el mensaje del Trigger COMO el error nativo de Unique Key (1062)
+            if (e.Number == 1062 || e.Message.Contains("Duplicate entry") || 
+                e.Message.Contains("ya tiene una puntuación"))
             {
                 throw new InvalidOperationException("El futbolista ya tiene una puntuación asignada para esta fecha.");
             }

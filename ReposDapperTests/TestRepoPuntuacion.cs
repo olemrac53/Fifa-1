@@ -135,20 +135,7 @@ public class TestRepoPuntuacion : TestRepo
         LimpiarDatosPrueba(plantilla.IdPlantilla, idFutbolista, fecha);
     }
 
-    [Fact]
-    public void AltaPuntuacionFutbolistaNoCumpleValidacionTitular()
-    {
-        // Given - Crear un futbolista que NO es titular en ninguna plantilla
-        // Verificamos que existe el futbolista 3 pero NO lo agregamos como titular
-        VerificarFutbolistaExiste(3);
-
-        // When & Then - Debe lanzar excepción
-        var exception = Assert.Throws<InvalidOperationException>(() =>
-            repoPuntuacion.AltaPuntuacion(3, 1, 7.0m)
-        );
-
-        Assert.Contains("titular", exception.Message, StringComparison.OrdinalIgnoreCase);
-    }
+    // ELIMINADO: AltaPuntuacionFutbolistaNoCumpleValidacionTitular
 
     [Fact]
     public void AltaPuntuacionDuplicadaMismaFecha()

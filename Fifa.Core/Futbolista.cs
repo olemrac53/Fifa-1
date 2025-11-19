@@ -9,11 +9,8 @@ public class Futbolista
     public string? NumCamisa { get; set; }
     public DateTime FechaNacimiento { get; set; }
     public decimal Cotizacion { get; set; }
-
     public Tipo Tipo { get; set; } = null!;
     public Equipo Equipo { get; set; } = null!;
-
-    // Propiedad existente
     public string NombreCompleto => $"{Apellido}, {Nombre}";
 
     // --- AGREGAR ESTAS DOS PROPIEDADES ---

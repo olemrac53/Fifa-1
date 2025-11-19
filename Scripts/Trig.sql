@@ -1,6 +1,6 @@
 -- 03_Triggers.sql
 USE 5to_GranET12;
-DELIMITER $$
+DELIMITER $$+
 
 -- 1) Validación: no permitir puntaje si futbolista NO está en PlantillaTitular
 DROP TRIGGER IF EXISTS TR_ValidarPuntuacionExistencia $$
@@ -15,18 +15,6 @@ BEGIN
     END IF;
 END $$
 
--- 2) No permitir 2 puntuaciones misma fecha
-DROP TRIGGER IF EXISTS TR_ValidarPuntuacionUnica $$
-CREATE TRIGGER TR_ValidarPuntuacionUnica
-BEFORE INSERT ON PuntuacionFutbolista
-FOR EACH ROW
-BEGIN
-    IF EXISTS (
-        SELECT 1 FROM PuntuacionFutbolista pf WHERE pf.id_futbolista = NEW.id_futbolista AND pf.fecha = NEW.fecha
-    ) THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El futbolista ya tiene una puntuación para esa fecha.';
-    END IF;
-END $$
 
 -- 3) Validar que Futbolista tenga Tipo al insert
 DROP TRIGGER IF EXISTS TR_ValidarTipoFutbolista $$

@@ -8,8 +8,8 @@ namespace Fifa.Dapper
 {
     public class RepoEquipo : Repo, IRepoEquipo
     {
+        
         // === QUERIES ===
-
         private static readonly string _queryEquipos = 
             @"SELECT id_equipo AS IdEquipo, 
                      nombre AS Nombre, 
