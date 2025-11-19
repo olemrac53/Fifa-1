@@ -3,8 +3,8 @@ using Dapper;
 using MySqlConnector;
 using Fifa.Core;
 using Fifa.Core.Repos;
-using System.Linq; // <--- AÑADE ESTO
-using System.Collections.Generic; // <--- AÑADE ESTO
+using System.Linq; 
+using System.Collections.Generic; 
 
 namespace Fifa.Dapper;
 
