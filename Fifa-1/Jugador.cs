@@ -57,7 +57,7 @@ namespace Fifa_1
             }
         }
 
-        // --- INICIO DE CORRECCIÓN (BUG 1) ---
+
         private void CargarGrilla()
         {
             using (var con = ConexionDB.CrearConexion())
@@ -111,7 +111,6 @@ namespace Fifa_1
                 dgvFutbolistas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
         }
-        // --- FIN DE CORRECCIÓN (BUG 1) ---
 
         private void dgvFutbolistas_SelectionChanged(object sender, EventArgs e)
         {

@@ -92,7 +92,6 @@ public class RepoUsuario : Repo, IRepoUsuario
     public void InsertUsuario(Usuario usuario, string password)
     {
         var parametros = new DynamicParameters();
-        // Nombres sin @ para DynamicParameters
         parametros.Add("p_nombre", usuario.Nombre);
         parametros.Add("p_apellido", usuario.Apellido);
         parametros.Add("p_email", usuario.Email);
@@ -127,7 +126,7 @@ public class RepoUsuario : Repo, IRepoUsuario
         parametros.Add("@p_email", usuario.Email);
         parametros.Add("@p_fecha_nacimiento", usuario.FechaNacimiento);
         parametros.Add("@p_contrasenia", password);
-        parametros.Add("@p_rol", "usuario");  // ← AGREGAR ESTA LÍNEA con un valor por defecto
+        parametros.Add("@p_rol", "usuario");  
 
 
         Conexion.Execute("ModificarUsuario", parametros, commandType: CommandType.StoredProcedure);

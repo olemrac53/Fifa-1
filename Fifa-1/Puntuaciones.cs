@@ -39,7 +39,6 @@ namespace Fifa_1
             }
         }
 
-        // --- INICIO DE CORRECCIÓN (BUG 2 - Grilla) ---
         private void CargarGrilla(IRepoPuntuacion repoPuntuacion)
         {
             dgvPuntuaciones.DataSource = null;
@@ -70,19 +69,15 @@ namespace Fifa_1
             dgvPuntuaciones.DataSource = lista;
             dgvPuntuaciones.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
-        // --- FIN DE CORRECCIÓN (BUG 2 - Grilla) ---
 
-        // --- INICIO DE CORRECCIÓN (BUG 2 - ComboBox) ---
         private void CargarComboFutbolistas(IRepoFutbolista repoFutbolista)
         {
             var futbolistas = repoFutbolista.GetFutbolistas();
-            // ELIMINADA la línea que modificaba f.Nombre, ahora usamos la propiedad computada.
 
             cmbFutbolista.DataSource = futbolistas;
-            cmbFutbolista.DisplayMember = "NombreCompleto"; // CORREGIDO: Usar NombreCompleto
+            cmbFutbolista.DisplayMember = "NombreCompleto"; 
             cmbFutbolista.ValueMember = "IdFutbolista";
         }
-        // --- FIN DE CORRECCIÓN (BUG 2 - ComboBox) ---
 
         private void LimpiarFormulario()
         {
@@ -145,7 +140,7 @@ namespace Fifa_1
                         repo.AltaPuntuacion(nuevaPuntuacion.IdFutbolista, nuevaPuntuacion.Fecha, nuevaPuntuacion.Puntuacion);
                         MessageBox.Show("Puntuación guardada.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    else // Es MODIFICACIÓN
+                    else 
                     {
                         _puntuacionSeleccionada.Puntuacion = puntaje;
                         repo.ModificarPuntuacion(_puntuacionSeleccionada.IdPuntuacion, puntaje);
@@ -198,7 +193,7 @@ namespace Fifa_1
 
         private void btnVolverMenu_Click(object sender, EventArgs e)
         {
-            this.Close(); // Simplemente cierra este formulario
+            this.Close(); 
         }
     }
 }
