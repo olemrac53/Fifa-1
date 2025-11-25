@@ -12,7 +12,7 @@ namespace Fifa_1
             InitializeComponent();
         }
 
-        // Tu button1_Click era para saltar el login, lo quitamos para la lógica real.
+      
 
         // Esto es lo que se ejecuta al hacer clic en "¡Regístrate!"
         private void label4_Click(object sender, EventArgs e)
