@@ -103,7 +103,7 @@ namespace Fifa_1
 
         private void btnGestionarPlantilla_Click(object sender, EventArgs e)
         {
-            if (cmbPlantillas.SelectedItem == null || !(cmbPlantillas.SelectedItem is Plantilla))
+            if (cmbPlantillas.SelectedItem == null || !(cmbPlantillas.SelectedItem is Fifa.Core.Plantilla))
             {
                 MessageBox.Show("Seleccione una plantilla válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -111,7 +111,7 @@ namespace Fifa_1
 
             int idPlantillaSeleccionada = (int)cmbPlantillas.SelectedValue;
 
-            plantilla formPlantilla = new plantilla(idPlantillaSeleccionada);
+            Plantilla formPlantilla = new Plantilla(idPlantillaSeleccionada);
             formPlantilla.Show();
             this.Hide();
         }
@@ -128,7 +128,7 @@ namespace Fifa_1
 
             try
             {
-                var nuevaPlantilla = new Plantilla
+                var nuevaPlantilla = new Fifa.Core.Plantilla
                 {
                     Usuario = _usuarioLogueado,
 
@@ -155,7 +155,7 @@ namespace Fifa_1
 
         private void btnEliminarPlantilla_Click(object sender, EventArgs e)
         {
-            if (cmbPlantillas.SelectedItem == null || !(cmbPlantillas.SelectedItem is Plantilla plantillaSeleccionada))
+            if (cmbPlantillas.SelectedItem == null || !(cmbPlantillas.SelectedItem is Fifa.Core.Plantilla plantillaSeleccionada))
             {
                 MessageBox.Show("Seleccione una plantilla válida para eliminar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;

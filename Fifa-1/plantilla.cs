@@ -5,27 +5,55 @@ using Fifa.Core;
 using Fifa.Core.Repos;
 using Fifa.Dapper;
 using MySqlConnector;
+using animacion_fifa; // Para acceder a Program
 
 namespace Fifa_1
 {
-    public partial class plantilla : Form
+    public partial class Plantilla : Form
     {
         private readonly int _idPlantilla;
-        private Plantilla _plantillaActual;
+        private Fifa.Core.Plantilla _plantillaActual;
 
-        public plantilla(int idPlantilla)
+        public Plantilla(int idPlantilla)
         {
             InitializeComponent();
             _idPlantilla = idPlantilla;
         }
 
+        // CORRECCIÓN: Quitamos el tercer parámetro. 
+        // 'lblNombreEquipo' se accede directamente porque es parte de la clase.
         private void plantilla_Load(object sender, EventArgs e)
         {
+            // CAMBIO 3: Configurar el cursor de mano en todos los botones
+            ConfigurarCursores(this.Controls);
+
             btnFicharTitular.Enabled = false;
             btnFicharSuplente.Enabled = false;
             btnQuitarTitular.Enabled = false;
             btnQuitarSuplente.Enabled = false;
+
+            // CAMBIO 1: Mostrar nombre del equipo del usuario
+            if (Program.UsuarioActual != null)
+            {
+                // Usamos la variable declarada en el Designer
+                lblNombreEquipo.Text = "Equipo de " + Program.UsuarioActual.Nombre;
+            }
+
             CargarDatos();
+        }
+
+        // CAMBIO 3: Método auxiliar para recorrer controles y cambiar cursor
+        private void ConfigurarCursores(Control.ControlCollection controls)
+        {
+            foreach (Control c in controls)
+            {
+                if (c is Button)
+                {
+                    c.Cursor = Cursors.Hand;
+                }
+                // Si tienes paneles dentro de paneles, descomenta la recursividad:
+                // if (c.HasChildren) ConfigurarCursores(c.Controls);
+            }
         }
 
         private void CargarDatos()
@@ -40,7 +68,7 @@ namespace Fifa_1
 
                     // Cargar Mercado
                     dgvMercado.DataSource = null;
-                    ConfigurarGrilla(dgvMercado); 
+                    ConfigurarGrilla(dgvMercado);
                     dgvMercado.DataSource = repoFutbolista.GetFutbolistas();
 
                     // Cargar Plantilla
@@ -113,7 +141,6 @@ namespace Fifa_1
 
             dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Nombre", HeaderText = "Nombre", DataPropertyName = "Nombre" });
             dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Apellido", HeaderText = "Apellido", DataPropertyName = "Apellido" });
-
             dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Tipo", HeaderText = "Posición", DataPropertyName = "NombreTipo" });
             dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Equipo", HeaderText = "Equipo", DataPropertyName = "NombreEquipo" });
 
@@ -225,9 +252,47 @@ namespace Fifa_1
             QuitarJugador(futbolista, esTitular: false);
         }
 
-        private void dgvMercado_SelectionChanged(object sender, EventArgs e) { btnFicharTitular.Enabled = dgvMercado.CurrentRow != null; btnFicharSuplente.Enabled = dgvMercado.CurrentRow != null; }
-        private void dgvTitulares_SelectionChanged(object sender, EventArgs e) { btnQuitarTitular.Enabled = dgvTitulares.CurrentRow != null; }
-        private void dgvSuplentes_SelectionChanged(object sender, EventArgs e) { btnQuitarSuplente.Enabled = dgvSuplentes.CurrentRow != null; }
+        private void dgvMercado_SelectionChanged(object sender, EventArgs e)
+        {
+            btnFicharTitular.Enabled = dgvMercado.CurrentRow != null;
+            btnFicharSuplente.Enabled = dgvMercado.CurrentRow != null;
+        }
+
+        // CAMBIO 2: Evento para actualizar puntajes automáticamente
+        private void dgvTitulares_SelectionChanged(object sender, EventArgs e)
+        {
+            btnQuitarTitular.Enabled = dgvTitulares.CurrentRow != null;
+
+            // Lógica para llenar la tabla de puntajes (dgvPuntajes)
+            if (dgvTitulares.CurrentRow != null)
+            {
+                var futbolista = dgvTitulares.CurrentRow.DataBoundItem as Futbolista;
+                if (futbolista != null)
+                {
+                    try
+                    {
+                        using (var con = ConexionDB.CrearConexion())
+                        {
+                            con.Open();
+                            var repoPuntuacion = new RepoPuntuacion(con);
+                            var listaPuntajes = repoPuntuacion.GetPuntuacionesPorFutbolista(futbolista.IdFutbolista);
+
+                            // Asignamos al grid nuevo (asegúrate de haberlo creado en el Designer)
+                            dgvPuntajes.DataSource = listaPuntajes;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Opcional: Manejo silencioso o MessageBox
+                    }
+                }
+            }
+        }
+
+        private void dgvSuplentes_SelectionChanged(object sender, EventArgs e)
+        {
+            btnQuitarSuplente.Enabled = dgvSuplentes.CurrentRow != null;
+        }
 
         private void btnVolverMenu_Click(object sender, EventArgs e)
         {
@@ -245,6 +310,11 @@ namespace Fifa_1
             }
 
             this.Close();
+        }
+
+        private void dgvPuntajes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using Fifa.Dapper;
-using Fifa.Core; 
+using Fifa.Core;
+using animacion_fifa; // Necesario para acceder a Program
 
 namespace Fifa_1
 {
@@ -11,8 +12,6 @@ namespace Fifa_1
         {
             InitializeComponent();
         }
-
-      
 
         private void label4_Click(object sender, EventArgs e)
         {
@@ -43,12 +42,14 @@ namespace Fifa_1
 
                 if (usuario != null)
                 {
+                    // CAMBIO 1: Guardamos el usuario en la variable global
+                    Program.UsuarioActual = usuario;
+
                     // Éxito como Usuario
-                    // Pasamos el usuario y 'null' como admin
                     var menu = new Menu(usuario, adminLogueado: null);
                     menu.Show();
                     this.Hide();
-                    return; 
+                    return;
                 }
 
                 // 2. Si falló, intentar como Administrador
@@ -58,11 +59,10 @@ namespace Fifa_1
                 if (admin != null)
                 {
                     // Éxito como Administrador
-                    // Pasamos 'null' como usuario y el admin
                     var menu = new Menu(null, admin);
                     menu.Show();
                     this.Hide();
-                    return; 
+                    return;
                 }
 
                 // 3. Si ambos fallan
@@ -72,6 +72,6 @@ namespace Fifa_1
             {
                 MessageBox.Show($"Error al autenticar: {ex.Message}", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }   
+        }
     }
-}   
+}

@@ -41,9 +41,7 @@ namespace animacion_fifa
         private void Animacion_Load(object sender, EventArgs e)
         {
 
-            SoundPlayer Sonido = new SoundPlayer();
-            Sonido.SoundLocation = "D:\\Repos\\Fifa-1\\Fifa-1\\Resources\\Musica.wav";
-            Sonido.Play();
+
 
         }
     }

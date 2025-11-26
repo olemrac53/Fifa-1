@@ -1,6 +1,6 @@
 ﻿namespace Fifa_1
 {
-    partial class plantilla
+    partial class Plantilla
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -17,7 +17,7 @@
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(plantilla));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Plantilla));
             dgvMercado = new DataGridView();
             dgvTitulares = new DataGridView();
             dgvSuplentes = new DataGridView();
@@ -38,10 +38,14 @@
             txtPresupuesto = new TextBox();
             lblPresupuestoMax = new Label();
             lblFormacionValida = new Label();
+            lblNombreEquipo = new Label();
+            dgvPuntajes = new DataGridView();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvMercado).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvTitulares).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvSuplentes).BeginInit();
             gbConfig.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvPuntajes).BeginInit();
             SuspendLayout();
             // 
             // dgvMercado
@@ -274,13 +278,54 @@
             lblFormacionValida.Text = "Formación: INVÁLIDA";
             lblFormacionValida.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // plantilla
+            // lblNombreEquipo
+            // 
+            lblNombreEquipo.AutoSize = true;
+            lblNombreEquipo.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblNombreEquipo.ForeColor = Color.DarkBlue;
+            lblNombreEquipo.Location = new Point(110, 17);
+            lblNombreEquipo.Margin = new Padding(4, 0, 4, 0);
+            lblNombreEquipo.Name = "lblNombreEquipo";
+            lblNombreEquipo.Size = new Size(157, 20);
+            lblNombreEquipo.TabIndex = 16;
+            lblNombreEquipo.Text = "Equipo de Usuario";
+            // 
+            // dgvPuntajes
+            // 
+            dgvPuntajes.AllowUserToAddRows = false;
+            dgvPuntajes.AllowUserToDeleteRows = false;
+            dgvPuntajes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvPuntajes.Location = new Point(14, 298);
+            dgvPuntajes.Margin = new Padding(4, 3, 4, 3);
+            dgvPuntajes.MultiSelect = false;
+            dgvPuntajes.Name = "dgvPuntajes";
+            dgvPuntajes.ReadOnly = true;
+            dgvPuntajes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvPuntajes.Size = new Size(541, 192);
+            dgvPuntajes.TabIndex = 15;
+            dgvPuntajes.CellContentClick += dgvPuntajes_CellContentClick;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(14, 261);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(118, 20);
+            label1.TabIndex = 17;
+            label1.Text = "Puntuaciones";
+            // 
+            // Plantilla
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1230, 666);
+            Controls.Add(label1);
+            Controls.Add(dgvPuntajes);
+            Controls.Add(lblNombreEquipo);
             Controls.Add(lblFormacionValida);
             Controls.Add(gbConfig);
             Controls.Add(lblPuntaje);
@@ -297,7 +342,7 @@
             Controls.Add(dgvTitulares);
             Controls.Add(dgvMercado);
             Margin = new Padding(4, 3, 4, 3);
-            Name = "plantilla";
+            Name = "Plantilla";
             Text = "Gestión de Plantilla";
             Load += plantilla_Load;
             ((System.ComponentModel.ISupportInitialize)dgvMercado).EndInit();
@@ -305,6 +350,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvSuplentes).EndInit();
             gbConfig.ResumeLayout(false);
             gbConfig.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvPuntajes).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
@@ -315,6 +361,10 @@
         private System.Windows.Forms.DataGridView dgvMercado;
         private System.Windows.Forms.DataGridView dgvTitulares;
         private System.Windows.Forms.DataGridView dgvSuplentes;
+
+        // DECLARACION DE NUEVO GRID
+        private System.Windows.Forms.DataGridView dgvPuntajes;
+
         private System.Windows.Forms.Button btnFicharTitular;
         private System.Windows.Forms.Button btnFicharSuplente;
         private System.Windows.Forms.Button btnQuitarTitular;
@@ -322,6 +372,10 @@
         private System.Windows.Forms.Button btnVolverMenu;
         private System.Windows.Forms.Label lblPresupuestoActual;
         private System.Windows.Forms.Label lblMercado;
+
+        // DECLARACION DE NUEVO LABEL
+        private System.Windows.Forms.Label lblNombreEquipo;
+
         private System.Windows.Forms.Label lblTitulares;
         private System.Windows.Forms.Label lblSuplentes;
         private System.Windows.Forms.Label lblPuntaje;
@@ -332,5 +386,6 @@
         private System.Windows.Forms.TextBox txtPresupuesto;
         private System.Windows.Forms.Label lblPresupuestoMax;
         private System.Windows.Forms.Label lblFormacionValida;
+        private Label label1;
     }
 }
