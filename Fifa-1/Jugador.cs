@@ -276,7 +276,6 @@ namespace Fifa_1
             return true;
         }
 
-        // --- BOTÓN VOLVER AÑADIDO ---
         private void btnVolverMenu_Click(object sender, EventArgs e)
         {
             this.Close();

@@ -26,7 +26,6 @@ namespace Fifa_1
         private void plantilla_Load(object sender, EventArgs e)
         {
 
-            // CAMBIO 3: Configurar el cursor de mano en todos los botones
             ConfigurarCursores(this.Controls);
 
             btnFicharTitular.Enabled = false;
@@ -34,17 +33,14 @@ namespace Fifa_1
             btnQuitarTitular.Enabled = false;
             btnQuitarSuplente.Enabled = false;
 
-            // CAMBIO 1: Mostrar nombre del equipo del usuario
             if (Program.UsuarioActual != null)
             {
-                // Usamos la variable declarada en el Designer
                 lblNombreEquipo.Text = "Equipo de " + Program.UsuarioActual.Nombre;
             }
 
             CargarDatos();
         }
 
-        // CAMBIO 3: Método auxiliar para recorrer controles y cambiar cursor
         private void ConfigurarCursores(Control.ControlCollection controls)
         {
             foreach (Control c in controls)
@@ -53,8 +49,6 @@ namespace Fifa_1
                 {
                     c.Cursor = Cursors.Hand;
                 }
-                // Si tienes paneles dentro de paneles, descomenta la recursividad:
-                // if (c.HasChildren) ConfigurarCursores(c.Controls);
             }
         }
 
@@ -260,12 +254,10 @@ namespace Fifa_1
             btnFicharSuplente.Enabled = dgvMercado.CurrentRow != null;
         }
 
-        // CAMBIO 2: Evento para actualizar puntajes automáticamente
         private void dgvTitulares_SelectionChanged(object sender, EventArgs e)
         {
             btnQuitarTitular.Enabled = dgvTitulares.CurrentRow != null;
 
-            // Lógica para llenar la tabla de puntajes (dgvPuntajes)
             if (dgvTitulares.CurrentRow != null)
             {
                 var futbolista = dgvTitulares.CurrentRow.DataBoundItem as Futbolista;
@@ -279,7 +271,6 @@ namespace Fifa_1
                             var repoPuntuacion = new RepoPuntuacion(con);
                             var listaPuntajes = repoPuntuacion.GetPuntuacionesPorFutbolista(futbolista.IdFutbolista);
 
-                            // Asignamos al grid nuevo (asegúrate de haberlo creado en el Designer)
                             dgvPuntajes.DataSource = listaPuntajes;
                         }
                     }
