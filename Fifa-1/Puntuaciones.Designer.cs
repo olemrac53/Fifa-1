@@ -107,6 +107,7 @@
             // 
             // cmbFutbolista
             // 
+            cmbFutbolista.Cursor = Cursors.Hand;
             cmbFutbolista.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbFutbolista.FormattingEnabled = true;
             cmbFutbolista.Location = new Point(93, 31);
@@ -127,6 +128,7 @@
             // 
             // btnGuardar
             // 
+            btnGuardar.Cursor = Cursors.Hand;
             btnGuardar.Location = new Point(513, 52);
             btnGuardar.Margin = new Padding(4, 3, 4, 3);
             btnGuardar.Name = "btnGuardar";
@@ -138,6 +140,7 @@
             // 
             // btnEliminar
             // 
+            btnEliminar.Cursor = Cursors.Hand;
             btnEliminar.Location = new Point(108, 254);
             btnEliminar.Margin = new Padding(4, 3, 4, 3);
             btnEliminar.Name = "btnEliminar";
@@ -149,6 +152,7 @@
             // 
             // btnNuevo
             // 
+            btnNuevo.Cursor = Cursors.Hand;
             btnNuevo.Location = new Point(14, 254);
             btnNuevo.Margin = new Padding(4, 3, 4, 3);
             btnNuevo.Name = "btnNuevo";
@@ -160,6 +164,7 @@
             // 
             // btnVolverMenu
             // 
+            btnVolverMenu.Cursor = Cursors.Hand;
             btnVolverMenu.Location = new Point(539, 254);
             btnVolverMenu.Margin = new Padding(4, 3, 4, 3);
             btnVolverMenu.Name = "btnVolverMenu";
@@ -180,6 +185,7 @@
             Controls.Add(btnEliminar);
             Controls.Add(gbDetalle);
             Controls.Add(dgvPuntuaciones);
+            Cursor = Cursors.Hand;
             Margin = new Padding(4, 3, 4, 3);
             Name = "Puntuaciones";
             Text = "Administrar Puntuaciones";

@@ -221,6 +221,7 @@
             // 
             // btnGuardarConfig
             // 
+            btnGuardarConfig.Cursor = Cursors.Hand;
             btnGuardarConfig.Location = new Point(350, 40);
             btnGuardarConfig.Margin = new Padding(4, 3, 4, 3);
             btnGuardarConfig.Name = "btnGuardarConfig";
@@ -303,7 +304,6 @@
             dgvPuntajes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPuntajes.Size = new Size(541, 192);
             dgvPuntajes.TabIndex = 15;
-            dgvPuntajes.CellContentClick += dgvPuntajes_CellContentClick;
             // 
             // label1
             // 
@@ -341,6 +341,7 @@
             Controls.Add(dgvSuplentes);
             Controls.Add(dgvTitulares);
             Controls.Add(dgvMercado);
+            Cursor = Cursors.Hand;
             Margin = new Padding(4, 3, 4, 3);
             Name = "Plantilla";
             Text = "Gestión de Plantilla";

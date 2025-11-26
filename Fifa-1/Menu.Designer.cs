@@ -53,6 +53,7 @@
             // 
             // cmbPlantillas
             // 
+            cmbPlantillas.Cursor = Cursors.Hand;
             cmbPlantillas.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPlantillas.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbPlantillas.FormattingEnabled = true;
@@ -64,6 +65,7 @@
             // 
             // btnGestionarPlantilla
             // 
+            btnGestionarPlantilla.Cursor = Cursors.Hand;
             btnGestionarPlantilla.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnGestionarPlantilla.Location = new Point(38, 162);
             btnGestionarPlantilla.Margin = new Padding(4, 3, 4, 3);
@@ -76,6 +78,7 @@
             // 
             // btnCerrarSesion
             // 
+            btnCerrarSesion.Cursor = Cursors.Hand;
             btnCerrarSesion.Location = new Point(303, 242);
             btnCerrarSesion.Margin = new Padding(4, 3, 4, 3);
             btnCerrarSesion.Name = "btnCerrarSesion";
@@ -87,6 +90,7 @@
             // 
             // btnCrearPlantilla
             // 
+            btnCrearPlantilla.Cursor = Cursors.Hand;
             btnCrearPlantilla.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnCrearPlantilla.Location = new Point(162, 162);
             btnCrearPlantilla.Margin = new Padding(4, 3, 4, 3);
@@ -99,6 +103,7 @@
             // 
             // btnEliminarPlantilla
             // 
+            btnEliminarPlantilla.Cursor = Cursors.Hand;
             btnEliminarPlantilla.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnEliminarPlantilla.Location = new Point(286, 162);
             btnEliminarPlantilla.Margin = new Padding(4, 3, 4, 3);
@@ -111,6 +116,7 @@
             // 
             // btnAdminJugadores
             // 
+            btnAdminJugadores.Cursor = Cursors.Hand;
             btnAdminJugadores.Location = new Point(38, 215);
             btnAdminJugadores.Margin = new Padding(4, 3, 4, 3);
             btnAdminJugadores.Name = "btnAdminJugadores";
@@ -122,6 +128,7 @@
             // 
             // btnAdminPuntajes
             // 
+            btnAdminPuntajes.Cursor = Cursors.Hand;
             btnAdminPuntajes.Location = new Point(38, 248);
             btnAdminPuntajes.Margin = new Padding(4, 3, 4, 3);
             btnAdminPuntajes.Name = "btnAdminPuntajes";
@@ -147,6 +154,7 @@
             Controls.Add(cmbPlantillas);
             Controls.Add(lblSeleccionar);
             Controls.Add(lblBienvenida);
+            Cursor = Cursors.Hand;
             Margin = new Padding(4, 3, 4, 3);
             Name = "Menu";
             StartPosition = FormStartPosition.CenterScreen;

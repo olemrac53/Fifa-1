@@ -340,6 +340,7 @@
             Controls.Add(btnNuevo);
             Controls.Add(gbDetalle);
             Controls.Add(dgvFutbolistas);
+            Cursor = Cursors.Hand;
             Margin = new Padding(4, 3, 4, 3);
             Name = "Jugador";
             Text = "Gestión de Futbolistas (Admin)";

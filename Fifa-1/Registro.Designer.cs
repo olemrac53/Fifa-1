@@ -149,6 +149,7 @@
             // 
             // btnRegistrar
             // 
+            btnRegistrar.Cursor = Cursors.Hand;
             btnRegistrar.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnRegistrar.Location = new Point(152, 369);
             btnRegistrar.Margin = new Padding(4, 3, 4, 3);
@@ -162,6 +163,7 @@
             // llblVolverLogin
             // 
             llblVolverLogin.AutoSize = true;
+            llblVolverLogin.Cursor = Cursors.Hand;
             llblVolverLogin.Location = new Point(148, 427);
             llblVolverLogin.Margin = new Padding(4, 0, 4, 0);
             llblVolverLogin.Name = "llblVolverLogin";

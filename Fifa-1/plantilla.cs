@@ -20,10 +20,12 @@ namespace Fifa_1
             _idPlantilla = idPlantilla;
         }
 
-        // CORRECCIÓN: Quitamos el tercer parámetro. 
-        // 'lblNombreEquipo' se accede directamente porque es parte de la clase.
+
+
+
         private void plantilla_Load(object sender, EventArgs e)
         {
+
             // CAMBIO 3: Configurar el cursor de mano en todos los botones
             ConfigurarCursores(this.Controls);
 
@@ -297,7 +299,7 @@ namespace Fifa_1
         private void btnVolverMenu_Click(object sender, EventArgs e)
         {
             Menu menuForm = (Menu)Application.OpenForms["Menu"];
-
+                
             if (menuForm != null)
             {
                 menuForm.Show();
@@ -312,9 +314,6 @@ namespace Fifa_1
             this.Close();
         }
 
-        private void dgvPuntajes_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
-        }
     }
 }

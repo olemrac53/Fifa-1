@@ -70,6 +70,7 @@
             // 
             // btnLogin
             // 
+            btnLogin.Cursor = Cursors.Hand;
             btnLogin.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnLogin.Location = new Point(152, 185);
             btnLogin.Margin = new Padding(4, 3, 4, 3);
@@ -83,6 +84,7 @@
             // llblRegistro
             // 
             llblRegistro.AutoSize = true;
+            llblRegistro.Cursor = Cursors.Hand;
             llblRegistro.Location = new Point(148, 242);
             llblRegistro.Margin = new Padding(4, 0, 4, 0);
             llblRegistro.Name = "llblRegistro";
