@@ -56,10 +56,21 @@ INSERT INTO Futbolista (id_futbolista, nombre, apellido, apodo, num_camisa, fech
 VALUES 
 (1, 'Lionel', 'Messi', 'Leo', '10', '1987-06-24', 500000.00, 1, 1),
 (2, 'Cristiano', 'Ronaldo', 'CR7', '7', '1985-02-05', 450000.00, 1, 1),
-(3, 'Neymar', 'Junior', 'Ney', '11', '1992-02-05', 400000.00, 1, 1),
-(4, 'Ruben', 'Nose', 'Catire', '69', '2005-04-06', 699999.00, 1, 2), 
-(5, 'Carmelo', 'wea', 'pelota2', '007', '1987-11-06', 87777.00, 4, 1),
-(6, 'Mica', 'Mica', 'Chu', '2', '2008-03-02', 1.00, 2, 1);
+(3, 'Neymar', 'Junior', 'Ney', '11', '1992-02-05', 400000.00, 2, 1),
+(4, 'Ruben', 'Nose', 'Catire', '69', '2005-04-06', 699999.00, 2, 2), 
+(5, 'Carmelo', 'carmelon', 'pelota2', '007', '1987-11-06', 87777.00, 4, 1),
+(6, 'Mica', 'Mica', 'pelota3 la secuela', '2', '2008-03-02', 13333.00, 2, 1),
+(7, 'Micasa', 'En tu casa', 'Abrime', '23', '2005-03-02', 14444.00, 2, 1),
+
+(8, 'Emanuel', 'manuel', 'de los manuel', '27', '2002-03-02', 15555.00, 3, 1),
+
+(9, 'Mica', 'mika', 'pi', '45', '2003-03-02', 314159.00, 3, 1),
+
+(10, 'Di', 'maria', 'santo', '77', '2009-03-02', 19999.00, 3, 1),
+
+(11, 'John', 'Wick', 'Boogeyman', '12', '2006-03-02', 200000.00, 3, 1);
+
+
 
 
 
