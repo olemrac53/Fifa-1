@@ -106,7 +106,7 @@
             // 
             // btnFicharSuplente
             // 
-            btnFicharSuplente.Location = new Point(523, 145);
+            btnFicharSuplente.Location = new Point(523, 370);
             btnFicharSuplente.Margin = new Padding(4, 3, 4, 3);
             btnFicharSuplente.Name = "btnFicharSuplente";
             btnFicharSuplente.Size = new Size(88, 46);
@@ -185,7 +185,7 @@
             // 
             lblSuplentes.AutoSize = true;
             lblSuplentes.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblSuplentes.Location = new Point(614, 298);
+            lblSuplentes.Location = new Point(614, 274);
             lblSuplentes.Margin = new Padding(4, 0, 4, 0);
             lblSuplentes.Name = "lblSuplentes";
             lblSuplentes.Size = new Size(90, 20);
@@ -302,7 +302,7 @@
             dgvPuntajes.Name = "dgvPuntajes";
             dgvPuntajes.ReadOnly = true;
             dgvPuntajes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPuntajes.Size = new Size(541, 192);
+            dgvPuntajes.Size = new Size(502, 192);
             dgvPuntajes.TabIndex = 15;
             // 
             // label1
