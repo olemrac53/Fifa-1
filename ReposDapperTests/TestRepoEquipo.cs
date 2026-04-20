@@ -8,7 +8,6 @@ namespace Fifa.Test;
 public class TestRepoEquipo : TestRepo, IDisposable
 {
     private readonly IRepoEquipo _repoEquipo;
-    
     private readonly string _nombreOriginalEquipo1;
     private const int IdEquipoPrueba = 1;
     private const string NombreEquipoNuevo = "Equipo de Prueba Nuevo";

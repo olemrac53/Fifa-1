@@ -1,3 +1,4 @@
+-- Active: 1776719132005@@127.0.0.1@3306@5to_granet12
 
 DROP USER IF EXISTS 'admin1'@'%';
 DROP USER IF EXISTS 'usuario1'@'%';

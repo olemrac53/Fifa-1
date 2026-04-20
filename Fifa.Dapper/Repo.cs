@@ -14,7 +14,7 @@ abstract public class Repo
 public static class ConexionDB
 {
     private const string CadenaConexion = 
-        "Server=localhost;Port=3306;Database=5to_GranET12;Uid=root;Pwd=root;";
+        "Server=localhost;Port=3306;Database=5to_GranET12;Uid=root;Pwd=12344;";
 
     public static IDbConnection CrearConexion()
     {
